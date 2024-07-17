@@ -64,13 +64,13 @@
     </div>
     <div class="col-sm-8" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li id="home"><a href="${ pageContext.request.contextPath }/index.jsp">Home</a></li>
-        <li id="auction"><a href="${ pageContext.request.contextPath }/main/auction.jsp">경매</a></li>
-        <li id="freetalk"><a href="${ pageContext.request.contextPath }/main/freetalk.jsp">자유게시판</a></li>
-        <li id="QnA"><a href="${ pageContext.request.contextPath }/main/qna.jsp">문의</a></li>
+        <li id="home"><a href="home.do">Home</a></li>
+        <li id="auction"><a href="auction.do">경매</a></li>
+        <li id="freetalk"><a href="freetalk.do">자유게시판</a></li>
+        <li id="QnA"><a href="qna.do">문의</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="${ pageContext.request.contextPath }/main/login_form.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="login_form.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
     </div>
   </div>
