@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,7 +8,7 @@
 		
 		<script type="text/javascript">
 			
-			//main pageë¡œ ì´ë™ì‹œí‚¨ë‹¤
+			//main page·Î ÀÌµ¿½ÃÅ²´Ù
 			location.href = "home.do";
 			
 			
@@ -14,6 +16,6 @@
 		
 	</head>
 	<body>
-		ê¸°ë³¸ ë©”ì¸í™”ë©´ì…ë‹ˆë‹¤.
+		±âº» ¸ŞÀÎÈ­¸éÀÔ´Ï´Ù.
 	</body>
 </html>

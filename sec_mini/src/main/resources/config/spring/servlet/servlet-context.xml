@@ -14,9 +14,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<!--  CSS/Javascript/Image.... -->
-	<resources mapping="/resources/**" location="/resources" />
-	<!-- <resources mapping="/**" location="/" /> 전체 경로 -->
-
+	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -24,12 +22,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	
-	<!-- auto-detecting : 컴포넌트를 자동을 탐색해서 생성 -->
-	<!-- <context:component-scan base-package="controller" /> -->
+	<context:component-scan base-package="controller" />
 	
 	<!-- 수동생성 -->
-	<beans:bean class="controller.AuctionController"></beans:bean>
 	
 	<!-- Autowired지원속성 : 수동생성시에는 반드시 기록  -->
 	<context:annotation-config/>
