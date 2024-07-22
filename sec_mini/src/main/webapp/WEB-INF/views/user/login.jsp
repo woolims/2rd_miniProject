@@ -3,9 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>2차 미니 프로젝트 로그인화면</title>
+<title>로그인</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- 커스텀 CSS -->
 <style>
 body {
 	background-color: #f8f9fa;
@@ -66,8 +68,8 @@ body {
 </style>
 </head>
 <body>
-
-	<%@ include file="../menubar/menubar.jsp"%>
+	<%@ include file="../menubar/menubar.jsp" %>
+	
 
 	<div class="container">
 		<div class="row">
@@ -93,6 +95,22 @@ body {
 		</div>
 	</div>
 
-	<%@ include file="../menubar/footer.jsp"%>
+	<%@ include file="../menubar/footer.jsp" %>
+
+
+
+
+
+	<script>
+		function send(f) {
+			// 아이디 비밀번호 
+			let userId = document.getElementById('userId');
+			let userPw = document.getElementById('userPw');
+			f.method = "post";
+			f.action="login.do";
+			f.submit();
+		}
+	
+	</script>
 </body>
 </html>

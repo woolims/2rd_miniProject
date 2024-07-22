@@ -14,26 +14,31 @@ public class AuctionController {
 		// TODO Auto-generated constructor stub
 	}
 	
+	//main 페이지 이동
 	@RequestMapping("/home.do")
 	public String home() {
-		return "index";
+		return "home";
 	}
 	
+	//경매 게시판 이동
 	@RequestMapping("/auction.do")
 	public String auction() {
 		return "main/auction";
 	}
 	
+	//자유 게시판 이동
 	@RequestMapping("/freetalk.do")
 	public String freetalk() {
 		return "main/freetalk";
 	}
 	
+	//문의 페이지 이동
 	@RequestMapping("/qna.do")
 	public String qna() {
 		return "main/qna";
 	}
 	
+	//로그인 폼 이동
 	@RequestMapping("/login_form.do")
 	public String login_form() {
 		return "main/login_form";
