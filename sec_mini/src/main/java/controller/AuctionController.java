@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller                      
+@Controller
 public class AuctionController {
 
 	public AuctionController() {
@@ -38,9 +38,4 @@ public class AuctionController {
 		return "main/qna";
 	}
 	
-	//로그인 폼 이동
-	@RequestMapping("/login_form.do")
-	public String login_form() {
-		return "main/login_form";
-	}
 }

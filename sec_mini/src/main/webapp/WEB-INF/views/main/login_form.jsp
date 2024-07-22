@@ -69,7 +69,7 @@ body {
 
 	<%@ include file="../menubar/menubar.jsp"%>
 
-	<div class="container">
+	<div class="container" style="min-height: 900px;">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="login-container">
@@ -80,8 +80,8 @@ body {
 								name="userId" placeholder="아이디" required>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" id="userPw"
-								name="userPw" placeholder="비밀번호" required>
+							<input type="password" class="form-control" id="userPwd"
+								name="userPwd" placeholder="비밀번호" required>
 						</div>
 						<button type="button" onclick="send(this.form)" class="btn btn-primary btn-block">로그인</button>
 					</form>
@@ -92,6 +92,17 @@ body {
 			</div>
 		</div>
 	</div>
+		<script>
+		function send(f) {
+			// 아이디 비밀번호 
+			let userId = document.getElementById('userId');
+			let userPwd = document.getElementById('userPwd');
+			f.method = "post";
+			f.action="login.do";
+			f.submit();
+		}
+	
+	</script>
 
 	<%@ include file="../menubar/footer.jsp"%>
 </body>
