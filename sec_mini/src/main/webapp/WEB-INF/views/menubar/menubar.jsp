@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,6 +55,14 @@
 </head>
 <body>
 
+<!-- 알러창 띄워주기 -->
+<c:if test="${ not empty alertMsg }">
+	<script>
+		alert('${ alertMsg }');
+	</script>
+	<c:remove var="alertMsg" scope="session"/>
+</c:if>
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
   	<div class="col-sm-2"></div>
@@ -70,7 +81,15 @@
         <li id="QnA"><a href="qna.do">문의</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="login_form.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      	<!-- 로그인이 안 된 경우 -->
+      	<c:if test="${ empty user }">
+        	<li><a href="login_form.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </c:if>
+        <!-- 로그인 된 경우 -->
+        <c:if test="${ not empty user }">
+			<li><a href="mypage.do">${ user.nickName } 님</a></li>
+			<li><a href="logout.do"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+        </c:if>
       </ul>
     </div>
   </div>

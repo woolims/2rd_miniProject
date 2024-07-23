@@ -21,7 +21,7 @@ DROP SEQUENCE view_no_seq;
 DROP SEQUENCE bid_no_seq;
 DROP SEQUENCE sb_no_seq;
 DROP SEQUENCE p_no_seq;
-DROP SEQUENCE user_no_seq_seq;
+DROP SEQUENCE user_no_seq;
 DROP SEQUENCE board_no_seq;
 DROP SEQUENCE comment_no_seq;
 DROP SEQUENCE c_like_no_seq;
@@ -53,7 +53,7 @@ CREATE SEQUENCE view_no_seq;
 CREATE SEQUENCE bid_no_seq;
 CREATE SEQUENCE sb_no_seq;
 CREATE SEQUENCE p_no_seq;
-CREATE SEQUENCE user_no_seq_seq;
+CREATE SEQUENCE user_no_seq;
 CREATE SEQUENCE board_no_seq;
 CREATE SEQUENCE comment_no_seq;
 CREATE SEQUENCE c_like_no_seq;
@@ -227,5 +227,10 @@ CREATE TABLE Comment_Likes (
 	REFERENCES Comments(commentNo) ON DELETE CASCADE
 );
 
+delete from users where userNo=2
+insert into Users values(1, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default);
+insert into Users values(2, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default);
+
+select * from users where userId = 'admin';
 
 */
