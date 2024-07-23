@@ -87,7 +87,7 @@
         </c:if>
         <!-- 로그인 된 경우 -->
         <c:if test="${ not empty user }">
-			<li><a href="#">${ user.nickName } 님</a></li>
+			<li><a href="mypage.do">${ user.nickName } 님</a></li>
 			<li><a href="logout.do"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         </c:if>
       </ul>

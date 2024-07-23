@@ -75,7 +75,7 @@ body {
 	<nav>
 	</nav>
 
-	<div class="container">
+	<div class="container" style="min-height: 900px;">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="signup-container">

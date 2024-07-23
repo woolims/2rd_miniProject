@@ -89,4 +89,71 @@ public class UserController {
 		
 		return json;
 	}
+	
+	@RequestMapping("/mypage.do")
+	public String mypage() {
+		
+		UserVo user = (UserVo) session.getAttribute("user");
+		
+		if(user == null) {
+			session.setAttribute("alertMsg", "로그인한 사용자만 접근 가능");
+			return "home.do";
+		}else {
+			
+			
+			
+			return "main/mypage";
+		}
+		
+	}
+	
+	@RequestMapping("/modify_form.do")
+	public String modify_form(int userNo) {
+		
+		UserVo vo = user_dao.selectOne(userNo);
+		
+		return "main/mypage";
+	}
+	
+	@RequestMapping("/modify.do")
+	public String modify(UserVo vo) {
+		
+		int res = user_dao.update(vo);
+		
+		if(res > 0) {
+			session.removeAttribute("user");
+			session.setAttribute("alertMsg", "수정되었습니다.");
+			return "redirect:login_form.do";
+		}else {
+			session.setAttribute("alertMsg", "수정 실패했습니다.");
+			return "retirect:mypage.do";
+		}
+	}
+	
+	@RequestMapping("/delete_form.do")
+	public String delete_form() {
+		return "main/deletepage";
+	}
+	
+	@RequestMapping("/delete.do")
+	public String delete(int userNo, String userPwd) {
+		
+		UserVo user = (UserVo) session.getAttribute("user");
+		
+		if(user.getUserPwd().equals(userPwd)) {
+			int res = user_dao.deleteUser(userNo);
+			
+			if(res > 0) {
+				session.removeAttribute("user");
+				session.setAttribute("alertMsg", "탈퇴되었습니다.");
+				return "redirect:home.do";
+			}else {
+				session.setAttribute("alertMsg", "탈퇴 실패했습니다.");
+				return "redirect:delete_form.do";
+			}
+		}else {
+			session.setAttribute("alertMsg", "비밀번호가 틀렸습니다.");
+			return "redirect:delete_form.do";
+		}
+	}
 }
