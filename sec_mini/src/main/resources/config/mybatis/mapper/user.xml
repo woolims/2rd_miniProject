@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--유저 등록 -->
 	<select id="user_insert" parameterType="user">
 		insert into users(userNo,userName,userId,userPwd,userAddr,phone,nickName) values(
-			users_seq.nextVal,
+			user_no_seq.nextVal,
 			#{ userName }, 
 			#{ userId },
 			#{ userPwd },

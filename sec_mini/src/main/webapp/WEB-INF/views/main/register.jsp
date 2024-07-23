@@ -6,19 +6,6 @@
 <title>회원가입</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- 부트스트랩 CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-<!-- jQuery -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-<!-- 부트스트랩 JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 <!-- 커스텀 CSS -->
 <style>
 body {
@@ -105,8 +92,8 @@ body {
 									  <span id="id_msg"></span>	
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" id="userPw"
-								name="userPw" placeholder="비밀번호" required>
+							<input type="password" class="form-control" id="userPwd"
+								name="userPwd" placeholder="비밀번호" required>
 						</div>
 						<div class="form-group">
 							<input type="password" class="form-control" id="confirm-password"
@@ -119,14 +106,18 @@ body {
 								>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="userBirth"
-								name="userBirth" placeholder="생년월일 (YYYY-MM-DD)" required>
+							<input type="text" class="form-control" id="phone"
+								name="phone" placeholder="전화번호" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" id="nickName" name="nickName"
+								placeholder="닉네임" required>
 						</div>
 						<input id="btn_register" button type="button" onclick="send(this.form);" 
 						class="btn btn-primary btn-block" disabled="disabled" value="가입하기">
 					</form>
 					<p class="text-center">
-						이미 회원이세요? <a href="loginForm.do">로그인</a>
+						이미 회원이세요? <a href="login_form.do">로그인</a>
 					</p>
 				</div>
 			</div>
@@ -198,33 +189,19 @@ function find_addr(){
 		}
 		
 		
-		let userPw = document.getElementById('userPw');
-		let checkPw = document.getElementById('confirm-password');
+		let userPwd = document.getElementById('userPwd');
+		let checkPwd = document.getElementById('confirm-password');
 		
-		// 1. userPw가 confirm-password와 맞는지
-		if( userPw.value != checkPw.value ){
+		if( userPwd.value != checkPwd.value ){
 			alert('비밀번호를 확인해주세요');
-			checkPw.value='';
-			checkPw.focus();
-			return;
-		}
-
-		// 2. userBirth가 yyyy--mm-dd 형식인지
-		// yyyy-mm-dd 의 정규표현식
-		const regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/);
-		let userBirth = document.getElementById('userBirth');
-		
-		if (!regex.test(userBirth.value)) {
-			// 형식에 맞지 않을 경우
-			alert('형식에 맞는 생년월일을 입력해주세요!');
-			userBirth.value = '';
-			userBirth.focus();	
+			checkPwd.value='';
+			checkPwd.focus();
 			return;
 		}
 		
-		if( userPw.value == checkPw.value && regex.test(userBirth.value) ) {
+		if( userPwd.value == checkPwd.value) {
 			 f.method="post";
-			 f.action="registerAction.do";
+			 f.action="register.do";
 			 f.submit();
 		}
 	}

@@ -1,10 +1,23 @@
 package controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import dao.UserDao;
+import vo.UserVo;
 
 @Controller
 public class UserController {
+	
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	UserDao user_dao;
 	
 	public UserController() {
 		// TODO Auto-generated constructor stub
@@ -18,10 +31,62 @@ public class UserController {
 	
 	//로그인 시도
 	@RequestMapping("/login.do")
-	public String login() {
+	public String login(String userId, String userPwd) {
 		
+		UserVo user = user_dao.selectOne(userId);
 		
+		//아이디가 틀린 경우
+		if(user == null) {
+			session.setAttribute("alertMsg", "로그인 실패");
+			return "redirect:login_form.do";
+		}
+		//비밀번호가 틀린 경우
+		if(user.getUserPwd().equals(userPwd)==false) {
+			session.setAttribute("alertMsg", "비밀번호가 틀렸습니다.");
+			return "redirect:login_form.do";
+		}
 		
-		return "home";
+		//로그인 처리
+		session.setAttribute("user", user);
+		
+		return "redirect:home.do";
+	}
+	
+	@RequestMapping("/logout.do")
+	public String logout() {
+		session.removeAttribute("user");
+		return "redirect:home.do";
+	}
+	
+	@RequestMapping("/register_form.do")
+	public String register_form() {
+		
+		return "main/register";
+	}
+	
+	@RequestMapping("/register.do")
+	public String register(UserVo vo) {
+		
+		int res = user_dao.insert(vo);
+		
+		if(res > 0) {
+			session.setAttribute("alertMsg", "회원가입 성공");
+			return "redirect:login_form.do";
+		}else {
+			return "redirect:register_form.do";
+		}
+	}
+	
+	@RequestMapping(value="/check_id.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String check_id(String userId) {
+		
+		UserVo vo = user_dao.selectOne(userId);
+		
+		boolean bResult = (vo==null);
+		
+		String json = String.format("{\"result\": %b}", bResult);
+		
+		return json;
 	}
 }
