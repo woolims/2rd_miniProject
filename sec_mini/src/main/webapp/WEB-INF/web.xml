@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-    
-    <display-name>sec_mini</display-name>
   
+    <display-name></display-name>
+     
     <!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
+            <!-- Window에서 설정 -->
 		    classpath*:config/spring/context/context-*.xml
+		    <!-- Mac에서 설정 -->
+		    <!-- classpath:config/spring/context/context-1-datasource.xml
+		    classpath:config/spring/context/context-2-mybatis.xml
+		    classpath:config/spring/context/context-3-dao.xml
+		    classpath:config/spring/context/context-4-service.xml
+		    classpath:config/spring/context/context-5-fileupload.xml -->
 		</param-value>
 	</context-param>
 	
@@ -15,8 +22,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-  
-  
+	
     <!-- Spring Encoding Filter  -->
     <filter>
         <filter-name>encodingFilter</filter-name>
@@ -33,8 +39,10 @@
     
 
 	
+
 	<!-- Processes application requests -->
 	<servlet>
+	
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
