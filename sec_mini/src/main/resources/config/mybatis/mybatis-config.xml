@@ -9,11 +9,19 @@
 	</settings>
 	
 	<typeAliases>
+<<<<<<< HEAD
 		<!-- <typeAlias type="vo.BoardVo" alias="board"/> -->
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="config/mybatis/mapper/dept.xml" />
+=======
+		<typeAlias type="vo.UserVo" alias="user"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="config/mybatis/mapper/user.xml" />
+>>>>>>> main
 	</mappers>
 	
 </configuration>

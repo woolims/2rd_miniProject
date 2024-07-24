@@ -7,4 +7,12 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 					http://www.springframework.org/schema/context
 					http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	
+<<<<<<< HEAD
+=======
+	<!-- UserDao 생성 -->
+	<bean id="user_dao" class="dao.UserDao">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+>>>>>>> main
 </beans>
