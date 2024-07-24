@@ -25,6 +25,7 @@
 	
 	<!-- Auto-Detecting -->
 	<context:component-scan base-package="controller" />
+	<context:component-scan base-package="dao" />
 	
 	<!-- 수동생성 -->
 	
