@@ -35,12 +35,11 @@
   		display: inline-block;
   		width: 500px;
   		height: 300px;
+  		border: 1px solid red;
   		text-align: center;
   		margin: auto;
   		margin-top: 10px;
   		margin-bottom: 10px;
-  		margin-left: 10px;
-  		margin-right: 10px;
   		background: yellow;
   	}
   </style>
@@ -72,23 +71,41 @@
       	</table>
       </div>
       <div class="auction_div">
-      	<div class="product_auc">
+      	<div class="col-sm-2 product_auc">
       		작품1
       	</div>
-      	<div class="product_auc">
+      	<div class="col-sm-2 product_auc">
       		작품2
       	</div>
-      	<div class="product_auc">
+      	<div class="col-sm-2 product_auc">
       		작품3
       	</div>
-      	<div class="product_auc">
+      	<div class="col-sm-2 product_auc">
       		작품4
       	</div>
-      	<div class="product_auc">
+      	<div class="col-sm-2 product_auc">
       		작품5
       	</div>
-      	<div class="product_auc">
+      	<div class="col-sm-2 product_auc">
       		작품6
+      	</div>
+      	<div class="col-sm-2 product_auc">
+      		작품7
+      	</div>
+      	<div class="col-sm-2 product_auc">
+      		작품8
+      	</div>
+      	<div class="col-sm-2 product_auc">
+      		작품9
+      	</div>
+      	<div class="col-sm-2 product_auc">
+      		작품10
+      	</div>
+      	<div class="col-sm-2 product_auc">
+      		작품11
+      	</div>
+      	<div class="col-sm-2 product_auc">
+      		작품12
       	</div>
       </div>
     </div>

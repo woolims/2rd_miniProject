@@ -10,6 +10,9 @@
 	
 	<typeAliases>
 		<typeAlias type="vo.UserVo" alias="user"/>
+		<typeAlias type="vo.ProductVo" alias="product"/>
+		<typeAlias type="vo.BidVo" alias="bid"/>
+		<typeAlias type="vo.AboardVo" alias="aboard"/>
 	</typeAliases>
 	
 	<mappers>

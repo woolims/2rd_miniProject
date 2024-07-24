@@ -107,7 +107,7 @@ CREATE TABLE Product (
 	categoryNo NUMBER NOT NULL,
 	pImage varchar2(200) DEFAULT 'none.png',
 	pDesc VARCHAR2(200),
-	useAt INTEGER DEFAULT 5 CHECK(useAt IN (1,2,3,4,5)),
+	useAt NUMBER DEFAULT 5 CHECK(useAt IN (1,2,3,4,5)),
 	startPrice NUMBER NOT NULL,
 	pPieces NUMBER DEFAULT 1,
 	CONSTRAINT fk_product_categoryNo FOREIGN KEY (categoryNo)
@@ -232,5 +232,95 @@ insert into Users values(1, '관리자', 'admin', 'admin', '비공개', '비공�
 insert into Users values(2, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default);
 
 select * from users where userId = 'admin';
+
+-- 카테고리 테이블의 더미 데이터
+insert into Category values(category_no_seq.nextVal, '자동차|중고차·신차|오토바이');
+insert into Category values(category_no_seq.nextVal, '패션');
+insert into Category values(category_no_seq.nextVal, '액세서리|시계');
+insert into Category values(category_no_seq.nextVal, '스포츠|레저');
+insert into Category values(category_no_seq.nextVal, '가전');
+insert into Category values(category_no_seq.nextVal, '카메라');
+insert into Category values(category_no_seq.nextVal, '컴퓨터');
+insert into Category values(category_no_seq.nextVal, '장난감');
+insert into Category values(category_no_seq.nextVal, '게임');
+insert into Category values(category_no_seq.nextVal, '문화·취미');
+insert into Category values(category_no_seq.nextVal, '골동품|컬렉션');
+insert into Category values(category_no_seq.nextVal, '책|잡지|만화');
+insert into Category values(category_no_seq.nextVal, '음악');
+insert into Category values(category_no_seq.nextVal, '영화|드라마|애니메이션');
+insert into Category values(category_no_seq.nextVal, '인테리어|DIY');
+insert into Category values(category_no_seq.nextVal, '사무 용품');
+insert into Category values(category_no_seq.nextVal, '꽃|원예|농업');
+insert into Category values(category_no_seq.nextVal, '뷰티·건강');
+insert into Category values(category_no_seq.nextVal, '아기 용품');
+insert into Category values(category_no_seq.nextVal, '음식·음료');
+insert into Category values(category_no_seq.nextVal, '애완동물·생물');
+insert into Category values(category_no_seq.nextVal, '티켓|숙박');
+insert into Category values(category_no_seq.nextVal, '부동산');
+insert into Category values(category_no_seq.nextVal, '기타');
+
+-- 상품 테이블의 더미 데이터
+INSERT INTO Product (pNo, pName, categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
+VALUES (1, 'Product A', 1, 'product_a.png', 'Description of Product A', 3, 10000, 10);
+INSERT INTO Product (pNo, pName, categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
+VALUES (2, 'Product B', 2, 'product_b.png', 'Description of Product B', 2, 15000, 5);
+INSERT INTO Product (pNo, pName, categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
+VALUES (3, 'Product C', 1, 'product_c.png', 'Description of Product C', 4, 12000, 8);
+INSERT INTO Product (pNo, pName, categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
+VALUES (4, 'Product D', 3, 'product_d.png', 'Description of Product D', 5, 18000, 3);
+
+-- 입찰 테이블의 더미 데이터
+INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
+VALUES (1, 1, 1, 8000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY);
+INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
+VALUES (2, 2, 1, 12000, CURRENT_TIMESTAMP + INTERVAL '2' DAY, CURRENT_TIMESTAMP, 'N', 'Y', 1000, CURRENT_TIMESTAMP + INTERVAL '2' DAY);
+INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
+VALUES (3, 3, 1, 9000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 'N', 'N', 700, CURRENT_TIMESTAMP + INTERVAL '4' DAY);
+INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
+VALUES (4, 4, 1, 15000, CURRENT_TIMESTAMP + INTERVAL '1' DAY, CURRENT_TIMESTAMP, 'Y', 'Y', 2000, CURRENT_TIMESTAMP + INTERVAL '1' DAY);
+
+-- 경매 테이블의 더미 데이터
+INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
+VALUES (1, 1, CURRENT_TIMESTAMP, 'N', 'N', 100);
+INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
+VALUES (2, 2, CURRENT_TIMESTAMP, 'N', 'Y', 50);
+INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
+VALUES (3, 3, CURRENT_TIMESTAMP, 'N', 'N', 80);
+INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
+VALUES (4, 4, CURRENT_TIMESTAMP, 'N', 'Y', 120);
+
+select * from category
+
+CREATE VIEW AuctionView AS
+SELECT DISTINCT
+    a.auctionBoardNo,
+    a.bidNo,
+    b.entryBidPrice,
+    b.remaningTime,
+    b.registrationTime,
+    b.autoExtension,
+    b.earlyTermination,
+    b.minBidUnit,
+    b.endDate,
+    p.pNo,
+    p.pName,
+    p.categoryNo,
+    p.pImage,
+    p.pDesc,
+    p.useAt,
+    p.startPrice,
+    p.pPieces,
+    c.categoryName
+FROM Aboard a
+INNER JOIN Bid b ON a.bidNo = b.bidNo
+INNER JOIN Product p ON b.pNo = p.pNo
+INNER JOIN Category c ON p.categoryNo = c.categoryNo;
+
+select * from AuctionView
+
+CREATE VIEW Product_Total AS 
+	SELECT *
+	FROM Product p
+	INNER JOIN Category c ON p.categoryNo = c.categoryNo;
 
 */
