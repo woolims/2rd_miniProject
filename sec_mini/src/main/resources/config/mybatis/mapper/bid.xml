@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bid">
+
+	<!-- pNo로 검사 -->
+	<select id="select_bidNo" parameterType="int" resultType="bid">
+		select * from bid where bidNo=#{bidNo}
+	</select>
+	
+	<!--상품 등록 -->
+	<insert id="bid_insert" parameterType="bid">
+		insert into product values(
+			bid_no_seq.nextVal,
+			#{ pNo }, 
+			#{ userNo },
+			#{ entryBidPrice },
+			#{ remaningTime },
+			default,
+			#{ autoExtension },
+			#{ earlyTermination }
+		)
+	</insert>
+	
+	<!-- 상품 수정 -->
+	<update id="product_update" parameterType="product">
+		update product set pName=#{pName},categoryNo=#{categoryNo},pImage=#{pImage},pDesc=#{pDesc},useAt=#{useAt},startPrice=#{startPrice},pPieces=#{pPieces} where pNo=#{pNo}
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="product_delete" parameterType="int">
+		delete from product where pNo=#{ pNo }
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
