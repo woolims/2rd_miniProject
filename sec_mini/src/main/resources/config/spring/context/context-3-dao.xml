@@ -12,4 +12,9 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		<property name="sqlSession" ref="sqlSession"/>
 	</bean>
 	
+	<!-- CategoryDao 생성 -->
+	<bean id="category_dao" class="dao.CategoryDaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
 </beans>
