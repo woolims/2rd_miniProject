@@ -74,21 +74,22 @@
       </button>
     </div>
     <div class="col-sm-8" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li id="home"><a href="home.do">Home</a></li>
-        <li id="auction"><a href="auction.do">경매</a></li>
-        <li id="freetalk"><a href="freetalk.do">자유게시판</a></li>
-        <li id="QnA"><a href="qna.do">문의</a></li>
+      <ul class="nav navbar-nav"> 
+      	<!--  context 경로 상대경로 -->
+        <li id="home"><a href="${ pageContext.request.contextPath }/home.do">Home</a></li>
+        <li id="auction"><a href="${ pageContext.request.contextPath }/auction.do">경매</a></li>
+        <li id="freetalk"><a href="${ pageContext.request.contextPath }/board/freetalk.do">자유게시판</a></li>
+        <li id="QnA"><a href="${ pageContext.request.contextPath }/qna.do">문의</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       	<!-- 로그인이 안 된 경우 -->
       	<c:if test="${ empty user }">
-        	<li><a href="login_form.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        	<li><a href="${ pageContext.request.contextPath }/login_form.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </c:if>
         <!-- 로그인 된 경우 -->
         <c:if test="${ not empty user }">
-			<li><a href="mypage.do">${ user.nickName } 님</a></li>
-			<li><a href="logout.do"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+			<li><a href="${ pageContext.request.contextPath }/mypage.do">${ user.nickName } 님</a></li>
+			<li><a href="${ pageContext.request.contextPath }/logout.do"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         </c:if>
       </ul>
     </div>
