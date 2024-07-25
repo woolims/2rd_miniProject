@@ -198,6 +198,12 @@ function send(f){
 							<label>닉네임</label>
 							<input type="text" class="form-control" id="nickName" name="nickName" value="${ user.nickName }">
 						</div>
+						
+						<div class="form-group">
+							<label>포인트</label>
+							<input type="text" class="form-control" id="point" name="point" value="100">
+						</div>
+						
 						<div style="text-align: center;">
 							<input class="btn btn-success" type="button" value="수정하기"
 					    			onclick="send(this.form);" >

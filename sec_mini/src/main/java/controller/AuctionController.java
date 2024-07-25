@@ -1,15 +1,30 @@
 package controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import dao.AboardDao;
+import vo.AboardVo;
 
 @Controller
 public class AuctionController {
 
+	@Autowired
+	HttpServletRequest request;
+	
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	AboardDao aboard_dao;
+	
 	public AuctionController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -22,8 +37,24 @@ public class AuctionController {
 	
 	//경매 게시판 이동
 	@RequestMapping("/auction.do")
-	public String auction() {
+	public String auction(Model model) {
+		
+		List<AboardVo> list = aboard_dao.selectList();
+		
+		model.addAttribute("list", list);
+		
 		return "main/auction";
+	}
+	
+	//상세 이동
+	@RequestMapping("/a_board.do")
+	public String auction_board(int auctionBoardNo, Model model) {
+		
+		AboardVo vo = aboard_dao.selectOne(auctionBoardNo);
+		
+		model.addAttribute("vo", vo);
+		
+		return "main/a_board";
 	}
 	
 	//자유 게시판 이동

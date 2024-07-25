@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +36,7 @@
   	}
   	.product_auc {
   		display: inline-block;
-  		width: 500px;
+  		width: 200px !important;
   		height: 300px;
   		border: 1px solid red;
   		text-align: center;
@@ -49,7 +52,7 @@
 <%@ include file="../menubar/menubar.jsp" %>
   
 <div class="container-fluid text-center">    
-  <div class="row content">
+  <div class="content">
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left"> 
@@ -71,42 +74,17 @@
       	</table>
       </div>
       <div class="auction_div">
-      	<div class="col-sm-2 product_auc">
-      		작품1
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품2
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품3
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품4
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품5
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품6
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품7
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품8
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품9
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품10
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품11
-      	</div>
-      	<div class="col-sm-2 product_auc">
-      		작품12
-      	</div>
+      	<c:forEach var="vo" items="${ list }">
+	      	<div class="col-sm-2 product_auc">
+	      		<div style="width:100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;" onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
+	      			<img alt="사진" src=""><br><br>
+	      		</div><br>
+	      		<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
+	      		<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p><br>
+	      		<p style="text-align: left; margin: 0;">남은일자 :</p> ${ vo.remaningTime.substring(0, 15) }
+	      	</div>
+      	</c:forEach>
+      		
       </div>
     </div>
     <div class="col-sm-2 sidenav">

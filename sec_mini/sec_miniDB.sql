@@ -17,7 +17,6 @@ GRANT CREATE SEQUENCE TO mini2;
 -- 시퀀스 삭제
 DROP SEQUENCE aboard_no_seq;
 DROP SEQUENCE scrap_no_seq;
-DROP SEQUENCE view_no_seq;
 DROP SEQUENCE bid_no_seq;
 DROP SEQUENCE sb_no_seq;
 DROP SEQUENCE p_no_seq;
@@ -35,7 +34,6 @@ DROP TABLE Comment_Likes;
 DROP TABLE Comments;
 DROP TABLE Board;
 DROP TABLE Cash;
-DROP TABLE Views;
 DROP TABLE Scrap;
 DROP TABLE Aboard;
 DROP TABLE Sb;
@@ -49,7 +47,6 @@ DROP TABLE Users;
 -- 시퀀스 생성
 CREATE SEQUENCE aboard_no_seq;
 CREATE SEQUENCE scrap_no_seq;
-CREATE SEQUENCE view_no_seq;
 CREATE SEQUENCE bid_no_seq;
 CREATE SEQUENCE sb_no_seq;
 CREATE SEQUENCE p_no_seq;
@@ -163,17 +160,6 @@ CREATE TABLE Scrap (
 	CONSTRAINT fk_scrap_userNo FOREIGN KEY (userNo)
 	REFERENCES Users(userNo) ON DELETE CASCADE,
 	CONSTRAINT fk_scrap_auctionBoardNo FOREIGN KEY (auctionBoardNo)
-	REFERENCES Aboard(auctionBoardNo) ON DELETE CASCADE
-);
-
--- Views 테이블 생성
-CREATE TABLE Views (
-	viewNo NUMBER PRIMARY KEY,
-	auctionBoardNo NUMBER NOT NULL,
-	userNo NUMBER NOT NULL,
-	CONSTRAINT fk_views_userNo FOREIGN KEY (userNo)
-	REFERENCES Users(userNo) ON DELETE CASCADE,
-	CONSTRAINT fk_views_auctionBoardNo FOREIGN KEY (auctionBoardNo)
 	REFERENCES Aboard(auctionBoardNo) ON DELETE CASCADE
 );
 
@@ -291,10 +277,14 @@ VALUES (4, 4, CURRENT_TIMESTAMP, 'N', 'Y', 120);
 
 select * from category
 
-CREATE VIEW AuctionView AS
+CREATE OR REPLACE VIEW AuctionView AS
 SELECT DISTINCT
     a.auctionBoardNo,
     a.bidNo,
+    a.createAt,
+    a.deleteAt,
+    a.endAt,
+    a.viewCount,
     b.entryBidPrice,
     b.remaningTime,
     b.registrationTime,
@@ -322,5 +312,7 @@ CREATE VIEW Product_Total AS
 	SELECT *
 	FROM Product p
 	INNER JOIN Category c ON p.categoryNo = c.categoryNo;
+
+select * from AuctionView where deleteAt='N';
 
 */
