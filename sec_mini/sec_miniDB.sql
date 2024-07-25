@@ -315,4 +315,10 @@ CREATE VIEW Product_Total AS
 
 select * from AuctionView where deleteAt='N';
 
+select (endDate - sysdate)as times from AuctionView
+
+
+
+
+
 */

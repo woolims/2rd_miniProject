@@ -63,7 +63,9 @@
 		<div class="content">
 			<div class="col-sm-2 sidenav"></div>
 			<div class="col-sm-8 text-left">
-				<h2 class="title_auction">암시장</h2>
+				<div class="col-sm-12 text-right" style="height: 50px; margin-top: 25px;">
+					<input type="button" value="목록으로 돌아가기" onclick="location.href='auction.do?categoryNo=${vo.categoryNo}'">
+				</div>
 
 				<div class="col-sm-1"><p style="text-align: center;"><<</p></div>
 				<div class="col-sm-10" style="border:1px solid red; text-align: center; height: 300px;">

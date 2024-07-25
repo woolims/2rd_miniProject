@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -57,21 +58,8 @@
     </div>
     <div class="col-sm-8 text-left"> 
       <h2 class="title_auction">암시장</h2>
-      <div style="text-align: center;">
-      	<table class="cate">
-      		<tr>
-      			<td class="cate_si"><a href="#">컴퓨터</a></td>
-      			<td class="cate_si"><a href="#">가전제품</a></td>
-      			<td class="cate_si"><a href="#">음악</a></td>
-      			<td class="cate_si"><a href="#">영화</a></td>
-      		</tr>
-      		<tr>
-      			<td class="cate_si"><a href="#">음식</a></td>
-      			<td class="cate_si"><a href="#">이용권</a></td>
-      			<td class="cate_si"><a href="#">여행</a></td>
-      			<td class="cate_si"><a href="#">기타</a></td>
-      		</tr>
-      	</table>
+      <div style="text-align: right;">
+			<input class="btn btn-primary" type="button" value="경매 올리기">
       </div>
       <div class="auction_div">
       	<c:forEach var="vo" items="${ list }">
@@ -81,7 +69,7 @@
 	      		</div><br>
 	      		<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
 	      		<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p><br>
-	      		<p style="text-align: left; margin: 0;">남은일자 :</p> ${ vo.remaningTime.substring(0, 15) }
+	      		<p style="text-align: left; margin: 0;">남은일자 :</p> ${ vo.endDate.substring(0,15) }
 	      	</div>
       	</c:forEach>
       		
