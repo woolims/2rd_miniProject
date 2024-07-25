@@ -25,7 +25,7 @@ public class AuctionController {
 	//자유 게시판 이동
 	@RequestMapping("/freetalk.do")
 	public String freetalk() {
-		return "main/freetalk";
+		return "board/freetalk";
 	}
 	
 	//문의 페이지 이동
