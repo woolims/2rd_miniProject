@@ -48,6 +48,7 @@ public class UserController {
 		
 		//로그인 처리
 		session.setAttribute("user", user);
+		session.setAttribute("userNo", user.getUserNo());
 		
 		return "redirect:home.do";
 	}

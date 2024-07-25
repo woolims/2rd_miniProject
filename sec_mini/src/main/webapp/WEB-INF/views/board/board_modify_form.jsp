@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- Quill CSS -->
@@ -21,6 +22,15 @@
       flex-direction: column;
       height: 100vh;
       margin-top: 20px;
+    }
+    .header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .header h2 {
+      margin-left: 10px;
     }
     .content {
       flex: 1;
@@ -43,7 +53,12 @@
 <%@ include file="../menubar/menubar.jsp"%>
 
 <div class="container">
-  <h2>글을 수정하는 공간입니다.</h2>
+  <div class="header">
+    <button class="btn btn-default" onclick="goBack()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <h2>글을 수정하는 공간입니다.</h2>
+  </div>
   
   <form id="modifyForm" action="${pageContext.request.contextPath}/board/modify.do" method="post" enctype="multipart/form-data" class="content">
     <input type="hidden" name="boardNo" value="${vo.boardNo}">
@@ -63,7 +78,7 @@
     <!-- 글 수정 버튼 -->
     <div style="margin-top: 10px;">
       <input class="btn btn-info" type="button" value="목록보기" onclick="location.href='freetalk.do'">
-      <input class="btn btn-primary" type="button" value="글수정" onclick="send();">
+      <input class="btn btn-primary" type="button" value="글수정" onclick="send(this.form);">
     </div>
   </form>
 </div>
@@ -80,7 +95,7 @@
   // Quill 에디터에 기존 내용 설정
   quill.root.innerHTML = `${vo.boardContent}`;
 
-  function send() {
+  function send(f) {
     let form = document.getElementById('modifyForm');
     let title = form.title.value.trim();
     let boardContent = quill.root.innerHTML.trim();
@@ -92,7 +107,7 @@
       return;
     }
     
-    if (boardContent === '') {
+    if (boardContent === '' || boardContent === '<p><br></p>') {
       alert("내용을 입력하세요!!");
       quill.focus();
       return;
@@ -100,6 +115,12 @@
     
     document.getElementById('boardContent').value = boardContent;
     form.submit();
+  }
+
+  function goBack() {
+    if (confirm("수정화면에서 나가시겠습니까?\n변경사항이 저장되지 않을 수 있습니다")) {
+      window.history.back();
+    }
   }
 </script>
 
