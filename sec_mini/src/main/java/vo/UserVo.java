@@ -9,6 +9,7 @@ public class UserVo {
 	String userAddr;
 	String phone;
 	String nickName;
+	int point;
 	String creatAt;
 	
 	
@@ -39,7 +40,7 @@ public class UserVo {
 	}
 	
 	public UserVo(int userNo, String userName, String userId, String userPwd, String userAddr, String phone,
-			String nickName, String creatAt) {
+			String nickName, int point, String creatAt) {
 		super();
 		this.userNo = userNo;
 		this.userName = userName;
@@ -48,9 +49,16 @@ public class UserVo {
 		this.userAddr = userAddr;
 		this.phone = phone;
 		this.nickName = nickName;
+		this.point = point;
 		this.creatAt = creatAt;
 	}
 
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
 	public int getUserNo() {
 		return userNo;
 	}

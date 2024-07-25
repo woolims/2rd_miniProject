@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>마이 페이지</title>
+<title>충전 페이지</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,57 +104,30 @@
 }
 </style>
 
-<script type="text/javascript">
-   
-   function find_addr(){
-	   
-	   new daum.Postcode({
-	        oncomplete: function(data) {
-	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-	            // 예제를 참고하여 다양한 활용법을 확인해 보세요. 위에 데이타가 존코드에 들가 이 존코드를 addr 인풋태그 id에 
-	            $("#userAddr").val(data.address); 	  //선택한 정보의 주소 넣기
-	        }
-	    }).open();
-   }//end:find_addr()
-</script>
 
 <script type="text/javascript">
 
-function send(f){
-	//사용자가 입력한 값을 변수 userName에 저장! 사용자가 입력한 값을 서버로 보내기위해 변수에 저장!
-	let userName = f.userName.value.trim();
-    let userPwd  = f.userPwd.value.trim();
-	let userAddr  = f.userAddr.value.trim();
-	   //칸이 비어있으면 이 알럿이 뜨게 하는거
-	   if(userName==''){
-		   alert("이름을 입력하세요");
-		   f.userName.value="";
-		   f.userName.focus();
-		   return;
-	   }
-	   
-	   if(userPwd==''){
-		   alert("비밀번호를 입력하세요");
-		   f.userPwd.value="";
-		   f.userPwd.focus();
-		   return;
-	   }
-	   
-	   //악용방지, URL창에 정보 노출되지 않게 보내기위해 post 사용
-	   f.method = "post";
-	   f.action="modify.do"; //폼 데이터를 modify.do로 전송!
-	   f.submit();	//전송
-	   
-	   
-	   
-  }//end:send()
-  
-  function  redirectToDeletePage(){
-	  window.location.href = "delete_form.do";
-  }
-
+	function send(f) {
+		
+		 $.ajax({
+			 
+			 url		:	"charge.do",
+			 dataType	:	'json',
+			 success	: function(res_data){
+				 
+				var box = data.next_redirect_pc_url;
+				window.oepn(box);
+			 },
+			 error		: function(err){
+				 
+				 alert(err.responesText);
+			 }
+			 
+		 });
+	}
 
 </script>
+
 </head>
 <body>
 	<%@ include file="../menubar/menubar.jsp"%>
@@ -163,31 +136,14 @@ function send(f){
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="signup-container">
-					<h2>마이페이지</h2>
+					<h2>충전페이지</h2>
 					<form class="mypage-form">
 						<input type="hidden" name="userNo" value="${ user.userNo }" />
 						
 						<div class="form-group form-group-flex">
 								<label>이름</label>
-							<input type="text" class="form-control" name="userName" value="${ user.userName }">
+							<input type="text" class="form-control" name="userName" value="${ user.userName }" readonly="readonly">
 						</div>
-
-						<div class="form-group form-group-flex">
-							<label>아이디</label>
-							<input type="text" class="form-control" name="userId"
-							id="userId" value="${ user.userId }" readonly="readonly">
-						</div>
-
-						<div class="form-group form-group-flex">
-							<label>비밀번호</label>
-							<input type="text" class="form-control" name="userPwd" value="${ user.userPwd }">
-						</div>
-
-						<div class="form-group form-group-flex">
-							<label>주소</label>
-							<input type="text" class="form-control" name="userAddr" id="userAddr" value="${ user.userAddr }">
-						</div>
-						<div><input class="btn btn-info" type= "button" style="margin-left: 90px" value="주소검색" onclick="find_addr()"></div>
 						
 						<div class="form-group">
 							<label>전화번호</label>
@@ -195,24 +151,21 @@ function send(f){
 						</div>
 						
 						<div class="form-group">
-							<label>닉네임</label>
-							<input type="text" class="form-control" id="nickName" name="nickName" value="${ user.nickName }">
-						</div>
-						
-						<div class="form-group">
 							<label>포인트</label>
 							<input type="text" class="form-control" id="point" name="point" value="${ user.point }" readonly="readonly">
 						</div>
-						<div><input class="btn btn-warning" type="button" value="충전하기" onclick="location.href='charge_form.do'"></div>
 						
 						<div style="text-align: center; margin-top: 20px;">
-							<input class="btn btn-success" type="button" value="수정하기"
-					    			onclick="send(this.form);" >
-					    	<input  class="btn btn-primary" type="button" value="회원탈퇴"
-					    	 onclick="redirectToDeletePage()">
+							<input class="btn btn-primary" type="button" value="돌아가기"
+					    			onclick="location.href='home.do'" >
+					    	<input  class="btn btn-warning" type="button" value="충전하기"
+					    	 onclick="">
 						</div>
 					    	
-					    
+					    <input type="button" id="kaobtn" 
+					    		style="background: #fee500; color:#000; border-radius: 12px; padding: 10px 20px;" 
+					    		value="카카오페이"
+					    		onclick="send(this.form)">
 					    			
 						 </form>
 						</div>
