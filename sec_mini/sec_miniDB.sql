@@ -30,6 +30,10 @@ DROP TABLE Category;
 DROP TABLE Charge;
 DROP TABLE Users;
 
+drop view AuctionView;
+drop view Bid_User_PView;
+
+
 -- 시퀀스 생성
 CREATE SEQUENCE aboard_no_seq;
 CREATE SEQUENCE scrap_no_seq;
@@ -351,7 +355,7 @@ INSERT INTO D_Category VALUES (62, '부동산', 11);
 INSERT INTO D_Category VALUES (63, '토지', 11);
 INSERT INTO D_Category VALUES (64, '기타', 11);
 
--- 상품 테이블의 더미 데이터
+--상품 테이블의 더미 데이터
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
 VALUES (1, 'Product A', 1, 1, 'product_a.png', 'Description of Product A', 3, 10000, 10);
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
@@ -359,9 +363,9 @@ VALUES (2, 'Product B', 2, 1, 'product_b.png', 'Description of Product B', 2, 15
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
 VALUES (3, 'Product C', 1, 2, 'product_c.png', 'Description of Product C', 4, 12000, 8);
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
-VALUES (4, 'Product D', 3, 'product_d.png', 'Description of Product D', 5, 18000, 3);
+VALUES (4, 'Product D', 3, 3, 'product_d.png', 'Description of Product D', 5, 18000, 3);
 
--- 입찰 테이블의 더미 데이터
+--입찰 테이블의 더미 데이터
 INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
 VALUES (1, 1, 1, 8000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY);
 INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
@@ -373,7 +377,7 @@ VALUES (3, 3, 1, 9000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 
 INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
 VALUES (4, 4, 1, 15000, CURRENT_TIMESTAMP + INTERVAL '1' DAY, CURRENT_TIMESTAMP, 'Y', 'Y', 2000, CURRENT_TIMESTAMP + INTERVAL '1' DAY);
 
--- 경매 테이블의 더미 데이터
+--경매 테이블의 더미 데이터
 INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
 VALUES (1, 1, CURRENT_TIMESTAMP, 'N', 'N', 100);
 INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
