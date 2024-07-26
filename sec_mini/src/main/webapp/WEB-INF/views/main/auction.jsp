@@ -59,7 +59,9 @@
     <div class="col-sm-8 text-left"> 
       <h2 class="title_auction">암시장</h2>
       <div style="text-align: right;">
-			<input class="btn btn-primary" type="button" value="경매 올리기">
+      		<c:if test="${ not empty user }">
+				<input class="btn btn-primary" type="button" value="경매 올리기" onclick="location.href='a_board_insert_form.do'">
+			</c:if>
       </div>
       <div class="auction_div">
       	<c:forEach var="vo" items="${ list }">

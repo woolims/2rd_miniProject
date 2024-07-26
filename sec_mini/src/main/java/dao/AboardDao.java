@@ -27,8 +27,8 @@ public class AboardDao {
 		return sqlSession.selectOne("aboard.select_auctionBoardNo", auctionBoardNo);
 	}
 	
-	public int insertAboard(AboardVo vo) {
-		return sqlSession.insert("aboard.aboard_insert", vo);
+	public int insertAboard(int pNo) {
+		return sqlSession.insert("aboard.aboard_insert", pNo);
 	}
 	
 	public int deleteAboard(int auctionBoardNo) {

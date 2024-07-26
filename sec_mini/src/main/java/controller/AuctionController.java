@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.AboardDao;
+import dao.ProductDao;
 import vo.AboardVo;
+import vo.UserVo;
 
 @Controller
 public class AuctionController {
@@ -24,6 +26,8 @@ public class AuctionController {
 	
 	@Autowired
 	AboardDao aboard_dao;
+	@Autowired
+	ProductDao product_dao;
 	
 	public AuctionController() {
 		// TODO Auto-generated constructor stub
@@ -55,6 +59,34 @@ public class AuctionController {
 		model.addAttribute("vo", vo);
 		
 		return "main/a_board";
+	}
+	
+	//경매글 작성
+	@RequestMapping("/a_board_insert_form.do")
+	public String a_board_insert_form() {
+		
+		return "main/a_board_insert_form";
+	}
+	
+	@RequestMapping("/a_board_insert.do")
+	public String a_board_insert(AboardVo vo) {
+		
+		UserVo user = (UserVo) session.getAttribute("user");
+		
+		// session timeout
+		if(user==null) {
+			
+			return "redirect:../member/login_form.do";
+		}
+		
+		String pDesc = vo.getpDesc().replaceAll("\n", "<br>");
+		vo.setpDesc(pDesc);
+		
+		int pNo = product_dao.insertProduct(vo);
+		
+		int res = aboard_dao.insertAboard(pNo);
+		
+		return "redirect:auction.do";
 	}
 	
 	//자유 게시판 이동

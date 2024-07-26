@@ -3,6 +3,7 @@ package dao;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import vo.AboardVo;
 import vo.ProductVo;
 
 public class ProductDao {
@@ -19,7 +20,7 @@ public class ProductDao {
 		return sqlSession.selectOne("product.select_pNo", pNo);
 	}
 	
-	public int insertProduct(ProductVo vo) {
+	public int insertProduct(AboardVo vo) {
 		return sqlSession.insert("product.product_insert", vo);
 	}
 	
