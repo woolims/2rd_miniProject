@@ -72,6 +72,9 @@ CREATE TABLE Users (
 	createAt TIMESTAMP 	   	default CURRENT_TIMESTAMP
 );
 
+select * from users
+update users set point=0 where userNo=2
+
 -- Account 테이블 생성 (사용 xxxxxxxxx)
 CREATE TABLE Account (
 	acNo   	NUMBER	PRIMARY KEY

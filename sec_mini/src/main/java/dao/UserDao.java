@@ -43,9 +43,15 @@ public class UserDao {
 		return sqlSession.update("user.user_update", vo);
 	}//end:update()
 	
+	public int update_point(UserVo vo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("user.user_update_point", vo);
+	}//end:update_point()
+	
 	public int deleteUser(int userNo) {
 		return sqlSession.delete("user.user_delete", userNo);
 	
 	}//end:delete()
+
 	
 }

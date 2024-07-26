@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,21 +111,22 @@
 
 	function send(f) {
 		
-		 $.ajax({
-			 
-			 url		:	"charge.do",
-			 dataType	:	'json',
-			 success	: function(res_data){
-				 
-				var box = data.next_redirect_pc_url;
-				window.oepn(box);
-			 },
-			 error		: function(err){
-				 
-				 alert(err.responesText);
-			 }
-			 
-		 });
+		
+	   //로그인이 안되었으면
+	   if("${ empty user }" == "true"){
+		   
+		   if(confirm("로그인후 충전이 가능합니다\n로그인 하시겠습니까?")==false) return;
+		   
+		   //alert(location.href);
+		   // 로그인폼으로 이동
+		   location.href="login_form.do?url=" + encodeURIComponent(location.href) ;
+		   
+		   return;
+	   }
+		
+	    f.method = "post";
+		f.action = "charge.do";
+		f.submit();
 	}
 
 </script>
@@ -152,20 +155,20 @@
 						
 						<div class="form-group">
 							<label>포인트</label>
-							<input type="text" class="form-control" id="point" name="point" value="${ user.point }" readonly="readonly">
+							<input type="text" class="form-control" id="point" name="point" value="1000" readonly="readonly">
 						</div>
 						
 						<div style="text-align: center; margin-top: 20px;">
 							<input class="btn btn-primary" type="button" value="돌아가기"
 					    			onclick="location.href='home.do'" >
 					    	<input  class="btn btn-warning" type="button" value="충전하기"
-					    	 onclick="">
+					    	 onclick="send(this.form)">
 						</div>
 					    	
-					    <input type="button" id="kaobtn" 
+					    <!-- <input type="button" id="kaobtn" 
 					    		style="background: #fee500; color:#000; border-radius: 12px; padding: 10px 20px;" 
 					    		value="카카오페이"
-					    		onclick="send(this.form)">
+					    		onclick="send(this.form)"> -->
 					    			
 						 </form>
 						</div>

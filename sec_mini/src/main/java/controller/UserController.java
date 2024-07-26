@@ -1,15 +1,5 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -173,65 +163,68 @@ public class UserController {
 		
 		return "main/charge_form";
 	}
+
+	 @RequestMapping("/charge.do") 
+	 public String charge(UserVo vo) {
+	 
+		int res = user_dao.update_point(vo);
+		System.out.println(res);
+		 
+		if(res > 0) {
+			session.setAttribute("alertMsg", vo.getPoint()+"포인트 충전되었습니다!");
+			return "redirect:mypage.do";
+		}else {
+			
+			session.setAttribute("alertMsg", "충전에 실패했습니다!");
+			return "redirect:charge_form.do";
+		}
+	 
+	 }
+
 	
 	/*
-	 * @RequestMapping("/charge.do") public String charge(int userNo) {
+	 * @RequestMapping("/charge.do") public String kakaopay() {
 	 * 
+	 * try {
 	 * 
+	 * URL kakao = new URL("https://open-api.kakaopay.com/online/v1/payment/ready");
+	 * try {
+	 * 
+	 * HttpURLConnection sc = (HttpURLConnection) kakao.openConnection();
+	 * sc.setRequestMethod("POST"); sc.setRequestProperty("Authorization",
+	 * "SECRET_KEY PRD1AEF739DE77007128FD9D23097D52F179E930");
+	 * sc.setRequestProperty("Content-Type", "application/json");
+	 * sc.setDoOutput(true);
+	 * 
+	 * String param =
+	 * "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=초코파이&quantity=1&total_amount=2200&tax_free_amount=0&approval_url=https://developers.kakao.com/success&cancel_url=https://developers.kakao.com/cancel&fail_url=https://developers.kakao.com/fail";
+	 * 
+	 * OutputStream os = sc.getOutputStream(); DataOutputStream dos = new
+	 * DataOutputStream(os); dos.writeBytes(param); dos.close();
+	 * 
+	 * int result = sc.getResponseCode();
+	 * 
+	 * InputStream is;
+	 * 
+	 * if(result == 200) {
+	 * 
+	 * is = sc.getInputStream(); } else {
+	 * 
+	 * is = sc.getErrorStream(); }
+	 * 
+	 * InputStreamReader isr = new InputStreamReader(is); BufferedReader br = new
+	 * BufferedReader(isr);
+	 * 
+	 * return br.readLine();
+	 * 
+	 * } catch (IOException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
+	 * 
+	 * } catch (IOException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
 	 * 
 	 * return "redirect:home.do"; }
 	 */
-	
-	@RequestMapping("/charge.do")
-	public String kakaopay() {
-		
-		try {
-			
-			URL kakao = new URL("https://open-api.kakaopay.com/online/v1/payment/ready");
-			try {
-				
-				HttpURLConnection sc = (HttpURLConnection) kakao.openConnection();
-				sc.setRequestMethod("POST");
-				sc.setRequestProperty("Authorization", "SECRET_KEY PRD1AEF739DE77007128FD9D23097D52F179E930");
-				sc.setRequestProperty("Content-Type", "application/json");
-				sc.setDoOutput(true);
-				
-				String param = "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=초코파이&quantity=1&total_amount=2200&tax_free_amount=0&approval_url=https://developers.kakao.com/success&cancel_url=https://developers.kakao.com/cancel&fail_url=https://developers.kakao.com/fail";
-				
-				OutputStream 	  os = sc.getOutputStream();
-				DataOutputStream dos = new DataOutputStream(os);
-				dos.writeBytes(param);
-				dos.close();
-				
-				int result = sc.getResponseCode();
-				
-				InputStream is;
-				
-				if(result == 200) {
-					
-					is = sc.getInputStream();
-				} else {
-					
-					is = sc.getErrorStream();
-				}
-				
-				InputStreamReader isr = new InputStreamReader(is);
-				BufferedReader 	   br = new BufferedReader(isr);
-				
-				return br.readLine();
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return "redirect:home.do";
-	}
 	
 	
 }
