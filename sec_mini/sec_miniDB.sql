@@ -29,6 +29,7 @@ DROP SEQUENCE ac_no_seq;
 DROP SEQUENCE pay_no_seq;
 DROP SEQUENCE charge_no_seq;
 DROP SEQUENCE category_no_seq;
+DROP SEQUENCE d_category_no_seq;
 
 -- 테이블 삭제
 DROP TABLE Comment_Likes;
@@ -41,6 +42,7 @@ DROP TABLE Aboard;
 DROP TABLE Sb;
 DROP TABLE Bid;
 DROP TABLE Product;
+DROP TABLE D_Category;
 DROP TABLE Category;
 DROP TABLE Charge;
 DROP TABLE Account;
@@ -61,6 +63,8 @@ CREATE SEQUENCE ac_no_seq;
 CREATE SEQUENCE pay_no_seq;
 CREATE SEQUENCE charge_no_seq;
 CREATE SEQUENCE category_no_seq;
+CREATE SEQUENCE d_category_no_seq;
+
 
 -- Users 테이블 생성
 CREATE TABLE Users (
@@ -97,9 +101,19 @@ CREATE TABLE Charge (
 -- Category 테이블 생성
 CREATE TABLE Category (
 	categoryNo NUMBER PRIMARY KEY,
-	categoryName VARCHAR2(200) DEFAULT '기타' UNIQUE
+	categoryName VARCHAR2(200) DEFAULT '부동산 및 기타' UNIQUE
 );
 
+-- DetailCategory 테이블 생성
+CREATE TABLE D_Category (
+	D_categoryNo NUMBER PRIMARY KEY,
+	D_categoryName VARCHAR2(200) DEFAULT '기타' UNIQUE,
+	categoryNo NUMBER NOT NULL,
+	CONSTRAINT fk_category_categoryNo FOREIGN KEY (categoryNO)
+	REFERENCES Category(categoryNO) ON DELETE CASCADE
+);
+	
+	
 -- Product 테이블 생성
 CREATE TABLE Product (
 	pNo NUMBER PRIMARY KEY,
@@ -228,36 +242,112 @@ CREATE TABLE Comment_Likes (
 );
 
 delete from users where userNo=2
+
 insert into Users values(1, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default);
 insert into Users values(2, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default);
 
 select * from users where userId = 'admin';
 
 -- 카테고리 테이블의 더미 데이터
-insert into Category values(category_no_seq.nextVal, '자동차|중고차·신차|오토바이');
-insert into Category values(category_no_seq.nextVal, '패션');
-insert into Category values(category_no_seq.nextVal, '액세서리|시계');
-insert into Category values(category_no_seq.nextVal, '스포츠|레저');
-insert into Category values(category_no_seq.nextVal, '가전');
-insert into Category values(category_no_seq.nextVal, '카메라');
-insert into Category values(category_no_seq.nextVal, '컴퓨터');
-insert into Category values(category_no_seq.nextVal, '장난감');
-insert into Category values(category_no_seq.nextVal, '게임');
-insert into Category values(category_no_seq.nextVal, '문화·취미');
-insert into Category values(category_no_seq.nextVal, '골동품|컬렉션');
-insert into Category values(category_no_seq.nextVal, '책|잡지|만화');
-insert into Category values(category_no_seq.nextVal, '음악');
-insert into Category values(category_no_seq.nextVal, '영화|드라마|애니메이션');
-insert into Category values(category_no_seq.nextVal, '인테리어|DIY');
-insert into Category values(category_no_seq.nextVal, '사무 용품');
-insert into Category values(category_no_seq.nextVal, '꽃|원예|농업');
-insert into Category values(category_no_seq.nextVal, '뷰티·건강');
-insert into Category values(category_no_seq.nextVal, '아기 용품');
-insert into Category values(category_no_seq.nextVal, '음식·음료');
-insert into Category values(category_no_seq.nextVal, '애완동물·생물');
-insert into Category values(category_no_seq.nextVal, '티켓|숙박');
-insert into Category values(category_no_seq.nextVal, '부동산');
-insert into Category values(category_no_seq.nextVal, '기타');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '자동차 및 차량');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '패션 및 액세서리');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '스포츠 및 레저');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '전자기기 및 가전');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '게임 및 장난감');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '문화 및 취미');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '가정용품 및 인테리어');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '뷰티 및 건강');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '식음료');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '애완동물');
+INSERT INTO Category VALUES (category_no_seq.nextVal, '부동산 및 기타');
+
+-- 상세 카테고리 테이블 더미 데이터
+
+-- '자동차 및 차량' 카테고리 (categoryNo: 1)
+INSERT INTO D_Category VALUES (1, '중고차', 1);
+INSERT INTO D_Category VALUES (2, '신차', 1);
+INSERT INTO D_Category VALUES (3, '전기차', 1);
+INSERT INTO D_Category VALUES (4, '오토바이', 1);
+INSERT INTO D_Category VALUES (5, '자동차 용품', 1);
+
+-- '패션 및 액세서리' 카테고리 (categoryNo: 2)
+INSERT INTO D_Category VALUES (6, '남성 의류', 2);
+INSERT INTO D_Category VALUES (7, '여성 의류', 2);
+INSERT INTO D_Category VALUES (8, '어린이 의류', 2);
+INSERT INTO D_Category VALUES (9, '액세서리', 2);
+INSERT INTO D_Category VALUES (10, '시계', 2);
+INSERT INTO D_Category VALUES (11, '가방', 2);
+INSERT INTO D_Category VALUES (12, '신발', 2);
+INSERT INTO D_Category VALUES (13, '보석류', 2);
+
+-- '스포츠 및 레저' 카테고리 (categoryNo: 3)
+INSERT INTO D_Category VALUES (14, '레저 용품', 3);
+INSERT INTO D_Category VALUES (15, '캠핑 용품', 3);
+INSERT INTO D_Category VALUES (16, '낚시 용품', 3);
+INSERT INTO D_Category VALUES (17, '자전거', 3);
+INSERT INTO D_Category VALUES (18, '스포츠 의류', 3);
+INSERT INTO D_Category VALUES (19, '등산 용품', 3);
+INSERT INTO D_Category VALUES (20, '수영 용품', 3);
+INSERT INTO D_Category VALUES (21, '스케이트보드', 3);
+
+-- '전자기기' 카테고리 (categoryNo: 4)
+INSERT INTO D_Category VALUES (22, '텔레비전', 4);
+INSERT INTO D_Category VALUES (23, '스피커', 4);
+INSERT INTO D_Category VALUES (24, '카메라', 4);
+INSERT INTO D_Category VALUES (25, '컴퓨터', 4);
+INSERT INTO D_Category VALUES (26, '노트북', 4);
+INSERT INTO D_Category VALUES (27, '태블릿', 4);
+
+-- '게임 및 장난감' 카테고리 (categoryNo: 5)
+INSERT INTO D_Category VALUES (28, '장난감', 5);
+INSERT INTO D_Category VALUES (29, '보드게임', 5);
+INSERT INTO D_Category VALUES (30, '퍼즐', 5);
+INSERT INTO D_Category VALUES (31, '비디오 게임', 5);
+INSERT INTO D_Category VALUES (32, '게임 콘솔', 5);
+
+-- '문화 및 취미' 카테고리 (categoryNo: 6)
+INSERT INTO D_Category VALUES (33, '책', 6);
+INSERT INTO D_Category VALUES (34, '잡지', 6);
+INSERT INTO D_Category VALUES (35, '만화책', 6);
+INSERT INTO D_Category VALUES (36, '앨범', 6);
+INSERT INTO D_Category VALUES (37, '음반', 6);
+INSERT INTO D_Category VALUES (38, '미술품', 6);
+
+-- '가정 및 인테리어' 카테고리 (categoryNo: 7)
+INSERT INTO D_Category VALUES (39, 'DIY', 7);
+INSERT INTO D_Category VALUES (40, '사무 용품', 7);
+INSERT INTO D_Category VALUES (41, '가구', 7);
+INSERT INTO D_Category VALUES (42, '조명', 7);
+INSERT INTO D_Category VALUES (43, '부엌 용품', 7);
+INSERT INTO D_Category VALUES (44, '욕실 용품', 7);
+INSERT INTO D_Category VALUES (45, '정원 용품', 7);
+INSERT INTO D_Category VALUES (46, '꽃', 7);
+
+-- '뷰티 및 건강' 카테고리 (categoryNo: 8)
+INSERT INTO D_Category VALUES (47, '스킨케어', 8);
+INSERT INTO D_Category VALUES (48, '헤어케어', 8);
+INSERT INTO D_Category VALUES (49, '메이크업', 8);
+INSERT INTO D_Category VALUES (50, '네일', 8);
+INSERT INTO D_Category VALUES (51, '향수', 8);
+INSERT INTO D_Category VALUES (52, '건강 보조제', 8);
+INSERT INTO D_Category VALUES (53, '운동용품', 8);
+INSERT INTO D_Category VALUES (54, '아기 용품', 8);
+
+-- '식음료' 카테고리 (categoryNo: 9)
+INSERT INTO D_Category VALUES (55, '음식', 9);
+INSERT INTO D_Category VALUES (56, '음료', 9);
+INSERT INTO D_Category VALUES (57, '스낵', 9);
+INSERT INTO D_Category VALUES (58, '건강식품', 9);
+
+-- '애완동물' 카테고리 (categoryNo: 10)
+INSERT INTO D_Category VALUES (59, '애완동물 사료', 10);
+INSERT INTO D_Category VALUES (60, '애완동물 장난감', 10);
+INSERT INTO D_Category VALUES (61, '애완동물 용품', 10);
+
+-- '부동산 및 기타' 카테고리 (categoryNo: 11)
+INSERT INTO D_Category VALUES (62, '부동산', 11);
+INSERT INTO D_Category VALUES (63, '토지', 11);
+INSERT INTO D_Category VALUES (64, '기타', 11);
 
 -- 상품 테이블의 더미 데이터
 INSERT INTO Product (pNo, pName, categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
@@ -323,4 +413,5 @@ CREATE VIEW Product_Total AS
 	FROM Product p
 	INNER JOIN Category c ON p.categoryNo = c.categoryNo;
 
+select * from D_Category order by d_categoryNo
 */

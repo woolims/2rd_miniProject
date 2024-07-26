@@ -12,7 +12,8 @@
 	<typeAliases>
 		<typeAlias type="vo.UserVo" alias="user"/>
 		<typeAlias type="vo.BoardVo" alias="board"/>
-		<typeAlias type="vo.CategoryVo"  alias="category"/>
+		<typeAlias type="vo.CategoryVo" alias="category"/>
+		<typeAlias type="vo.DetailCategoryVo" alias="d_category"/>
 	</typeAliases>
 	
 	<mappers>

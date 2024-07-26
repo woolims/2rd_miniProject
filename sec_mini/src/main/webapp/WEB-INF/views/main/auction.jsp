@@ -60,7 +60,7 @@ body, ul, li {
 
 a {
 	color: inherit; /* 부모 엘리먼트의 값을 물려받는다 */
-	text-decoration: none;
+	text-decoration: none !important;
 	/* 해당 태그의 text-decoration 속성을 none 값으로 하는 것으로 밑줄을 제거한다 */
 }
 /* 노멀라이즈 끝 */
@@ -80,14 +80,17 @@ body {
 
 /* 사이드바의 너비와 높이를 변수를 통해 통제 */
 :root {
-	--side-bar-width: 240px;
+	--side-bar-width: 210px;
+	--side-bar-height: 90vh;
 }
 
 .side-bar {
 	position: fixed; /* 스크롤을 따라오도록 지정 */
-	background-color: black;
+	background-color: rgb(255, 255, 255, 0);
 	width: var(--side-bar-width);
-	/* 사이드바 위와 아래의 마진을 동일하게 지정 */
+	overflow: hidden; /* 넘치는 메뉴 요소 숨기기 */
+	transform: translate(calc(var(--side-bar-width) * -0.8), 0);
+    transition: 0.5s;
 }
 
 /* 아이콘 시작 */
@@ -113,7 +116,7 @@ body {
 	position: absolute;
 	width: 100%;
 	height: 20%;
-	background-color: white;
+	background-color: black;
 	transition: all var(--side-bar__icon);
 }
 
@@ -169,10 +172,17 @@ body {
 /* 모든 메뉴의 a에 속성값 부여 */
 .side-bar ul>li>a {
 	display: block;
-	color: white;
+	color: black;
 	font-size: 1.4rem;
 	font-weight: bold;
-	transition: .5s;
+	transition: 0.5s;
+	opacity: 0; /* 초기 상태에서 글자 숨김 */
+	transform: translateX(-100px); /* 초기 상태에서 글자를 왼쪽으로 이동 */
+}
+
+.side-bar:hover ul>li>a {
+    opacity: 1; /* 사이드바에 마우스를 올렸을 때 글자 보임 */
+    transform: translateX(0); /* 원래 위치로 이동 */
 }
 
 /* 자식의 position이 absolute일 때 자식을 영역 안에 가두어 준다 */
@@ -190,10 +200,15 @@ body {
 .side-bar>ul>li:hover>ul {
 	display: block;
 	position: absolute;
-	background-color: #888;
+	background-color: rgb(255, 255, 255, 0);
 	top: 0; /* 2차 메뉴의 상단을 1차 메뉴의 상단에 고정 */
 	left: 100%; /* 2차 메뉴를 1차 메뉴의 너비만큼 이동 */
-	width: 100%; /* 1차 메뉴의 너비를 상속 */
+	width: 50%; /* 1차 메뉴의 너비를 상속 */
+}
+
+.side-bar>ul>li>a>span:last-child {
+	opacity: 0;
+	transition: .5s .1s;
 }
 
 /* 사이드바 너비의 80%만큼 왼쪽으로 이동 */
@@ -204,8 +219,10 @@ body {
 
 /* 마우스 인식 시 원래의 위치로 이동 */
 .side-bar:hover {
-	transform: translate(-20px, 0); /* 둥근 모서리의 너비만큼 숨겨주기 */
+	transform: translate(-20px, 0); /* 사이드바를 나타나게 함 */
+	overflow: visible;
 }
+
 /* 사이드바 끝 */
 
 /* 커스텀 끝 */
@@ -217,9 +234,10 @@ body {
 
 	<%@ include file="../menubar/menubar.jsp"%>
 
-	<div class="container-fluid text-center">
+	<div style="position: relative; z-index: 1;"
+		class="container-fluid text-center">
 		<div class="row content">
-			<div class="col-sm-2 sidenav">
+			<div style="position: relative; z-index: 2;" class="col-sm-2 sidenav">
 				<!-- Sidebar -->
 				<aside class="side-bar">
 					<section class="side-bar__icon-box">
@@ -231,15 +249,15 @@ body {
 					</section>
 					<ul>
 						<c:forEach var="category" items="${ category_list }">
-							<li>
-								<a href="?categoryno=${ category.categoryNo }">${ category.categoryName }</a>
+							<li><a href="?categoryno=${ category.categoryNo }">${ category.categoryName }</a>
+
 								<ul>
-									<li><a href="#">text1</a></li>
-									<li><a href="#">text2</a></li>
-									<li><a href="#">text3</a></li>
-									<li><a href="#">text4</a></li>
-								</ul>
-							</li>
+									<c:forEach var="d_category" items="${ d_category_list }">
+										<c:if test="${ category.categoryNo == d_category.categoryNo }">
+											<li><a href="?d_categoryno=${ d_category.d_categoryNo }">${ d_category.d_categoryName }</a></li>
+										</c:if>
+									</c:forEach>
+								</ul></li>
 							<br>
 						</c:forEach>
 					</ul>

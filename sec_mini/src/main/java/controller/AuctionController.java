@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.CategoryDao;
+import dao.DetailCategoryDao;
 import vo.CategoryVo;
+import vo.DetailCategoryVo;
 
 @Controller
 public class AuctionController {
@@ -17,6 +19,9 @@ public class AuctionController {
 	
 	@Autowired
 	CategoryDao category_dao;
+	
+	@Autowired
+	DetailCategoryDao d_category_dao;
 	
 	public AuctionController() {
 		// TODO Auto-generated constructor stub
@@ -31,14 +36,19 @@ public class AuctionController {
 	//경매 게시판 이동
 	// /auction.do?category=computer
 	@RequestMapping("/auction.do")
-	public String auction(@RequestParam(name="category",defaultValue = "computer") String category,Model model) {
+	public String auction(Model model) {
 		
 		List<CategoryVo> category_list = category_dao.selectList();
+		List<DetailCategoryVo> d_category_list = d_category_dao.selectList();
+		
 		model.addAttribute("category_list", category_list);
-
+		model.addAttribute("d_category_list", d_category_list);
+		
 		
 		return "main/auction";
 	}
+	
+	
 	
 	//자유 게시판 이동
 	@RequestMapping("/freetalk.do")

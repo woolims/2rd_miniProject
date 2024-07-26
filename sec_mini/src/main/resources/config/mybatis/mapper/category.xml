@@ -7,6 +7,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="category_list"  resultType="category">
 	   select * from category order by categoryNo
 	</select>
+	
+	<select id="d_category_list" resultType="d_category">
+	   select * from D_Category
+	</select>
+	
+	
 </mapper>
 
 
