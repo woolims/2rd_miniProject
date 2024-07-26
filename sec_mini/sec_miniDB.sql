@@ -74,6 +74,7 @@ CREATE TABLE Users (
 
 select * from users
 update users set point=0 where userNo=2
+update users set point= point + 100 where userNo=2
 
 -- Account 테이블 생성 (사용 xxxxxxxxx)
 CREATE TABLE Account (

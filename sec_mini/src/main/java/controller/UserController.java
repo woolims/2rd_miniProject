@@ -2,6 +2,7 @@ package controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -172,6 +173,12 @@ public class UserController {
 		 
 		if(res > 0) {
 			session.setAttribute("alertMsg", vo.getPoint()+"포인트 충전되었습니다!");
+			
+			UserVo user = (UserVo) session.getAttribute("user");
+			user = user_dao.selectOne(user.getUserNo());
+
+			session.setAttribute("user", user);
+			
 			return "redirect:mypage.do";
 		}else {
 			
