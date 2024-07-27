@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 전체조회 -->
 	<select id="select_list" resultType="aboard">
-		select * from AuctionView where deleteAt='N' and endAt='N'
+		select * from AuctionView where deleteAt='N' and endAt='N' order by auctionBoardNo
 	</select>
 	
 	<!-- auctionBoardNo로 검사 -->

@@ -80,8 +80,8 @@
 					<p class="p_info">상품 설명 : ${ vo.pDesc }</p>
 					<p class="p_info">사용 정도 : ${ vo.useAt }점(5점 만점)</p>
 					<p class="p_info">입찰 시작가 : ${ vo.startPrice }</p>
-					<p class="p_info">현재 입찰가 : 체크중</p>
-					<p class="p_info">종료 일자 : ${ vo.remaningTime.substring(0, 15) }</p>
+					<p class="p_info">현재 입찰가 : ${ vo.entryBidPrice }</p>
+					<p class="p_info">종료 일자 : ${ vo.endDate.substring(0, 15) }</p>
 					<p class="p_info">조회수 : ${ vo.viewCount }</p>
 				</div>
 				<input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px;">
