@@ -3,13 +3,13 @@
 DROP SEQUENCE aboard_no_seq;
 DROP SEQUENCE scrap_no_seq;
 DROP SEQUENCE bid_no_seq;
+DROP SEQUENCE bidP_no_seq;
 DROP SEQUENCE sb_no_seq;
 DROP SEQUENCE p_no_seq;
 DROP SEQUENCE user_no_seq;
 DROP SEQUENCE board_no_seq;
 DROP SEQUENCE comment_no_seq;
 DROP SEQUENCE c_like_no_seq;
-DROP SEQUENCE ac_no_seq;
 DROP SEQUENCE pay_no_seq;
 DROP SEQUENCE charge_no_seq;
 DROP SEQUENCE category_no_seq;
@@ -23,6 +23,7 @@ DROP TABLE Cash;
 DROP TABLE Scrap;
 DROP TABLE Aboard;
 DROP TABLE Sb;
+DROP TABLE BidPlayer;
 DROP TABLE Bid;
 DROP TABLE Product;
 DROP TABLE D_Category;
@@ -34,13 +35,13 @@ DROP TABLE Users;
 CREATE SEQUENCE aboard_no_seq;
 CREATE SEQUENCE scrap_no_seq;
 CREATE SEQUENCE bid_no_seq;
+CREATE SEQUENCE bidP_no_seq;
 CREATE SEQUENCE sb_no_seq;
 CREATE SEQUENCE p_no_seq;
 CREATE SEQUENCE user_no_seq;
 CREATE SEQUENCE board_no_seq;
 CREATE SEQUENCE comment_no_seq;
 CREATE SEQUENCE c_like_no_seq;
-CREATE SEQUENCE ac_no_seq;
 CREATE SEQUENCE pay_no_seq;
 CREATE SEQUENCE charge_no_seq;
 CREATE SEQUENCE category_no_seq;
@@ -106,7 +107,6 @@ CREATE TABLE Product (
 CREATE TABLE Bid (
 	bidNo NUMBER PRIMARY KEY,
 	pNo NUMBER NOT NULL,
-	userNo NUMBER NOT NULL,
 	entryBidPrice NUMBER DEFAULT 0,
 	remaningTime TIMESTAMP  DEFAULT CURRENT_TIMESTAMP + INTERVAL '1' DAY,
 	registrationTime TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
@@ -114,10 +114,20 @@ CREATE TABLE Bid (
 	earlyTermination char(1) DEFAULT 'N' CHECK(earlyTermination IN ('Y','N')),
 	minBidUnit NUMBER DEFAULT 1,
 	endDate TIMESTAMP  DEFAULT CURRENT_TIMESTAMP + INTERVAL '1' DAY,
-	CONSTRAINT fk_bid_userNo FOREIGN KEY (userNo)
-	REFERENCES Users(userNo) ON DELETE CASCADE,
 	CONSTRAINT fk_bid_pNo FOREIGN KEY (pNo)
 	REFERENCES Product(pNo) ON DELETE CASCADE
+);
+
+-- BidPlayer 테이블 생성
+CREATE TABLE BidPlayer (
+	bidPNo NUMBER PRIMARY KEY,
+	bidNo NUMBER NOT NULL,
+	userNo NUMBER NOT NULL,
+	playPrice NUMBER DEFAULT 0,
+	CONSTRAINT fk_bidP_bidNo FOREIGN KEY (bidNo)
+	REFERENCES Bid(bidNo) ON DELETE CASCADE,
+	CONSTRAINT fk_bidP_userNo FOREIGN KEY (userNo)
+	REFERENCES Users(userNo) ON DELETE CASCADE
 );
 
 -- Sb 테이블 생성
@@ -134,13 +144,13 @@ CREATE TABLE Sb (
 -- Aboard 테이블 생성
 CREATE TABLE Aboard (
 	auctionBoardNo NUMBER PRIMARY KEY,
-	bidNo NUMBER NOT NULL,
+	pNo NUMBER NOT NULL,
 	createAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
 	deleteAt char(1) DEFAULT 'N' CHECK(deleteAt IN ('Y','N')),
 	endAt char(1) DEFAULT 'N' CHECK(endAt IN ('Y','N')),
 	viewCount NUMBER DEFAULT 0,
-	CONSTRAINT fk_aboard_bidNo FOREIGN KEY (bidNo)
-	REFERENCES Bid(bidNo) ON DELETE CASCADE
+	CONSTRAINT fk_aboard_pNo FOREIGN KEY (pNo)
+	REFERENCES Product(pNo) ON DELETE CASCADE
 );
 
 -- Scrap 테이블 생성
@@ -235,7 +245,8 @@ INNER JOIN Category c ON p.categoryNo = c.categoryNo;
 
 
 
-CREATE OR REPLACE VIEW Bid_User_PView AS
+--아래 뷰 사용금지
+CREATE OR REPLACE VIEW Bid_Player_User_PView AS
 SELECT DISTINCT
     b.entryBidPrice,
     b.remaningTime,
@@ -244,7 +255,8 @@ SELECT DISTINCT
     b.earlyTermination,
     b.minBidUnit,
     b.endDate,
-	u.userNo,
+    u.userNo,
+	bp.userNo,
 	u.myCash,
     p.pNo,
     p.pName,
@@ -253,14 +265,16 @@ SELECT DISTINCT
     p.startPrice,
     p.pPieces
 FROM Bid b
-INNER JOIN Users u ON b.userNo = u.userNo
+INNER JOIN Users u ON u.userNo = p.pNo;
+INNER JOIN BidPlayer bp ON bp.userNo = u.userNo
 INNER JOIN Product p ON b.pNo = p.pNo;
+--위쪽 뷰 사용금지
 
 delete from users where userNo=2
 insert into Users values(1, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
 insert into Users values(2, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);
 
-select * from users where userId = 'admin';
+select * from users where userId = 'one12';
 
 INSERT INTO Category VALUES (category_no_seq.nextVal, '자동차 및 차량');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '패션 및 액세서리');
@@ -273,7 +287,7 @@ INSERT INTO Category VALUES (category_no_seq.nextVal, '뷰티 및 건강');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '식음료');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '애완동물');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '부동산 및 기타');
-11:46
+
 -- 상세 카테고리 테이블 더미 데이터
 -- '자동차 및 차량' 카테고리 (categoryNo: 1)
 INSERT INTO D_Category VALUES (1, '중고차', 1);
@@ -359,28 +373,35 @@ VALUES (2, 'Product B', 2, 1, 'product_b.png', 'Description of Product B', 2, 15
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
 VALUES (3, 'Product C', 1, 2, 'product_c.png', 'Description of Product C', 4, 12000, 8);
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
-VALUES (4, 'Product D', 3, 'product_d.png', 'Description of Product D', 5, 18000, 3);
+VALUES (4, 'Product D', 3, 2,'product_d.png', 'Description of Product D', 5, 18000, 3);
+
+select * from Product
 
 -- 입찰 테이블의 더미 데이터
-INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (1, 1, 1, 8000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY);
-INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (2, 2, 1, 12000, CURRENT_TIMESTAMP + INTERVAL '2' DAY, CURRENT_TIMESTAMP, 'N', 'Y', 1000, CURRENT_TIMESTAMP + INTERVAL '2' DAY);
-INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (5, 2, 2, 13000, CURRENT_TIMESTAMP + INTERVAL '2' DAY, CURRENT_TIMESTAMP, 'N', 'Y', 1000, CURRENT_TIMESTAMP + INTERVAL '2' DAY);
-INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (3, 3, 1, 9000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 'N', 'N', 700, CURRENT_TIMESTAMP + INTERVAL '4' DAY);
-INSERT INTO Bid (bidNo, pNo, userNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (4, 4, 1, 15000, CURRENT_TIMESTAMP + INTERVAL '1' DAY, CURRENT_TIMESTAMP, 'Y', 'Y', 2000, CURRENT_TIMESTAMP + INTERVAL '1' DAY);
+INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
+VALUES (1, 1, 8000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY);
+INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
+VALUES (2, 2, 12000, CURRENT_TIMESTAMP + INTERVAL '2' DAY, CURRENT_TIMESTAMP, 'N', 'Y', 1000, CURRENT_TIMESTAMP + INTERVAL '2' DAY);
+INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
+VALUES (5, 2, 13000, CURRENT_TIMESTAMP + INTERVAL '2' DAY, CURRENT_TIMESTAMP, 'N', 'Y', 1000, CURRENT_TIMESTAMP + INTERVAL '2' DAY);
+INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
+VALUES (3, 3, 9000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 'N', 'N', 700, CURRENT_TIMESTAMP + INTERVAL '4' DAY);
+INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
+VALUES (4, 4, 15000, CURRENT_TIMESTAMP + INTERVAL '1' DAY, CURRENT_TIMESTAMP, 'Y', 'Y', 2000, CURRENT_TIMESTAMP + INTERVAL '1' DAY);
+
+--입찰자 테이블의 더미데이터
+INSERT INTO BidPlayer (bidPNo, bidNo,userNo,playPrice)values(1, 1, 1, default)
+INSERT INTO BidPlayer (bidPNo, bidNo,userNo,playPrice)values(2, 2, 2, default)
+select * from BidPlayer
 
 -- 경매 테이블의 더미 데이터
-INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
+INSERT INTO Aboard (auctionBoardNo, pNo, createAt, deleteAt, endAt, viewCount)
 VALUES (1, 1, CURRENT_TIMESTAMP, 'N', 'N', 100);
-INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
+INSERT INTO Aboard (auctionBoardNo, pNo, createAt, deleteAt, endAt, viewCount)
 VALUES (2, 2, CURRENT_TIMESTAMP, 'N', 'Y', 50);
-INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
+INSERT INTO Aboard (auctionBoardNo, pNo, createAt, deleteAt, endAt, viewCount)
 VALUES (3, 3, CURRENT_TIMESTAMP, 'N', 'N', 80);
-INSERT INTO Aboard (auctionBoardNo, bidNo, createAt, deleteAt, endAt, viewCount)
+INSERT INTO Aboard (auctionBoardNo, pNo, createAt, deleteAt, endAt, viewCount)
 VALUES (4, 4, CURRENT_TIMESTAMP, 'N', 'Y', 120);
 
 select * from Bid

@@ -26,13 +26,20 @@ public class BidDao {
 
 		return sqlSession.selectOne("bid.selectOne_bidNo");
 	}
+
 	
+//	 유저 번호만 조회 
+//	 public BidVo selectOne_userNo() {
+//	  
+//	 return sqlSession.selectOne("bid.selectOne_userNo"); }
+	 
+
 //  아무도 입찰을 안 했을 때 경매최저가
 	public int new_bid_price_select(int pNo) {
 
-		return sqlSession.selectOne("bid.new_bid_price_select");
+		return sqlSession.selectOne("bid.new_bid_price_select",pNo);
 	}
-	
+
 //	경매에 참가한 사람의 정보
 	public int users_bid_insert(BidVo vo) {
 
@@ -44,19 +51,17 @@ public class BidDao {
 
 		return sqlSession.selectOne("bid.entry_bid_select", bidNo);
 	}
-	
+
 //	경매에 참여한 개인이 입력한 최고값 개인열람용
 	public int entry_bid_person_update(BidVo vo) {
 
 		return sqlSession.selectOne("entry_bid_person_update", vo);
 	}
-	
+
 //	입장시 캐시보유량 체크
 	public int cashCheck(int userNo) {
 
-		return sqlSession.selectOne("bid.cashCheck", userNo); 
+		return sqlSession.selectOne("bid.cashCheck", userNo);
 	}
-
-	
 
 }
