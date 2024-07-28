@@ -3,12 +3,13 @@ package vo;
 public class AboardVo {
 
 	int auctionBoardNo;
-	int bidNo;
+	int pNo;
 	String createAt;
 	String deleteAt;
 	String endAt;
 	int viewCount;
 	
+	int bidNo;
 	int entryBidPrice;
 	String remaningTime;
 	String registrationTime;
@@ -17,9 +18,10 @@ public class AboardVo {
 	int minBidUnit;
 	String endDate;
 	
-	int pNo;
+
 	String pName;
 	int categoryNo;
+	int d_categoryNo;
 	String pImage;
 	String pDesc;
 	int useAt;
@@ -27,6 +29,7 @@ public class AboardVo {
 	int pPieces;
 	
 	String categoryName;
+	String d_categoryName;
 	
 	
 	public int getAuctionBoardNo() {
@@ -125,6 +128,12 @@ public class AboardVo {
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
+	public int getD_categoryNo() {
+		return d_categoryNo;
+	}
+	public void setD_categoryNo(int d_categoryNo) {
+		this.d_categoryNo = d_categoryNo;
+	}
 	public String getpImage() {
 		return pImage;
 	}
@@ -161,5 +170,12 @@ public class AboardVo {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	public String getD_categoryName() {
+		return d_categoryName;
+	}
+	public void setD_categoryName(String d_categoryName) {
+		this.d_categoryName = d_categoryName;
+	}
+	
 	
 }

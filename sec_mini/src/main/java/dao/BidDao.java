@@ -3,8 +3,8 @@ package dao;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import vo.AboardVo;
 import vo.BidVo;
-import vo.ProductVo;
 
 public class BidDao {
 
@@ -20,7 +20,12 @@ public class BidDao {
 		return sqlSession.selectOne("bid.select_bidNo", bidNo);
 	}
 	
-	public int insertBid(BidVo vo) {
+	public int insertBid(AboardVo vo) {
+		System.out.println(vo.getpNo());
+		System.out.println(vo.getStartPrice());
+		System.out.println(vo.getRemaningTime());
+		System.out.println(vo.getAutoExtension());
+		
 		return sqlSession.insert("bid.bid_insert", vo);
 	}
 	

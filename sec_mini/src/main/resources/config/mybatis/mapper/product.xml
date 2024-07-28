@@ -10,12 +10,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!--상품 등록 -->
-	<insert id="product_insert" useGeneratedKeys="true" keyProperty="pNo">
+	<insert id="product_insert" parameterType="product">
+        <selectKey keyProperty="pNo" resultType="int" order="BEFORE">
+            SELECT p_no_seq.NEXTVAL FROM dual
+        </selectKey>
 		insert into product values(
-			p_no_seq.nextVal,
-			#{ pName }, 
-			#{ categoryNo },
-			#{ d_categoryNo },
+			#{ pNo },
+			#{ pName },
+			1,
+			1,
 			default,
 			#{ pDesc },
 			#{ useAt },

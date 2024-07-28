@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.AboardDao;
+import dao.BidDao;
 import dao.ProductDao;
 import vo.AboardVo;
 import vo.UserVo;
@@ -26,6 +27,8 @@ public class AuctionController {
 	
 	@Autowired
 	AboardDao aboard_dao;
+	@Autowired
+	BidDao bid_dao;
 	@Autowired
 	ProductDao product_dao;
 	
@@ -83,6 +86,9 @@ public class AuctionController {
 		vo.setpDesc(pDesc);
 		
 		int pNo = product_dao.insertProduct(vo);
+		vo.setpNo(pNo);
+		System.out.println(vo.getAutoExtension());
+		int b_res = bid_dao.insertBid(vo);
 		
 		int res = aboard_dao.insertAboard(pNo);
 		

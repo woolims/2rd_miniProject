@@ -11,15 +11,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!--입찰 등록 -->
 	<insert id="bid_insert" parameterType="bid">
-		insert into product values(
+		insert into bid values(
 			bid_no_seq.nextVal,
-			#{ pNo }, 
-			#{ userNo },
-			#{ entryBidPrice },
-			#{ remaningTime },
+			#{ pNo },
+			#{ startPrice },
+			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{ remaningTime }, 'DAY'),
 			default,
 			#{ autoExtension },
-			#{ earlyTermination }
+			default,
+			default,
+			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{ remaningTime }, 'DAY')
 		)
 	</insert>
 	

@@ -103,16 +103,36 @@
         
         function send(f){
         	
-        	f.pName.val.trim();
-        	f.categoryNo.val.trim();
-        	f.d_categoryNo.val.trim();
-        	f.pDesc.val.trim();
-        	f.pDesc.val.trim();
-        	f.userAt.val.trim();
-        	f.startPrice.val.trim();
-        	f.endDate.val.trim();
-        	f.autoButton.val.trim();
+        	let pName = f.pName.value.trim();
+        	let pDesc = f.pDesc.value.trim();
+        	let startPrice = f.startPrice.value.trim();
         	
+        	if(pName==''){
+     		   alert("상품명을 입력하세요");
+    		   f.pName.value="";
+    		   f.pName.focus();
+    		   return;
+        	}
+        	if(pDesc==''){
+      		   alert("상품 설명을 입력하세요");
+     		   f.pDesc.value="";
+     		   f.pDesc.focus();
+     		   return;
+         	}
+        	if(startPrice==''){
+      		   alert("시작가를 입력하세요");
+     		   f.startPrice.value="";
+     		   f.startPrice.focus();
+     		   return;
+         	}
+        	if(autoState){
+        		f.autoExtension.value = "Y";
+        	}
+        	
+        	
+			f.method = "post";
+			f.action="a_board_insert.do";
+			f.submit();
         }
     </script>
 </head>
@@ -134,85 +154,88 @@
 					</div>
 				</div>
 				<div class="col-sm-1"><p style="text-align: center;">>></p></div>
-				<div class="col-sm-6" style="font-weight:bold; height: 100%; margin-top: 20px;">
-					<table class="p_info">
-						
-						<tr>
-							<td>상품 사진</td>
-							<td><input type="file" class="n" id="pImage" name="pImage"></td>
-						</tr>
-						<tr>
-							<td>상품명</td>
-							<td><input type="text" class="n" id="pName" name="pName"></td>
-						</tr>
-						<tr>
-							<td>카테고리</td>
-							<td>
-								<select class="n" style="width: 100px;" id="categoryNo" name="categoryNo">
-									<option value="1">대분류1</option>
-									<option value="2">대분류2</option>
-									<option value="3">대분류3</option>
-									<option value="4">대분류4</option>
-								</select>
-								<select style="width: 100px;" id="d_categoryNo" name="d_categoryNo">
-									<option value="1">소분류1</option>
-									<option value="2">소분류2</option>
-									<option value="3">소분류3</option>
-									<option value="4">소분류4</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>상품 설명</td>
-							<td><input type="text" class="n" id="pDesc" name="pDesc" value="간단한 상품 설명"></td>
-						</tr>
-						<tr>
-							<td>사용 정도</td>
-							<td>
-								<select class="n" style="width: 100px;" id="useAt" name="useAt">
-									<option value="5point">5점</option>
-									<option value="4point">4점</option>
-									<option value="3point">3점</option>
-									<option value="2point">2점</option>
-									<option value="1point">1점</option>
-								</select>
-								(5점 만점)
-							</td>
-						</tr>
-						<tr>
-							<td>입찰 시작가</td>
-							<td><input type="text" class="n" id="startPrice" name="startPrice"></td>
-						</tr>
-						<tr>
-							<td>종료 일자</td>
-							<td>
-								<select class="n" style="width: 100px;" id="endDate" name="endDate">
-									<option value="12hour">12시간</option>
-									<option value="1day">하루</option>
-									<option value="2day">이틀</option>
-									<option value="1week">일주일</option>
-								</select>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div class="col-sm-6" style="font-weight:bold; height: 100%; margin-top: 20px;">
-					<table class="p_info">
-						
-						<!-- 자동연장 여부, 조기종료 여부, 글등록버튼 -->
-						<tr>
-							<td>
-								<input id="autoButton" class="btn btn-danger" type="button" value="자동연장 OFF" onclick="turnAuto();">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input id="autoButton" class="btn btn-info" type="button" value="경매등록" onclick="send(this.form);">
-							</td>
-						</tr>
-						
-					</table>
-				</div>
+				<form class="">
+					<input type="hidden" id="autoExtension" name="autoExtension" value="N">
+					<div class="col-sm-6" style="font-weight:bold; height: 100%; margin-top: 20px;">
+						<table class="p_info">
+							
+							<tr>
+								<td>상품 사진</td>
+								<td><input type="file" class="n" id="pImage" name="pImage"></td>
+							</tr>
+							<tr>
+								<td>상품명</td>
+								<td><input type="text" class="n" id="pName" name="pName"></td>
+							</tr>
+							<tr>
+								<td>카테고리</td>
+								<td>
+									<select class="n" style="width: 100px;" id="categoryNo" name="categoryNo">
+										<option value="1">대분류1</option>
+										<option value="2">대분류2</option>
+										<option value="3">대분류3</option>
+										<option value="4">대분류4</option>
+									</select>
+									<select style="width: 100px;" id="d_categoryNo" name="d_categoryNo">
+										<option value="1">소분류1</option>
+										<option value="2">소분류2</option>
+										<option value="3">소분류3</option>
+										<option value="4">소분류4</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>상품 설명</td>
+								<td><input type="text" class="n" id="pDesc" name="pDesc" value="간단한 상품 설명"></td>
+							</tr>
+							<tr>
+								<td>사용 정도</td>
+								<td>
+									<select class="n" style="width: 100px;" id="useAt" name="useAt">
+										<option value="5">5점</option>
+										<option value="4">4점</option>
+										<option value="3">3점</option>
+										<option value="2">2점</option>
+										<option value="1">1점</option>
+									</select>
+									(5점 만점)
+								</td>
+							</tr>
+							<tr>
+								<td>입찰 시작가</td>
+								<td><input type="text" class="n" id="startPrice" name="startPrice"></td>
+							</tr>
+							<tr>
+								<td>종료 일자</td>
+								<td>
+									<select class="n" style="width: 100px;" id="endDate" name="remaningTime">
+										<option value="0.5">12시간</option>
+										<option value="1">하루</option>
+										<option value="2">이틀</option>
+										<option value="7">일주일</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-sm-6" style="font-weight:bold; height: 100%; margin-top: 20px;">
+						<table class="p_info">
+							
+							<!-- 자동연장 여부, 조기종료 여부, 글등록버튼 -->
+							<tr>
+								<td>
+									<input id="autoButton" class="btn btn-danger" type="button" value="자동연장 OFF" onclick="turnAuto();">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input id="autoButton" class="btn btn-info" type="button" value="경매등록" onclick="send(this.form);">
+								</td>
+							</tr>
+							
+						</table>
+					</div>
+				</form>
 			</div>
 			<div class="col-sm-2 sidenav">side</div>
 		</div>

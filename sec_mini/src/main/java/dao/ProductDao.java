@@ -21,7 +21,8 @@ public class ProductDao {
 	}
 	
 	public int insertProduct(AboardVo vo) {
-		return sqlSession.insert("product.product_insert", vo);
+		sqlSession.insert("product.product_insert", vo);
+		return vo.getpNo();
 	}
 	
 	public int updateProduct(ProductVo vo) {
