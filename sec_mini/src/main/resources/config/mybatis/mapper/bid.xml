@@ -25,7 +25,7 @@
 </select>
 
 
-<!-- 입찰에 참가한 사람의 정보 -->
+<!-- 경매에 참가한 사람의 정보 -->
 <insert id="users_bid_insert" parameterType="bid">
 	insert into BidPlayer values(#{bidNo},
 							 	 #{bidPNo},
@@ -37,12 +37,10 @@
 	select max(entryBidPrice) from bid  where pNo=#{pNo}
 </select>
 
-
 <!-- 경매에 참여한 개인이 입력한 최고값 개인열람용-->
 <update id="entry_bid_person_update" parameterType="bid">
 	update bid set entryBidPrice=#{entryBidPrice} where bidNo=#{bidNo} and userNo=#{userNo}
 </update>
-
 
 <!-- 입장시 유저의 캐시보유량 체크 -->
 <select id="cashCheck" resultType="int" parameterType="int">
