@@ -74,4 +74,9 @@ public class BidController {
 		return "bid/bid_main";
 	}
 	
+////	입찰에 참여한 사람 수 카운트
+//	@RequestMapping("bid_player_count")
+//	public void bid_player_count(int userNo) {
+//		
+//	}
 }

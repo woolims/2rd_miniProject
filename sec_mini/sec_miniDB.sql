@@ -245,7 +245,6 @@ INNER JOIN Category c ON p.categoryNo = c.categoryNo;
 
 
 
---아래 뷰 사용금지
 CREATE OR REPLACE VIEW Bid_Player_User_PView AS
 SELECT DISTINCT
     b.entryBidPrice,
@@ -254,9 +253,10 @@ SELECT DISTINCT
     b.autoExtension,
     b.earlyTermination,
     b.minBidUnit,
-    b.endDate,
-    u.userNo,
-	bp.userNo,
+  	b.endDate,
+    bp.userNo,
+	bp.bidNo,
+	bp.playPrice,
 	u.myCash,
     p.pNo,
     p.pName,
@@ -265,13 +265,14 @@ SELECT DISTINCT
     p.startPrice,
     p.pPieces
 FROM Bid b
-INNER JOIN Users u ON u.userNo = p.pNo;
-INNER JOIN BidPlayer bp ON bp.userNo = u.userNo
+INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
+INNER JOIN Users u ON bp.userNo = u.userNo
 INNER JOIN Product p ON b.pNo = p.pNo;
---위쪽 뷰 사용금지
 
-delete from users where userNo=2
-insert into Users values(1, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
+
+
+delete from users where userNo=1
+insert into Users values(1, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, 100000);
 insert into Users values(2, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);
 
 select * from users where userId = 'one12';
