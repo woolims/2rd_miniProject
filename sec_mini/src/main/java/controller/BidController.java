@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import dao.AboardDao;
 import dao.BidDao;
+import vo.AboardVo;
 import vo.BidVo;
 
 @Controller
@@ -76,7 +78,9 @@ public class BidController {
 	
 //	유저마다 처음으로 입찰성공시 작동할 메소드
 	@RequestMapping("bid_success1.do")
-	public String bid_success1(BidVo vo) {
+	public String bid_success1(AboardVo vo) {
+		
+		vo.setUserNo(0);
 		
 		int res = bid_dao.bid_success1(vo);
 		
@@ -85,7 +89,7 @@ public class BidController {
 	
 //	유저마다 재입찰성공시 작동할 메소드
 	@RequestMapping("bid_success2.do")
-	public String bid_success2(BidVo vo) {
+	public String bid_success2(AboardVo vo) {
 		
 		int res = bid_dao.bid_success2(vo);
 		
