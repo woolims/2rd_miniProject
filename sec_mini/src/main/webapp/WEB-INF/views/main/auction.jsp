@@ -247,11 +247,11 @@ a {
 /* 사이드바 끝 */
 
 /* 배경 이미지*/
-/* body {
+body {
     height: 100vh;
-    background: url(../images/blackmarket.jpg) no-repeat center;
+    background: url(resources/images/.jpg) no-repeat center;
     background-size: cover;
-} */
+}
 
 /* 푸터 스타일 */
 footer {
@@ -264,7 +264,7 @@ footer {
 /* 커스텀 끝 */
 </style>
 </head>
-<body style="background-color: #444444; color: #f1f1f1;">
+<body style="background-color: #303030; color: #f1f1f1;">
 
 	<%@ include file="../menubar/menubar.jsp"%>
 
