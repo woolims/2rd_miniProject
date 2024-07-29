@@ -102,7 +102,6 @@
 					<input type="hidden" id="pNo" name="pNo" value="${ vo.pNo }">
 					<div class="col-sm-6 text-right">
 						<div style="margin-right: 100px;">
-							<input class="btn btn-info" type="button" value="수정하기" onclick="location.href='update_form.do?auctionBoardNo=${vo.auctionBoardNo}'">
 							<c:if test="${ user.userNo == 1 }">
 								<input class="btn btn-danger" type="button" value="삭제하기" onclick="delete_product(this.form)">
 							</c:if>
