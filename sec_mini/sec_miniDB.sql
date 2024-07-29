@@ -450,7 +450,7 @@ SELECT
 	q.qnaTitle,
 	q.qnaContent,
 	q.qnaCreateAt,
-	userName
+	u.userName
 FROM QnA q
 INNER JOIN Users u ON q.userNo = u.userNo;
 

@@ -349,7 +349,7 @@ footer {
 				      		</div><br>
 				      		<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
 				      		<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p><br>
-				      		<p style="text-align: left; margin: 0;">남은일자 :</p> <fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+				      		<p style="text-align: left; margin: 0;">남은일자 : </p> <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
 				      	</div>
 			      	</c:forEach>
 				</div>
