@@ -54,6 +54,19 @@
 	 margin-left: 100px;
 }
 </style>
+
+<script type="text/javascript">
+	
+	function delete_product(f){
+		
+		if(confirm("정말 삭제 하시겠습니까?")==false) return;
+		
+		f.action="aboard_delete.do";
+		f.submit();
+		
+	}
+	
+</script>
 </head>
 <body>
 
@@ -68,13 +81,13 @@
 				</div>
 
 				<div class="col-sm-1"><p style="text-align: center;"><<</p></div>
-				<div class="col-sm-10" style="border:1px solid red; text-align: center; height: 300px;">
+				<div class="col-sm-10" style="border:1px solid red; text-align: center; height: 300px; margin-bottom: 20px;">
 					<div class="pro_image" style="height: 100%; margin-top: 30px;">
 						<img alt="상품 사진" src="">
 					</div>
 				</div>
 				<div class="col-sm-1"><p style="text-align: center;">>></p></div>
-				<div class="col-sm-12" style="font-weight:bold; height: 100%;">
+				<div class="col-sm-6" style="font-weight:bold; height: 100%;">
 					<p class="p_info">상품명 : ${ vo.pName }</p>
 					<p class="p_info">카테고리 : ${ vo.categoryName }</p>
 					<p class="p_info">상품 설명 : ${ vo.pDesc }</p>
@@ -84,7 +97,24 @@
 					<p class="p_info">종료 일자 : ${ vo.endDate.substring(0, 15) }</p>
 					<p class="p_info">조회수 : ${ vo.viewCount }</p>
 				</div>
-				<input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px;">
+				<form>
+					<input type="hidden" id="auctionBoardNo" name="auctionBoardNo" value="${ vo.auctionBoardNo }">
+					<input type="hidden" id="pNo" name="pNo" value="${ vo.pNo }">
+					<div class="col-sm-6 text-right">
+						<div style="margin-right: 100px;">
+							<input class="btn btn-info" type="button" value="수정하기" onclick="location.href='update_form.do?auctionBoardNo=${vo.auctionBoardNo}'">
+							<c:if test="${ user.userNo == 1 }">
+								<input class="btn btn-danger" type="button" value="삭제하기" onclick="delete_product(this.form)">
+							</c:if>
+						</div>
+					</div>
+					<c:if test="${ user.userNo ne vo.userNo }">
+						<input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;">
+					</c:if>
+					<c:if test="${ user.userNo eq vo.userNo }">
+						<input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px;">
+					</c:if>
+				</form>
 			</div>
 			<div class="col-sm-2 sidenav">side</div>
 		</div>

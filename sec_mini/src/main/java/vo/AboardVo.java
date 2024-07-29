@@ -4,6 +4,7 @@ public class AboardVo {
 
 	int auctionBoardNo;
 	int pNo;
+	int userNo;
 	String createAt;
 	String deleteAt;
 	String endAt;
@@ -175,6 +176,12 @@ public class AboardVo {
 	}
 	public void setD_categoryName(String d_categoryName) {
 		this.d_categoryName = d_categoryName;
+	}
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 	
 	

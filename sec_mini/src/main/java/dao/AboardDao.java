@@ -27,12 +27,12 @@ public class AboardDao {
 		return sqlSession.selectOne("aboard.select_auctionBoardNo", auctionBoardNo);
 	}
 	
-	public int insertAboard(int pNo) {
-		return sqlSession.insert("aboard.aboard_insert", pNo);
+	public int insertAboard(AboardVo vo) {
+		return sqlSession.insert("aboard.aboard_insert", vo);
 	}
 	
 	public int deleteAboard(int auctionBoardNo) {
-		return sqlSession.delete("aboard.aboard_delete", auctionBoardNo);
+		return sqlSession.update("aboard.aboard_delete", auctionBoardNo);
 	}
 	
 }

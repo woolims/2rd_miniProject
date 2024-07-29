@@ -15,10 +15,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!--게시글 등록 -->
-	<insert id="aboard_insert" parameterType="int">
+	<insert id="aboard_insert" parameterType="aboard">
 		insert into Aboard values(
 			aboard_no_seq.nextVal,
-			#{ pNo }, 
+			#{ pNo },
+			#{ userNo },
 			default,
 			default,
 			default,

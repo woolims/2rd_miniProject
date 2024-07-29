@@ -81,6 +81,7 @@ public class AuctionController {
 			
 			return "redirect:../member/login_form.do";
 		}
+		vo.setUserNo(user.getUserNo());
 		
 		String pDesc = vo.getpDesc().replaceAll("\n", "<br>");
 		vo.setpDesc(pDesc);
@@ -90,7 +91,16 @@ public class AuctionController {
 		System.out.println(vo.getAutoExtension());
 		int b_res = bid_dao.insertBid(vo);
 		
-		int res = aboard_dao.insertAboard(pNo);
+		int res = aboard_dao.insertAboard(vo);
+		
+		return "redirect:auction.do";
+	}
+	
+	//게시물 삭제
+	@RequestMapping("/aboard_delete.do")
+	public String a_board_delete(int auctionBoardNo) {
+		
+		int res = aboard_dao.deleteAboard(auctionBoardNo);
 		
 		return "redirect:auction.do";
 	}

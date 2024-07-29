@@ -160,12 +160,15 @@ CREATE TABLE Sb (
 CREATE TABLE Aboard (
 	auctionBoardNo NUMBER PRIMARY KEY,
 	pNo NUMBER NOT NULL,
+	userNo NUMBER NOT NULL,
 	createAt TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
 	deleteAt char(1) DEFAULT 'N' CHECK(deleteAt IN ('Y','N')),
 	endAt char(1) DEFAULT 'N' CHECK(endAt IN ('Y','N')),
 	viewCount NUMBER DEFAULT 0,
 	CONSTRAINT fk_aboard_pNo FOREIGN KEY (pNo)
-	REFERENCES Product(pNo) ON DELETE CASCADE
+	REFERENCES Product(pNo) ON DELETE CASCADE,
+	CONSTRAINT fk_aboard_userNo FOREIGN KEY (userNo)
+	REFERENCES Users(userNo) ON DELETE CASCADE
 );
 
 -- Scrap 테이블 생성
@@ -357,14 +360,14 @@ INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
 VALUES (bidP_no_seq.nextval, 4, 1, 321000);
 
 -- 경매 테이블의 더미 데이터
-INSERT INTO Aboard (auctionBoardNo, pNo, createAt, deleteAt, endAt, viewCount)
-VALUES (aboard_no_seq.nextVal, 1, CURRENT_TIMESTAMP, 'N', 'N', 100);
-INSERT INTO Aboard (auctionBoardNo, pNo, createAt, deleteAt, endAt, viewCount)
-VALUES (aboard_no_seq.nextVal, 2, CURRENT_TIMESTAMP, 'N', 'Y', 50);
-INSERT INTO Aboard (auctionBoardNo, pNo, createAt, deleteAt, endAt, viewCount)
-VALUES (aboard_no_seq.nextVal, 3, CURRENT_TIMESTAMP, 'N', 'N', 80);
-INSERT INTO Aboard (auctionBoardNo, pNo, createAt, deleteAt, endAt, viewCount)
-VALUES (aboard_no_seq.nextVal, 4, CURRENT_TIMESTAMP, 'N', 'Y', 120);
+INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
+VALUES (aboard_no_seq.nextVal, 1, 1, CURRENT_TIMESTAMP, 'N', 'N', 100);
+INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
+VALUES (aboard_no_seq.nextVal, 2, 1, CURRENT_TIMESTAMP, 'N', 'Y', 50);
+INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
+VALUES (aboard_no_seq.nextVal, 3, 2, CURRENT_TIMESTAMP, 'N', 'N', 80);
+INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
+VALUES (aboard_no_seq.nextVal, 4, 1, CURRENT_TIMESTAMP, 'N', 'Y', 120);
 
 -- 상품 조회
 select * from Product
@@ -380,6 +383,7 @@ CREATE OR REPLACE VIEW AuctionView AS
 SELECT DISTINCT
     a.auctionBoardNo,
     a.pNo,
+    a.userNo,
     a.createAt,
     a.deleteAt,
     a.endAt,
