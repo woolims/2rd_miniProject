@@ -1,12 +1,14 @@
 package vo;
 
+import java.sql.Timestamp;
+
 public class QnAVo {
 	
 	int qnaNo;
 	int userNo;
 	String qnaTitle;
 	String qnaContent;
-	String qnaCreateAt;
+	Timestamp qnaCreateAt;
 	String userName;
 	
 	public int getQnaNo() {
@@ -33,10 +35,10 @@ public class QnAVo {
 	public void setQnaContent(String qnaContent) {
 		this.qnaContent = qnaContent;
 	}
-	public String getQnaCreateAt() {
+	public Timestamp getQnaCreateAt() {
 		return qnaCreateAt;
 	}
-	public void setQnaCreateAt(String qnaCreateAt) {
+	public void setQnaCreateAt(Timestamp qnaCreateAt) {
 		this.qnaCreateAt = qnaCreateAt;
 	}
 	public String getUserName() {
