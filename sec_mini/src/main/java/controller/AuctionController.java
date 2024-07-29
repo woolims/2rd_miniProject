@@ -59,9 +59,11 @@ public class AuctionController {
 
 		List<CategoryVo> category_list = category_dao.selectList();
 		List<DetailCategoryVo> d_category_list = d_category_dao.selectList();
+		List<AboardVo> list = aboard_dao.selectList();
 
 		model.addAttribute("category_list", category_list);
 		model.addAttribute("d_category_list", d_category_list);
+		model.addAttribute("list", list);
 
 		return "main/auction";
 	}

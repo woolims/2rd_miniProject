@@ -59,6 +59,8 @@ body {
 	height: 300px;
 	text-align: center;
 	margin: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
 	background: #444; /* 어두운 배경 */
 	color: #ffcc00; /* 밝은 텍스트 색상 */
 	border: 2px solid #ff6666; /* 눈에 띄는 테두리 */
@@ -311,8 +313,10 @@ footer {
 			<div class="col-sm-8 text-left"
 				style="background-color: #333333; color: #f1f1f1;">
 				<h2 class="title_auction" style="color: #FFD700;">암시장</h2>
-				<div style="text-align: center;">
-
+				<div style="text-align: right;">
+					<c:if test="${ not empty user }">
+						<input class="btn btn-primary" type="button" value="경매 올리기" onclick="location.href='a_board_insert_form.do'">
+					</c:if>
 					<%--     <ul>
 				      <c:forEach var="category" items="${ category_list }">
 				          <li><a href="?categoryno=${ category.categoryNo }">${ category.categoryName }</a></li>
@@ -337,12 +341,16 @@ footer {
 
 
 				<div class="auction_div">
-					<div class="product_auc">작품1</div>
-					<div class="product_auc">작품2</div>
-					<div class="product_auc">작품3</div>
-					<div class="product_auc">작품4</div>
-					<div class="product_auc">작품5</div>
-					<div class="product_auc">작품6</div>
+					<c:forEach var="vo" items="${ list }">
+				      	<div class="col-sm-2 product_auc">
+				      		<div style="width:100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;" onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
+				      			<img alt="사진" src=""><br><br>
+				      		</div><br>
+				      		<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
+				      		<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p><br>
+				      		<p style="text-align: left; margin: 0;">남은일자 :</p> ${ vo.endDate.substring(0,15) }
+				      	</div>
+			      	</c:forEach>
 				</div>
 			</div>
 			<div class="col-sm-2 sidenav"

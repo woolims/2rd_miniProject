@@ -404,6 +404,8 @@ INNER JOIN Bid b ON p.pNo = b.pNo
 INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
 
+
+========================================================================================================================================================================
 select * from Aboard a, Product p, Bid b, Category c where a.pNo = p.pNo and p.pNo = b.pNo and p.categoryNo = c.categoryNo and c.ca
 
 --입찰 정보 조회
@@ -433,7 +435,6 @@ INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
 
 
-]
 
 SELECT DISTINCT
     b.bidNo,
