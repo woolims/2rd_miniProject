@@ -31,7 +31,20 @@ DROP SEQUENCE category_no_seq;
 DROP SEQUENCE d_category_no_seq;
 
 -- 테이블 삭제
-
+DROP TABLE Comment_Likes;
+DROP TABLE Comments;
+DROP TABLE Board;
+DROP TABLE Cash;
+DROP TABLE Scrap;
+DROP TABLE Aboard;
+DROP TABLE Sb;
+DROP TABLE BidPlayer;
+DROP TABLE Bid;
+DROP TABLE Product;
+DROP TABLE D_Category;
+DROP TABLE Category;
+DROP TABLE Charge;
+DROP TABLE Users;
 
 
 -- 시퀀스 생성
@@ -224,8 +237,9 @@ CREATE TABLE Comment_Likes (
 	REFERENCES Comments(commentNo) ON DELETE CASCADE
 );
 insert into Users values(user_no_seq.nextval, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
-insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);
+insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, 1000000);
 
+select *from Users
 INSERT INTO Category VALUES (category_no_seq.nextVal, '자동차 및 차량');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '패션 및 액세서리');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '스포츠 및 레저');
@@ -314,7 +328,10 @@ INSERT INTO D_Category VALUES (61, '애완동물 용품', 10);
 INSERT INTO D_Category VALUES (62, '부동산', 11);
 INSERT INTO D_Category VALUES (63, '토지', 11);
 INSERT INTO D_Category VALUES (64, '기타', 11);
-
+delete from Product
+delete from Bid
+delete from BidPlayer
+delete from Aboard
 -- 상품 테이블의 더미 데이터
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
 VALUES (p_no_seq.nextVal, 'Product A', 1, 1, 'product_a.png', 'Description of Product A', 3, 10000, 10);
@@ -405,6 +422,31 @@ INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
 
 
+CREATE OR REPLACE VIEW Bid_Player_User_PView AS
+SELECT DISTINCT
+    b.entryBidPrice,
+    b.remaningTime,
+    b.registrationTime,
+    b.autoExtension,
+    b.earlyTermination,
+    b.minBidUnit,
+    b.endDate,
+    bp.userNo,
+    bp.bidNo,
+    bp.playPrice,
+    u.myCash,
+    p.pNo,
+    p.pName,
+    p.pDesc,
+    p.useAt,
+    p.startPrice,
+    p.pPieces
+FROM Bid b
+INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
+INNER JOIN Users u ON bp.userNo = u.userNo
+INNER JOIN Product p ON b.pNo = p.pNo;
+
+
 ========================================================================================================================================================================
 select * from Aboard a, Product p, Bid b, Category c where a.pNo = p.pNo and p.pNo = b.pNo and p.categoryNo = c.categoryNo and c.ca
 
@@ -460,6 +502,11 @@ FROM Product p
 INNER JOIN Bid b ON p.pNo = b.pNo
 INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
+
+
+
+
+
 
 select * from Product p, D_Category dc where p.d_categoryNo = dc.d_categoryNo
 select * from Product p, Category c, D_Category dc where p.d_categoryNo = dc.d_categoryNo and c.categoryNo = dc.categoryNo order by pNo

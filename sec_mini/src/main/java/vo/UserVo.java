@@ -10,6 +10,7 @@ public class UserVo {
 	String phone;
 	String nickName;
 	String creatAt;
+	int myCash;
 	
 	
 	public UserVo() {
@@ -49,6 +50,16 @@ public class UserVo {
 		this.phone = phone;
 		this.nickName = nickName;
 		this.creatAt = creatAt;
+	}
+	
+	
+
+	public int getMyCash() {
+		return myCash;
+	}
+
+	public void setMyCash(int myCash) {
+		this.myCash = myCash;
 	}
 
 	public int getUserNo() {

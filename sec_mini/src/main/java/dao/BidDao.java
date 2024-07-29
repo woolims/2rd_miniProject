@@ -17,7 +17,7 @@ public class BidDao {
 	}
 
 //	입찰페이지 정보 전체조회
-	public List<AboardVo> select_bid() {
+	public List<BidVo> select_bid() {
 
 		return sqlSession.selectList("bid.select_bid");
 	}
@@ -39,10 +39,6 @@ public class BidDao {
 	}
 	
 	public int insertBid(AboardVo vo) {
-		System.out.println(vo.getpNo());
-		System.out.println(vo.getStartPrice());
-		System.out.println(vo.getRemaningTime());
-		System.out.println(vo.getAutoExtension());
 		
 		return sqlSession.insert("bid.bid_insert", vo);
 	}
@@ -63,7 +59,7 @@ public class BidDao {
 	}
 
 //	경매에 참가한 사람의 정보
-	public int users_bid_insert(AboardVo vo) {
+	public int users_bid_insert(BidVo vo) {
 
 		return sqlSession.selectOne("bid.users_bid_insert", vo);
 	}
@@ -75,7 +71,7 @@ public class BidDao {
 	}
 
 //	경매에 참여한 개인이 입력한 최고값 개인열람용
-	public int entry_bid_person_update(AboardVo vo) {
+	public int entry_bid_person_update(BidVo vo) {
 
 		return sqlSession.selectOne("entry_bid_person_update", vo);
 	}
@@ -87,15 +83,21 @@ public class BidDao {
 	}
 	
 //	유저마다 처음으로 입찰성공시 작동할 sql문
-	public int bid_success1(AboardVo vo) {
+	public int bid_success1(BidVo vo) {
 		
 		return sqlSession.insert("bid.bid_success1", vo);
 	}
 	
 //	유저마다 재입찰성공시 작동할 sql문
-	public int bid_success2(AboardVo vo) {
+	public int bid_success2(BidVo vo) {
 		
 		return sqlSession.update("bid.bid_success2", vo);
+	}
+	
+//	특정 경매에 참여하는 유저를 구별하기위한 sql문
+	public List<BidVo> bid_check(int vo){
+
+		return sqlSession.selectList("bid.bid_check", vo);
 	}
 
 }
