@@ -129,7 +129,7 @@ public class AuctionController {
 	// 문의 페이지 이동
 	@RequestMapping("/qna.do")
 	public String qna() {
-		return "main/qna";
+		return "qna/qna";
 	}
 
 }

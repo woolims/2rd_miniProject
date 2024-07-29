@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -348,7 +349,7 @@ footer {
 				      		</div><br>
 				      		<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
 				      		<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p><br>
-				      		<p style="text-align: left; margin: 0;">남은일자 :</p> ${ vo.endDate.substring(0,15) }
+				      		<p style="text-align: left; margin: 0;">남은일자 :</p> <fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
 				      	</div>
 			      	</c:forEach>
 				</div>

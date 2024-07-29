@@ -17,6 +17,7 @@
 		<typeAlias type="vo.BidVo" alias="bid"/>
 		<typeAlias type="vo.CategoryVo" alias="category"/>
 		<typeAlias type="vo.DetailCategoryVo" alias="d_category"/>
+		<typeAlias type="vo.QnAVo" alias="qna"/>
 	</typeAliases>
 	
 	<mappers>
@@ -27,6 +28,7 @@
 		<mapper resource="config/mybatis/mapper/board.xml" />
 		<mapper resource="config/mybatis/mapper/bid.xml" />
 		<mapper resource="config/mybatis/mapper/category.xml"/>
+		<mapper resource="config/mybatis/mapper/qna.xml"/>
 	</mappers>
 	
 </configuration>
