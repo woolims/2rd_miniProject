@@ -12,7 +12,18 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		<property name="sqlSession" ref="sqlSession"/>
 	</bean>
 	
-	<bean id="Bid_dao" class="dao.BidDao">
+	<!-- AboardDao 생성 -->
+	<bean id="aboard_dao" class="dao.AboardDao">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<!-- BidDao 생성 -->
+	<bean id="bid_dao" class="dao.BidDao">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<!-- ProductDao 생성 -->
+	<bean id="product_dao" class="dao.ProductDao">
 		<property name="sqlSession" ref="sqlSession"/>
 	</bean>
 	
