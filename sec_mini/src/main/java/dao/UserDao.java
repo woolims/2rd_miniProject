@@ -3,12 +3,14 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import vo.UserVo;
 
 
 public class UserDao {
 
+	@Autowired
 	SqlSession sqlSession;	//SqlSessionTemplate의 interface
 	
 	//Setter Injection

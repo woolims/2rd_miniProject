@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bid">
+
+	<!-- bidNo로 검사 -->
+	<select id="select_bidNo" parameterType="int" resultType="bid">
+		select * from bid where bidNo=#{bidNo}
+	</select>
+	
+	<!--입찰 등록 -->
+	<insert id="bid_insert" parameterType="bid">
+		insert into bid values(
+			bid_no_seq.nextVal,
+			#{ pNo },
+			#{ startPrice },
+			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{ remaningTime }, 'DAY'),
+			default,
+			#{ autoExtension },
+			default,
+			default,
+			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{ remaningTime }, 'DAY')
+		)
+	</insert>
+	
+	<!-- 입찰 수정 -->
+	<update id="bid_update" parameterType="bid">
+		update bid set entryBidPrice=#{entryBidPrice},remaningTime=(CURRENT_TIMESTAMP + INTERVAL '1' DAY),registrationTime=CURRENT_TIMESTAMP,autoExtension=#{autoExtension},earlyTermination=#{earlyTermination},miniBidUnit=#{miniBidUnit},endDate=(CURRENT_TIMESTAMP + INTERVAL '1' DAY) where bidNo=#{bidNo}
+	</update>
+	
+	<!-- 입찰 삭제 -->
+	<delete id="bid_delete" parameterType="int">
+		delete from bid where bidNo=#{ bidNo }
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
