@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:context="http://www.springframework.org/schema/context"
-xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 					http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
 					http://www.springframework.org/schema/context
 					http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-	
+
 	<!-- UserDao 생성 -->
 	<bean id="user_dao" class="dao.UserDao">
-		<property name="sqlSession" ref="sqlSession"/>
+		<property name="sqlSession" ref="sqlSession" />
 	</bean>
-	
+
 	<!-- AboardDao 생성 -->
 	<bean id="aboard_dao" class="dao.AboardDao">
-		<property name="sqlSession" ref="sqlSession"/>
+		<property name="sqlSession" ref="sqlSession" />
 	</bean>
-	
+
 	<!-- BidDao 생성 -->
 	<bean id="bid_dao" class="dao.BidDao">
-		<property name="sqlSession" ref="sqlSession"/>
+		<property name="sqlSession" ref="sqlSession" />
 	</bean>
-	
+
 	<!-- ProductDao 생성 -->
 	<bean id="product_dao" class="dao.ProductDao">
-		<property name="sqlSession" ref="sqlSession"/>
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<!-- CategoryDao 생성 -->
+	<bean id="category_dao" class="dao.CategoryDaoImpl">
+		<property name="sqlSession" ref="sqlSession" />
 	</bean>
 	
+	<!-- DetailCategoryDao 생성 -->
+	<bean id="d_category_dao" class="dao.DetailCategoryDaoImpl">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
 </beans>

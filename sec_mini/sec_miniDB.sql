@@ -31,20 +31,8 @@ DROP SEQUENCE category_no_seq;
 DROP SEQUENCE d_category_no_seq;
 
 -- 테이블 삭제
-DROP TABLE Comment_Likes;
-DROP TABLE Comments;
-DROP TABLE Board;
-DROP TABLE Cash;
-DROP TABLE Scrap;
-DROP TABLE Aboard;
-DROP TABLE Sb;
-DROP TABLE BidPlayer;
-DROP TABLE Bid;
-DROP TABLE Product;
-DROP TABLE D_Category;
-DROP TABLE Category;
-DROP TABLE Charge;
-DROP TABLE Users;
+
+
 
 -- 시퀀스 생성
 CREATE SEQUENCE aboard_no_seq;
@@ -235,7 +223,6 @@ CREATE TABLE Comment_Likes (
 	CONSTRAINT fk_commentlike_commentNo FOREIGN KEY (commentNo)
 	REFERENCES Comments(commentNo) ON DELETE CASCADE
 );
-
 insert into Users values(user_no_seq.nextval, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
 insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);
 
@@ -379,7 +366,8 @@ select * from Product
 select * from Bid
 -- 경매 조회
 select * from Aboard
-
+-- 경매 조회
+select * from Users
 
 select * from category
 -- 전체 조회
@@ -502,3 +490,10 @@ insert into aboard values(
 		)
 
 */
+
+
+
+
+
+
+
