@@ -197,14 +197,18 @@ CREATE TABLE Cash (
 
 -- Board 테이블 생성
 CREATE TABLE Board (
-	boardNo NUMBER PRIMARY KEY,
-	userNo NUMBER NOT NULL,
-	title VARCHAR2(200) NOT NULL,
-	boardContent VARCHAR2(2000) NOT NULL,
-	createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	updateAt TIMESTAMP,
-	CONSTRAINT fk_board_userNo FOREIGN KEY (userNo)
-	REFERENCES Users(userNo) ON DELETE CASCADE
+    boardNo NUMBER PRIMARY KEY, -- 게시글 번호
+    nickName  VARCHAR2(200) NOT NULL, -- 회원의 닉네임
+    userNo NUMBER NOT NULL, -- 회원 번호
+    title VARCHAR2(200) NOT NULL, -- 제목
+    boardContent VARCHAR2(2000) NOT NULL, -- 내용
+    createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 작성일
+    b_readhit INT DEFAULT 0, -- 조회수
+    updateAt TIMESTAMP, -- 수정일
+    CONSTRAINT fk_board_userNo FOREIGN KEY (userNo)
+        REFERENCES Users(userNo) ON DELETE CASCADE,
+    CONSTRAINT fk_board_nickName FOREIGN KEY (nickName)
+        REFERENCES Users(nickName) ON DELETE CASCADE
 );
 
 -- Comments 테이블 생성
