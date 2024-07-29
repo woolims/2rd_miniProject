@@ -74,4 +74,21 @@ public class BidController {
 		return "bid/bid_main";
 	}
 	
+//	유저마다 처음으로 입찰성공시 작동할 메소드
+	@RequestMapping("bid_success1.do")
+	public String bid_success1(BidVo vo) {
+		
+		int res = bid_dao.bid_success1(vo);
+		
+		return "bid/bid_main";
+	}
+	
+//	유저마다 재입찰성공시 작동할 메소드
+	@RequestMapping("bid_success2.do")
+	public String bid_success2(BidVo vo) {
+		
+		int res = bid_dao.bid_success2(vo);
+		
+		return "bid/bid_main";
+	}
 }

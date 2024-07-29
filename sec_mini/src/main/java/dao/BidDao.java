@@ -63,5 +63,17 @@ public class BidDao {
 
 		return sqlSession.selectOne("bid.cashCheck", userNo);
 	}
+	
+//	유저마다 처음으로 입찰성공시 작동할 sql문
+	public int bid_success1(BidVo vo) {
+		
+		return sqlSession.insert("bid.bid_success1", vo);
+	}
+	
+//	유저마다 재입찰성공시 작동할 sql문
+	public int bid_success2(BidVo vo) {
+		
+		return sqlSession.update("bid.bid_success2", vo);
+	}
 
 }

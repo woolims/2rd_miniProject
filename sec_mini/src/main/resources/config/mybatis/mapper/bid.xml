@@ -24,14 +24,6 @@
 	select startPrice from Product where pNo=#{pNo}
 </select>
 
-
-<!-- 경매에 참가한 사람의 정보 -->
-<insert id="users_bid_insert" parameterType="bid">
-	insert into BidPlayer values(#{bidNo},
-							 	 #{bidPNo},
-								 #{userNo},
-								 #{playPrice}
-</insert>
 <!-- 경매페이지에 띄울 최고입찰금액 -->
 <select  id="entry_bid_select" parameterType="int" resultType="int">
 	select max(entryBidPrice) from bid  where pNo=#{pNo}
@@ -47,6 +39,18 @@
 	select myCash from Users where userNo=#{userNo}
 </select>
 
+<!-- 해당 경매에 처음으로 입찰 성공시 유저의 정보 등록 -->
+<insert id="bid_success1" parameterType="bid">
+	insert into BidPlayer values(#{bidNo},
+							 	 #{bidPNo},
+								 #{userNo},
+								 #{playPrice}
+</insert>
+
+<!-- 해당 경메에 재입찰 성공시 유저의 정보업데이트 -->
+<update id="bid_success2" parameterType="int">
+	update Bid_Player_User_PView set playPrice = #{playPrice} where bidNo=#{bidNo} 
+</update>
 
 
 </mapper>
