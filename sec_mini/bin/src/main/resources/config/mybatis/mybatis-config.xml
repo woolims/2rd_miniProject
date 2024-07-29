@@ -10,20 +10,10 @@
 	
 	<typeAliases>
 		<typeAlias type="vo.UserVo" alias="user"/>
-		<typeAlias type="vo.ProductVo" alias="product"/>
-		<typeAlias type="vo.BidVo" alias="bid"/>
-		<typeAlias type="vo.AboardVo" alias="aboard"/>
-		<typeAlias type="vo.BoardVo" alias="board"/>
-		<typeAlias type="vo.BidVo" alias="bid"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="config/mybatis/mapper/user.xml" />
-		<mapper resource="config/mybatis/mapper/product.xml" />
-		<mapper resource="config/mybatis/mapper/bid.xml" />
-		<mapper resource="config/mybatis/mapper/aboard.xml" />
-		<mapper resource="config/mybatis/mapper/board.xml" />
-		<mapper resource="config/mybatis/mapper/bid.xml" />
 	</mappers>
 	
 </configuration>
