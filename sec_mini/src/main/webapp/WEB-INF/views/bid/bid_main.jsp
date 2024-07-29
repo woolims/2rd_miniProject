@@ -12,10 +12,13 @@
 		
 		if("${vo.startPrice}"<"${vo.entryBidPrice}"){
 			if(bid_price >= "${vo.entryBidPrice}"){
+				if("${vo.}")
 				location.href="bid_success.do?pNo=${vo.pNo}";
 				alert('입찰성공!')
 			}else{
 				alert('현재 등록된 최고입찰가보다 높게 등록해야합니다\n최고입찰가: "${vo.entryBidPrice}"')
+				f.bid_price.value="";
+				f.bid_price.focus();
 			}
 			
 		}else{

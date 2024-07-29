@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<input type="button" value="입찰페이지로 가자" onclick="location.href='bid_start.do?bidNo=1&userNo=2&pNo=1'">
+<input type="button" value="입찰페이지로 가자" onclick="location.href='bid_start.do?bidNo=${vo.}&userNo=2&pNo=1'">
 
 
 </body>

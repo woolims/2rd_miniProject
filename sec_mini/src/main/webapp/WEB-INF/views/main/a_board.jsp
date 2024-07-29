@@ -109,7 +109,7 @@
 						</div>
 					</div>
 					<c:if test="${ user.userNo ne vo.userNo }">
-						<input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;" onclick="location.href='bid_start.do?bidNo=1&userNo=1&pNo=1'">
+						<input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;" onclick="location.href='bid_start.do?bidNo=${vo.bidNo}&userNo=${vo.userNo}&pNo=${vo.pNo}'">
 					</c:if>
 					<c:if test="${ user.userNo eq vo.userNo }">
 						<input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px;">
