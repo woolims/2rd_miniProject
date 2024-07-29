@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<footer class="container-fluid text-center">
+<footer class="container-fluid text-center" style="background-color: #252525; color: #fff; padding: 20px; text-align: center;">
   <p>Footer Text</p>
 </footer>
 

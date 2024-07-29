@@ -31,20 +31,8 @@ DROP SEQUENCE category_no_seq;
 DROP SEQUENCE d_category_no_seq;
 
 -- 테이블 삭제
-DROP TABLE Comment_Likes;
-DROP TABLE Comments;
-DROP TABLE Board;
-DROP TABLE Cash;
-DROP TABLE Scrap;
-DROP TABLE Aboard;
-DROP TABLE Sb;
-DROP TABLE BidPlayer;
-DROP TABLE Bid;
-DROP TABLE Product;
-DROP TABLE D_Category;
-DROP TABLE Category;
-DROP TABLE Charge;
-DROP TABLE Users;
+
+
 
 -- 시퀀스 생성
 CREATE SEQUENCE aboard_no_seq;
@@ -235,9 +223,8 @@ CREATE TABLE Comment_Likes (
 	CONSTRAINT fk_commentlike_commentNo FOREIGN KEY (commentNo)
 	REFERENCES Comments(commentNo) ON DELETE CASCADE
 );
-
 insert into Users values(user_no_seq.nextval, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
-insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, 1000000);
+insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);
 
 INSERT INTO Category VALUES (category_no_seq.nextVal, '자동차 및 차량');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '패션 및 액세서리');
@@ -379,7 +366,8 @@ select * from Product
 select * from Bid
 -- 경매 조회
 select * from Aboard
-
+-- 경매 조회
+select * from Users
 
 select * from category
 -- 전체 조회
@@ -416,6 +404,8 @@ INNER JOIN Bid b ON p.pNo = b.pNo
 INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
 
+
+========================================================================================================================================================================
 select * from Aboard a, Product p, Bid b, Category c where a.pNo = p.pNo and p.pNo = b.pNo and p.categoryNo = c.categoryNo and c.ca
 
 --입찰 정보 조회
@@ -443,6 +433,7 @@ INNER JOIN Product p ON a.pNo = p.pNo
 INNER JOIN Bid b ON p.pNo = b.pNo
 INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
+
 
 
 SELECT DISTINCT
@@ -500,3 +491,10 @@ insert into aboard values(
 		)
 
 */
+
+
+
+
+
+
+
