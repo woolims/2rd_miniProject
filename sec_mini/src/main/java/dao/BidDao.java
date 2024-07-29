@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import vo.AboardVo;
 import vo.BidVo;
 
 public class BidDao {
@@ -33,7 +34,28 @@ public class BidDao {
 //	  
 //	 return sqlSession.selectOne("bid.selectOne_userNo"); }
 	 
-
+	public BidVo selectOne(int bidNo) {
+		return sqlSession.selectOne("bid.select_bidNo", bidNo);
+	}
+	
+	public int insertBid(AboardVo vo) {
+		System.out.println(vo.getpNo());
+		System.out.println(vo.getStartPrice());
+		System.out.println(vo.getRemaningTime());
+		System.out.println(vo.getAutoExtension());
+		
+		return sqlSession.insert("bid.bid_insert", vo);
+	}
+	
+	public int updateBid(BidVo vo) {
+		return sqlSession.update("bid.bid_update", vo);
+	}
+	
+	public int deleteBid(int bidNo) {
+		return sqlSession.delete("bid.bid_delete", bidNo);
+	}
+	
+	
 //  아무도 입찰을 안 했을 때 경매최저가
 	public int new_bid_price_select(int pNo) {
 
