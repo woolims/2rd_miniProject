@@ -203,7 +203,7 @@ function send(f){
 						
 						<div class="form-group">
 							<label>포인트</label>
-							<input type="text" class="form-control" id="point" name="point" value="${ user.point }" readonly="readonly">
+							<input type="text" class="form-control" id="myCash" name="myCash" value="${ user.myCash }" readonly="readonly">
 						</div>
 						<div><input class="btn btn-warning" type="button" value="충전하기" onclick="location.href='charge_form.do'"></div>
 						

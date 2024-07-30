@@ -2,7 +2,6 @@ package controller;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -168,11 +167,10 @@ public class UserController {
 	 @RequestMapping("/charge.do") 
 	 public String charge(UserVo vo) {
 	 
-		int res = user_dao.update_point(vo);
-		System.out.println(res);
+		int res = user_dao.update_myCash(vo);
 		 
 		if(res > 0) {
-			session.setAttribute("alertMsg", vo.getPoint()+"포인트 충전되었습니다!");
+			session.setAttribute("alertMsg", vo.getMyCash()+"포인트 충전되었습니다!");
 			
 			UserVo user = (UserVo) session.getAttribute("user");
 			user = user_dao.selectOne(user.getUserNo());
@@ -187,51 +185,9 @@ public class UserController {
 		}
 	 
 	 }
-
-	
-	/*
-	 * @RequestMapping("/charge.do") public String kakaopay() {
-	 * 
-	 * try {
-	 * 
-	 * URL kakao = new URL("https://open-api.kakaopay.com/online/v1/payment/ready");
-	 * try {
-	 * 
-	 * HttpURLConnection sc = (HttpURLConnection) kakao.openConnection();
-	 * sc.setRequestMethod("POST"); sc.setRequestProperty("Authorization",
-	 * "SECRET_KEY PRD1AEF739DE77007128FD9D23097D52F179E930");
-	 * sc.setRequestProperty("Content-Type", "application/json");
-	 * sc.setDoOutput(true);
-	 * 
-	 * String param =
-	 * "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=초코파이&quantity=1&total_amount=2200&tax_free_amount=0&approval_url=https://developers.kakao.com/success&cancel_url=https://developers.kakao.com/cancel&fail_url=https://developers.kakao.com/fail";
-	 * 
-	 * OutputStream os = sc.getOutputStream(); DataOutputStream dos = new
-	 * DataOutputStream(os); dos.writeBytes(param); dos.close();
-	 * 
-	 * int result = sc.getResponseCode();
-	 * 
-	 * InputStream is;
-	 * 
-	 * if(result == 200) {
-	 * 
-	 * is = sc.getInputStream(); } else {
-	 * 
-	 * is = sc.getErrorStream(); }
-	 * 
-	 * InputStreamReader isr = new InputStreamReader(is); BufferedReader br = new
-	 * BufferedReader(isr);
-	 * 
-	 * return br.readLine();
-	 * 
-	 * } catch (IOException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * } catch (IOException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * return "redirect:home.do"; }
-	 */
-	
-	
+	 
+	 
+	 
 }
+	
+	

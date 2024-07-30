@@ -43,8 +43,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 포인트 수정 -->
-	<update id="user_update_point" parameterType="user">
-		update users set point= point + #{ point } where userNo=#{ userNo }
+	<update id="user_update_myCash" parameterType="user">
+		update users set myCash= myCash + #{ myCash } where userNo=#{ userNo }
 	</update>
 	
 	<!-- 유저 삭제 -->

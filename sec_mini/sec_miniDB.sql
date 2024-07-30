@@ -68,7 +68,7 @@ CREATE TABLE Users (
 	userAddr VARCHAR2(200) 	NOT NULL,
 	phone    VARCHAR2(200) 	NOT NULL UNIQUE,
 	nickName VARCHAR2(200) 	NOT NULL UNIQUE,
-	point	 NUMBER			default 0,
+	myCash	 NUMBER			default 0,
 	createAt TIMESTAMP 	   	default CURRENT_TIMESTAMP
 );
 
@@ -76,21 +76,14 @@ select * from users
 update users set point=0 where userNo=2
 update users set point= point + 100 where userNo=2
 
--- Account 테이블 생성 (사용 xxxxxxxxx)
-CREATE TABLE Account (
-	acNo   	NUMBER	PRIMARY KEY
-	userNo 	NUMBER	NOT NULL
-	myCash 	NUMBER	DEFAULT 100
-	CONSTRAINT fk_account_userNo FOREIGN KEY (userNo)
-	REFERENCES Users(userNo) 	 ON DELETE CASCADE
-);
-
 -- Charge 테이블 생성
 CREATE TABLE Charge (
 	chargeNo   	NUMBER 			PRIMARY KEY,
 	chargeAmt  	NUMBER 		 	NOT NULL,
 	chargeCard 	VARCHAR2(200) 	NOT NULL
 );
+
+select * from charge
 	
 	--- API 기능 추가 못 했을 때 사용
 	yesCh char(1) default 'N' check(yesCh IN ('Y','N')),
@@ -185,8 +178,6 @@ CREATE TABLE Cash (
 	bidNo 		NUMBER 		NOT NULL,
 	payDate 	TIMESTAMP 	DEFAULT CURRENT_TIMESTAMP,
 	backPay 	char(1) 	DEFAULT 'N' CHECK(backPay IN ('Y','N')),
-	CONSTRAINT 	fk_cash_acNo 	FOREIGN KEY (acNo)
-	REFERENCES 	Account(acNo) 	ON DELETE CASCADE,
 	CONSTRAINT 	fk_cash_bidNo 	FOREIGN KEY (bidNo)
 	REFERENCES 	Bid(bidNo) 		ON DELETE CASCADE
 );
@@ -318,6 +309,7 @@ INNER JOIN Product p ON b.pNo = p.pNo
 INNER JOIN Category c ON p.categoryNo = c.categoryNo;
 
 select * from AuctionView
+drop view AuctionView
 
 CREATE VIEW Product_Total AS 
 	SELECT *
