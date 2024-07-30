@@ -36,10 +36,5 @@
 	<bean id="d_category_dao" class="dao.DetailCategoryDaoImpl">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
-	
-	<!-- QnADao 생성 -->
-	<bean id="qna_dao" class="dao.QnADao">
-		<property name="sqlSession" ref="sqlSession" />
-	</bean>
 
 </beans>

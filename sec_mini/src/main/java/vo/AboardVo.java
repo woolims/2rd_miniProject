@@ -1,25 +1,23 @@
 package vo;
 
-import java.sql.Timestamp;
-
 public class AboardVo {
 
 	int auctionBoardNo;
 	int pNo;
 	int userNo;
-	Timestamp createAt;
+	String createAt;
 	String deleteAt;
 	String endAt;
 	int viewCount;
 	
 	int bidNo;
 	int entryBidPrice;
-	Timestamp remaningTime;
-	Timestamp registrationTime;
+	String remaningTime;
+	String registrationTime;
 	String autoExtension;
 	String earlyTermination;
 	int minBidUnit;
-	Timestamp endDate;
+	String endDate;
 	
 
 	String pName;
@@ -47,10 +45,10 @@ public class AboardVo {
 	public void setBidNo(int bidNo) {
 		this.bidNo = bidNo;
 	}
-	public Timestamp getCreateAt() {
+	public String getCreateAt() {
 		return createAt;
 	}
-	public void setCreateAt(Timestamp createAt) {
+	public void setCreateAt(String createAt) {
 		this.createAt = createAt;
 	}
 	public String getDeleteAt() {
@@ -77,16 +75,16 @@ public class AboardVo {
 	public void setEntryBidPrice(int entryBidPrice) {
 		this.entryBidPrice = entryBidPrice;
 	}
-	public Timestamp getRemaningTime() {
+	public String getRemaningTime() {
 		return remaningTime;
 	}
-	public void setRemaningTime(Timestamp remaningTime) {
+	public void setRemaningTime(String remaningTime) {
 		this.remaningTime = remaningTime;
 	}
-	public Timestamp getRegistrationTime() {
+	public String getRegistrationTime() {
 		return registrationTime;
 	}
-	public void setRegistrationTime(Timestamp registrationTime) {
+	public void setRegistrationTime(String registrationTime) {
 		this.registrationTime = registrationTime;
 	}
 	public String getAutoExtension() {
@@ -107,10 +105,10 @@ public class AboardVo {
 	public void setMinBidUnit(int minBidUnit) {
 		this.minBidUnit = minBidUnit;
 	}
-	public Timestamp getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Timestamp endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public int getpNo() {

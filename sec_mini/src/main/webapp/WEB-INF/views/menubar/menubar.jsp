@@ -79,7 +79,7 @@
         <li id="home"><a href="${ pageContext.request.contextPath }/home.do">Home</a></li>
         <li id="auction"><a href="${ pageContext.request.contextPath }/auction.do">경매</a></li>
         <li id="freetalk"><a href="${ pageContext.request.contextPath }/board/freetalk.do">자유게시판</a></li>
-        <li id="QnA"><a href="${ pageContext.request.contextPath }/qna/qna.do">문의</a></li>
+        <li id="QnA"><a href="${ pageContext.request.contextPath }/qna.do">문의</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       	<!-- 로그인이 안 된 경우 -->

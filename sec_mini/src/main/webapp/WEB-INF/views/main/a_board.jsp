@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -95,7 +94,7 @@
 					<p class="p_info">사용 정도 : ${ vo.useAt }점(5점 만점)</p>
 					<p class="p_info">입찰 시작가 : ${ vo.startPrice }</p>
 					<p class="p_info">현재 입찰가 : ${ vo.entryBidPrice }</p>
-					<p class="p_info">종료 일자 : <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+					<p class="p_info">종료 일자 : ${ vo.endDate.substring(0, 15) }</p>
 					<p class="p_info">조회수 : ${ vo.viewCount }</p>
 				</div>
 				<form>
@@ -103,6 +102,7 @@
 					<input type="hidden" id="pNo" name="pNo" value="${ vo.pNo }">
 					<div class="col-sm-6 text-right">
 						<div style="margin-right: 100px;">
+							<input class="btn btn-info" type="button" value="수정하기" onclick="location.href='update_form.do?auctionBoardNo=${vo.auctionBoardNo}'">
 							<c:if test="${ user.userNo == 1 }">
 								<input class="btn btn-danger" type="button" value="삭제하기" onclick="delete_product(this.form)">
 							</c:if>
