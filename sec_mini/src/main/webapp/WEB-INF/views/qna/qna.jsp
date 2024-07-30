@@ -95,8 +95,8 @@ body {
 					<div class="col-md-6">
 						<h2>게시글 목록</h2>
 					</div>
-					<div class="col-md-6 text-right">
-						<c:if test="${ (loginUser.userId eq 'admin')}">
+					<div class="col-md-6 text-right" style="margin-top: 20px;">
+						<c:if test="${ not empty user }">
 							<button type="button" class="btn btn-primary" onclick="location.href='qna_write_form.do'">게시글 등록</button>
 						</c:if>
 					</div>
@@ -125,7 +125,7 @@ body {
 					</thead>
 					<tbody style="background-color: white;">
 						<c:forEach var="vo" items="${ list }">
-					      	<tr>
+					      	<tr onclick="location.href='qna_select.do?qnaNo=${ vo.qnaNo }'">
 					      		<td>${ vo.qnaNo }</td>
 					      		<td>${ vo.qnaTitle }</td>
 					      		<td><fmt:formatDate value="${vo.qnaCreateAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>

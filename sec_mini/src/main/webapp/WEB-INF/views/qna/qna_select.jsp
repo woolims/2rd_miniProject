@@ -75,7 +75,7 @@ body {
 
 <script type="text/javascript">
 
-	function del(boardNo){
+	function del(qnaNo){
 		
 		//console.log(mem_idx,"삭제");
 		if(confirm('정말 삭제 하시겠습니까?')==false) return;
@@ -94,10 +94,9 @@ body {
 
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <h1 class="bw">게시글 상세</h1>
-                <div class="panel-heading">
-                	<h3 class="panel-title bw" style="font-size: 30px;">${ vo.qnaTitle }</h3>
+            <div class="col-md-12 col-md-offset-0" style="margin-bottom: 50px;">
+                <div class="panel-heading" style="margin-bottom: 20px; margin-top: 50px;">
+                	<h3 class="panel-title bw" style="font-size: 30px;">제목 : ${ vo.qnaTitle }</h3>
                 	<div style="display:inline-block; float:right;">
 						<c:if test="${ (user.userId eq 'admin') or (user.userNo eq vo.userNo) }">
 							<input class="btn btn-success" type="button" value="수정"
@@ -110,9 +109,9 @@ body {
                 <br>
                 <div class="panel panel-default">
                     
-                    <div class="panel-body">
+                    <div class="panel-body" style="min-height: 500px;">
                         <p><strong>작성자:</strong> ${ vo.userName }</p>
-                        <p><strong>작성일:</strong> ${ vo.qnaCreatedAt }</p>
+                        <p><strong>작성일:</strong> ${ vo.qnaCreateAt }</p>
                         <hr>
                         <p>${ vo.qnaContent }</p>
                     </div>
