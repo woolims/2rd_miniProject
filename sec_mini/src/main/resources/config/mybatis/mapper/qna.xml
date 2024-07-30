@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+	
+	<!-- 전체조회 -->
+	<select id="select_list" resultType="qna">
+		select * from QnAView
+	</select>
+	
+	<!-- 상세조회 -->
+	<select id="selectOne_qnaNo" parameterType="int" resultType="qna">
+		select * from QnAView where qnaNo=#{ qnaNo }
+	</select>
+	
+	<!-- QnA 작성 -->
+	<insert id="qna_insert" parameterType="qna">
+		INSERT INTO qna VALUES(qna_no_seq.nextVal, #{ userNo }, #{ qnaTitle }, #{ qnaContent }, default)
+	</insert>
+	
+	<!-- QnA 삭제 -->
+	<delete id="qna_delete" parameterType="int">
+		delete from qna where qnaNo=#{ qnaNo }
+	</delete>
+	
+	<!-- QnA 수정 -->
+	<update id="qna_update" parameterType="qna">
+		update qna set qnaTitle=#{ qnaTitle },qnaContent=#{ qnaContent } where qnaNo=#{ qnaNo }
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

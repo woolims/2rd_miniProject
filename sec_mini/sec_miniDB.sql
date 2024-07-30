@@ -8,17 +8,7 @@ GRANT CONNECT, RESOURCE, CREATE SESSION TO mini2;
 
 -- 3. 추가 권한 부여
 GRANT CREATE TABLE TO mini2;
-GRANT CREATE VIEW TO mini2;<h3>인기 경매 품목</h3>
-    <c:forEach var="item" items="${ mostViewedList }">
-        <div class="product_auc" style="width:100%; margin-bottom: 20px;">
-            <div style="width:100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
-                 onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
-                <img src="${item.imagePath}" alt="사진" style="width:100%; height: auto;">
-            </div>
-            <p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
-            <p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
-        </div>
-    </c:forEach>
+GRANT CREATE VIEW TO mini2;
 GRANT CREATE PROCEDURE TO mini2;
 GRANT CREATE SEQUENCE TO mini2;
 
@@ -39,10 +29,24 @@ DROP SEQUENCE pay_no_seq;
 DROP SEQUENCE charge_no_seq;
 DROP SEQUENCE category_no_seq;
 DROP SEQUENCE d_category_no_seq;
+DROP SEQUENCE qna_no_seq;
 
 -- 테이블 삭제
-
-
+DROP TABLE QnA;
+DROP TABLE Comment_Likes;
+DROP TABLE Comments;
+DROP TABLE Board;
+DROP TABLE Cash;
+DROP TABLE Scrap;
+DROP TABLE Aboard;
+DROP TABLE Sb;
+DROP TABLE BidPlayer;
+DROP TABLE Bid;
+DROP TABLE Product;
+DROP TABLE D_Category;
+DROP TABLE Category;
+DROP TABLE Charge;
+DROP TABLE Users;
 
 -- 시퀀스 생성
 CREATE SEQUENCE aboard_no_seq;
@@ -59,6 +63,7 @@ CREATE SEQUENCE pay_no_seq;
 CREATE SEQUENCE charge_no_seq;
 CREATE SEQUENCE category_no_seq;
 CREATE SEQUENCE d_category_no_seq;
+CREATE SEQUENCE qna_no_seq;
 
 -- Users 테이블 생성
 CREATE TABLE Users (
@@ -233,6 +238,20 @@ CREATE TABLE Comment_Likes (
 	CONSTRAINT fk_commentlike_commentNo FOREIGN KEY (commentNo)
 	REFERENCES Comments(commentNo) ON DELETE CASCADE
 );
+
+-- QnA 테이블 생성
+CREATE TABLE QnA (
+	qnaNo NUMBER PRIMARY KEY,
+	userNo NUMBER NOT NULL,
+	qnaTitle VARCHAR2(200) NOT NULL,
+	qnaContent clob NOT NULL,
+	qnaCreateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT fk_qna_userNo FOREIGN KEY (userNo)
+	REFERENCES Users(userNo) ON DELETE CASCADE
+);
+
+
+-- 유저 데이터
 insert into Users values(user_no_seq.nextval, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
 insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);
 
@@ -370,6 +389,14 @@ VALUES (aboard_no_seq.nextVal, 3, 2, CURRENT_TIMESTAMP, 'N', 'N', 80);
 INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
 VALUES (aboard_no_seq.nextVal, 4, 1, CURRENT_TIMESTAMP, 'N', 'Y', 120);
 
+-- QnA 테이블의 더미 데이터
+INSERT INTO QnA (qnaNo, userNo, qnaTitle, qnaContent, qnaCreateAt)
+VALUES (qna_no_seq.nextVal, 2, 'QnA를 진행합니다.', 'QnA가 뭔가요?', default);
+INSERT INTO QnA (qnaNo, userNo, qnaTitle, qnaContent, qnaCreateAt)
+VALUES (qna_no_seq.nextVal, 2, '제 상품 좀 환불 가능할까요?', '샀는데 하자가 너무 많아요. 환불해주세요.', default);
+INSERT INTO QnA (qnaNo, userNo, qnaTitle, qnaContent, qnaCreateAt)
+VALUES (qna_no_seq.nextVal, 2, '포인트 충전이 안 되네요.', '충전을 시도했는데 충전이 안 된다고 떠요.', default);
+
 -- 상품 조회
 select * from Product
 -- 입찰 조회
@@ -413,6 +440,19 @@ INNER JOIN Product p ON a.pNo = p.pNo
 INNER JOIN Bid b ON p.pNo = b.pNo
 INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
+
+
+-- QnA 전체 조회
+CREATE OR REPLACE VIEW QnAView AS
+SELECT
+    q.qnaNo,
+	q.userNo,
+	q.qnaTitle,
+	q.qnaContent,
+	q.qnaCreateAt,
+	u.userName
+FROM QnA q
+INNER JOIN Users u ON q.userNo = u.userNo;
 
 
 ========================================================================================================================================================================
