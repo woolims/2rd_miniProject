@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,21 +24,6 @@
 	<!-- 주소검색 api -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<script type="text/javascript">
-
-   
-   
-   function find_addr(){
-	   
-	   new daum.Postcode({
-	        oncomplete: function(data) {
-	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-	            // 예제를 참고하여 다양한 활용법을 확인해 보세요. 위에 데이타가 존코드에 들가 이 존코드를 addr 인풋태그 id에 
-	            $("#userAddr").val(data.address); 	  //선택한 정보의 주소 넣기
-	        }
-	    }).open();
-   }//end:find_addr()
-</script>
 <!-- 커스텀 CSS -->
 <style>
 
@@ -118,6 +105,21 @@
 	}
 }
 </style>
+
+<script type="text/javascript">
+   
+   function find_addr(){
+	   
+	   new daum.Postcode({
+	        oncomplete: function(data) {
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+	            // 예제를 참고하여 다양한 활용법을 확인해 보세요. 위에 데이타가 존코드에 들가 이 존코드를 addr 인풋태그 id에 
+	            $("#userAddr").val(data.address); 	  //선택한 정보의 주소 넣기
+	        }
+	    }).open();
+   }//end:find_addr()
+</script>
+
 <script type="text/javascript">
 
 function send(f){
@@ -175,7 +177,7 @@ function send(f){
 						<div class="form-group form-group-flex">
 							<label>아이디</label>
 							<input type="text" class="form-control" name="userId"
-							id="userId" value="${ user.userId }"readonly="readonly">
+							id="userId" value="${ user.userId }" readonly="readonly">
 						</div>
 
 						<div class="form-group form-group-flex">
@@ -201,10 +203,11 @@ function send(f){
 						
 						<div class="form-group">
 							<label>포인트</label>
-							<input type="text" class="form-control" id="point" name="point" value="100">
+							<input type="text" class="form-control" id="myCash" name="myCash" value="${ user.myCash }" readonly="readonly">
 						</div>
+						<div><input class="btn btn-warning" type="button" value="충전하기" onclick="location.href='charge_form.do'"></div>
 						
-						<div style="text-align: center;">
+						<div style="text-align: center; margin-top: 20px;">
 							<input class="btn btn-success" type="button" value="수정하기"
 					    			onclick="send(this.form);" >
 					    	<input  class="btn btn-primary" type="button" value="회원탈퇴"
