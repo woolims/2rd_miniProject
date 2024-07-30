@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -12,120 +12,184 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style type="text/css">
+/* 기존 스타일 */
 .title_auction {
-	margin-top: 50px;
-	margin-bottom: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
-
 .cate {
-	width: 100%;
-	background: gray;
+    width: 100%;
+    background: gray;
 }
-
 .cate_si {
-	width: 25%;
-	height: 40px;
-	vertical-align: middle;
+    width: 25%;
+    height: 40px;
+    vertical-align: middle;
 }
-
 .cate_si>a {
-	color: white;
+    color: white;
 }
-
 .auction_div {
-	width: 100%;
-	margin: auto;
-	margin-top: 30px;
-	/* background: green; */
+    width: 100%;
+    margin: auto;
+    margin-top: 30px;
 }
-
 .product_auc {
-	display: inline-block;
-	width: 200px !important;
-	height: 300px;
-	border: 1px solid red;
-	text-align: center;
-	margin: auto;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	background: yellow;
+    display: inline-block;
+    width: 200px !important;
+    height: 300px;
+    border: 1px solid red;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: yellow;
+}
+.p_info {
+    margin-left: 100px;
 }
 
-.p_info{
-	 margin-left: 100px;
+.banner {
+    position: relative; /* 배너의 위치를 상대적으로 설정 */
+    width: 100%;
+    margin-bottom: 0; /* 마진 제거 */
 }
+
+.carousel-inner .item img {
+    width: 100%; /* 이미지의 너비를 컨테이너에 맞게 설정 */
+    height: auto; /* 높이는 자동으로 조정 */
+    max-height: 600px; /* 최대 높이 제한 */
+    object-fit: contain; /* 이미지를 비율에 맞게 조정 */
+}
+
+.carousel-caption {
+    position: absolute; /* 절대 위치 설정 */
+    bottom: 0 !important; /* 배너 하단에 붙이기 */
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    color: #fff; /* 텍스트 색상 */
+    padding: 20px; /* 패딩 추가 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.carousel-indicators {
+	margin-bottom: 0px !important;
+}
+
+
 </style>
 
 <script type="text/javascript">
-	
-	function delete_product(f){
-		
-		if(confirm("정말 삭제 하시겠습니까?")==false) return;
-		
-		f.action="aboard_delete.do";
-		f.submit();
-		
-	}
-	
+    function delete_product(f) {
+        if (confirm("정말 삭제 하시겠습니까?") == false) return;
+        f.action = "aboard_delete.do";
+        f.submit();
+    }
 </script>
 </head>
 <body>
 
-	<%@ include file="../menubar/menubar.jsp"%>
+    <%@ include file="../menubar/menubar.jsp"%>
 
-	<div class="container-fluid text-center">
-		<div class="content">
-			<div class="col-sm-2 sidenav"></div>
-			<div class="col-sm-8 text-left">
-				<div class="col-sm-12 text-right" style="height: 50px; margin-top: 25px;">
-					<input type="button" value="목록으로 돌아가기" onclick="location.href='auction.do?categoryNo=${vo.categoryNo}'">
-				</div>
+    <div style="background-color: #303030; color: #f1f1f1;" class="container-fluid text-center">
+        <div class="content">
+            <div style="background-color: #444444; color: #f1f1f1;" class="col-sm-2 sidenav">side</div>
+            <div class="col-sm-8 text-left">
+                <div class="col-sm-12 text-right" style="height: 50px; margin-top: 25px; z-index: 10; position: relative;">
+                    <input style="background-color: #303030; color: #f1f1f1;" type="button" value="목록으로 돌아가기" onclick="location.href='auction.do?categoryNo=${vo.categoryNo}'">
+                </div>
 
-				<div class="col-sm-1"><p style="text-align: center;"><<</p></div>
-				<div class="col-sm-10" style="border:1px solid red; text-align: center; height: 300px; margin-bottom: 20px;">
-					<div class="pro_image" style="height: 100%; margin-top: 30px;">
-						<img alt="상품 사진" src="">
-					</div>
-				</div>
-				<div class="col-sm-1"><p style="text-align: center;">>></p></div>
-				<div class="col-sm-6" style="font-weight:bold; height: 100%;">
-					<p class="p_info">상품명 : ${ vo.pName }</p>
-					<p class="p_info">카테고리 : ${ vo.categoryName }</p>
-					<p class="p_info">상품 설명 : ${ vo.pDesc }</p>
-					<p class="p_info">사용 정도 : ${ vo.useAt }점(5점 만점)</p>
-					<p class="p_info">입찰 시작가 : ${ vo.startPrice }</p>
-					<p class="p_info">현재 입찰가 : ${ vo.entryBidPrice }</p>
-					<p class="p_info">종료 일자 : <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
-					<p class="p_info">조회수 : ${ vo.viewCount }</p>
-				</div>
-				<form>
-					<input type="hidden" id="auctionBoardNo" name="auctionBoardNo" value="${ vo.auctionBoardNo }">
-					<input type="hidden" id="pNo" name="pNo" value="${ vo.pNo }">
-					<div class="col-sm-6 text-right">
-						<div style="margin-right: 100px;">
-							<c:if test="${ user.userNo == 1 }">
-								<input class="btn btn-danger" type="button" value="삭제하기" onclick="delete_product(this.form)">
-							</c:if>
+				<!-- 업로드 이미지 -->
+				<div class="banner">
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner">
+							<div class="item active">
+								<img src="resources/images/따봉도치.jpg" alt="First slide">
+								<div class="carousel-caption">
+									<h5>상품 사진</h5>
+								</div>
+							</div>
+							<div class="item">
+								<img src="resources/images/따봉도치.jpg" alt="Second slide">
+								<div class="carousel-caption">
+									<h5>상품 사진</h5>
+								</div>
+							</div>
+							<div class="item">
+								<img src="resources/images/따봉도치.jpg" alt="Third slide">
+								<div class="carousel-caption">
+									<h5>상품 사진</h5>
+								</div>
+							</div>
 						</div>
+						<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> 
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
+							<span class="sr-only">Previous</span>
+						</a> 
+						<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
 					</div>
-					<c:if test="${ user.userNo ne vo.userNo }">
-						<input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;">
-					</c:if>
-					<c:if test="${ user.userNo eq vo.userNo }">
-						<input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px;">
-					</c:if>
-				</form>
-			</div>
-			<div class="col-sm-2 sidenav">side</div>
-		</div>
-	</div>
+				</div>
 
-	<%@ include file="../menubar/footer.jsp"%>
+                <div class="col-sm-1"><p style="text-align: center;"></p></div>
+                <div class="col-sm-6" style="font-weight:bold; height: 100%; margin-top: 20px;">
+                    <p class="p_info">상품명 : ${ vo.pName }</p>
+                    <p class="p_info">카테고리 : ${ vo.categoryName }</p>
+                    <p class="p_info">상품 설명 : ${ vo.pDesc }</p>
+                    <p class="p_info">사용 정도 : ${ vo.useAt }점(5점 만점)</p>
+                    <p class="p_info">입찰 시작가 : ${ vo.startPrice }</p>
+                    <p class="p_info">현재 입찰가 : ${ vo.entryBidPrice }</p>
+                    <p class="p_info">종료 일자 : <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+                    <p class="p_info">조회수 : ${ vo.viewCount }</p>
+                </div>
+                <form>
+                    <input type="hidden" id="auctionBoardNo" name="auctionBoardNo" value="${ vo.auctionBoardNo }">
+                    <input type="hidden" id="pNo" name="pNo" value="${ vo.pNo }">
+                    <div class="col-sm-6 text-right">
+                        <div style="margin-right: 100px;">
+                            <c:if test="${ user.userNo == 1 }">
+                                <input class="btn btn-danger" type="button" value="삭제하기" onclick="delete_product(this.form)">
+                            </c:if>
+                        </div>
+                    </div>
+                    <c:if test="${ user.userNo ne vo.userNo }">
+                        <input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;">
+                    </c:if>
+                    <c:if test="${ user.userNo eq vo.userNo }">
+                        <input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px;">
+                    </c:if>
+                </form>
+            </div>
+            <div class="col-sm-2 sidenav" style="background-color: #444444; color: #f1f1f1;">
+                <h3>인기 경매 품목</h3>
+                <img src="resources/images/따봉도치.jpg" alt="사진" style="width: 300px; height: 300px;">
+                <c:forEach var="item" items="${ mostViewedList }">
+                    <div class="product_auc" style="width: 100%; margin-bottom: 20px;">
+                        <div style="width: 100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
+                             onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
+                            <img src="${item.imagePath}" alt="사진" style="width: 100%; height: auto;">
+                        </div>
+                        <p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
+                        <p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
 
-	<script>
-		$(function() {
-			$('#auction').attr('class', 'active');
-		});
-	</script>
+    <%@ include file="../menubar/footer.jsp"%>
+
+    <script>
+        $(function() {
+            $('#auction').attr('class', 'active');
+        });
+    </script>
 </body>
 </html>

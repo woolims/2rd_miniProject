@@ -97,6 +97,10 @@ body {
 .carousel-control {
     width: 5%; /* 버튼 너비 조정 */
 }
+.carousel-indicators {
+	margin-bottom: 0px !important;
+}
+
 
 
 .carousel-control .glyphicon-chevron-left,
@@ -136,21 +140,18 @@ body {
 							<div class="item active">
 								<img src="resources/images/따봉도치.jpg" alt="First slide">
 								<div class="carousel-caption">
-									<h5>배너 1</h5>
 									<p>홍보 내용 1</p>
 								</div>
 							</div>
 							<div class="item">
 								<img src="resources/images/따봉도치.jpg" alt="Second slide">
 								<div class="carousel-caption">
-									<h5>배너 2</h5>
 									<p>홍보 내용 2</p>
 								</div>
 							</div>
 							<div class="item">
 								<img src="resources/images/따봉도치.jpg" alt="Third slide">
 								<div class="carousel-caption">
-									<h5>배너 3</h5>
 									<p>홍보 내용 3</p>
 								</div>
 							</div>
