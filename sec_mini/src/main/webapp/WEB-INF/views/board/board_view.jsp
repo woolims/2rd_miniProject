@@ -233,43 +233,16 @@
     });
   }
 
-  function checkPinned(boardNo) {
-    let pinnedPosts = JSON.parse(localStorage.getItem("pinnedPosts")) || [];
-    return pinnedPosts.includes(boardNo);
-  }
-
-  function updatePinButton(boardNo) {
-    const pinButton = document.querySelector('#pin-button');
-    if (checkPinned(boardNo)) {
-      pinButton.classList.add('btn-pinned');
-      pinButton.textContent = '고정됨';
-    } else {
-      pinButton.classList.remove('btn-pinned');
-      pinButton.textContent = '고정';
-    }
-  }
-
-  function togglePin(boardNo) {
-    let pinnedPosts = JSON.parse(localStorage.getItem("pinnedPosts")) || [];
-    if (pinnedPosts.includes(boardNo)) {
-      pinnedPosts = pinnedPosts.filter(id => id !== boardNo);
-    } else {
-      pinnedPosts.push(boardNo);
-    }
-    localStorage.setItem("pinnedPosts", JSON.stringify(pinnedPosts));
-    alert("게시글 고정 상태가 변경되었습니다.");
-    updatePinButton(boardNo);
+  function togglePin(boardNo, isPinned) {
+    $.post("pin.do", { boardNo: boardNo, isPinned: isPinned }, function(response) {
+      location.reload(); // 핀 상태가 변경된 후 페이지 새로고침
+    });
   }
 
   $(document).ready(function() {
     comment_list(1);
-    updatePinButton(${vo.boardNo});
   });
 </script>
-
-
-
-
 </head>
 <body>
 
@@ -292,7 +265,7 @@
         </div>
       </c:if>
       <c:if test="${sessionScope.user.nickName eq '관리자'}">
-        <button type="button" class="btn btn-info" id="pin-button" onclick="togglePin(${vo.boardNo})">고정</button>
+        <button type="button" class="btn btn-info" id="pin-button" onclick="togglePin(${vo.boardNo}, ${vo.isPinned == 0 ? 1 : 0})">${vo.isPinned == 0 ? '고정' : '고정해제'}</button>
       </c:if>
     </div>
   </div>

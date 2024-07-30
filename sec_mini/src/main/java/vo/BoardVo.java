@@ -12,6 +12,8 @@ public class BoardVo {
     private Timestamp createAt;
     private int b_readhit;
     private Timestamp updateAt;
+    //추가
+    private int isPinned;
 
     // getters and setters
     public int getBoardNo() {
@@ -77,4 +79,16 @@ public class BoardVo {
     public void setUpdateAt(Timestamp updateAt) {
         this.updateAt = updateAt;
     }
+
+    // 새 속성에 대한 getter 및 setter 추가
+    public int getIsPinned() {
+        return isPinned;
+    }
+
+    public void setIsPinned(int isPinned) {
+        this.isPinned = isPinned;
+    }
+    
+    
+    
 }
