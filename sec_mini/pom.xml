@@ -8,7 +8,6 @@
 	<packaging>war</packaging>
 
 
-
 	<build>
 		<plugins>
 			<plugin>
@@ -25,13 +24,13 @@
 		</plugins>
 	</build>
 
-	<!-- 결제 API -->
 	<repositories>
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
 	</repositories>
+
 
 	<dependencies>
 
@@ -115,7 +114,8 @@
 		</dependency>
 
 		<!-- fileupload library -->
-		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<!--
+		https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -130,28 +130,27 @@
 			<version>1.3.1</version>
 		</dependency>
 
-		<!-- Jakarta Servlet JSP API -->
-		<!--	<dependency>
+		<!--		 Jakarta Servlet JSP API 
+		<dependency>
 	        <groupId>jakarta.servlet.jsp</groupId>
 	        <artifactId>jakarta.servlet.jsp-api</artifactId>
 	        <version>2.3.6</version>  적절한 버전으로 교체하세요 
 	    </dependency>
-	-->
-		<!-- Jakarta Servlet JSP JSTL API -->
-		<!-- <dependency>
+	
+	     Jakarta Servlet JSP JSTL API 
+	    <dependency>
 	        <groupId>jakarta.servlet.jsp.jstl</groupId>
 	        <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 	        <version>2.0.0</version>  적절한 버전으로 교체하세요 
-	    </dependency>
-		-->
+	    </dependency>-->
 
 		<!-- 결제 API -->
+
 		<dependency>
 			<groupId>com.github.iamport</groupId>
 			<artifactId>iamport-rest-client-java</artifactId>
 			<version>0.2.23</version>
 		</dependency>
-
 
 
 	</dependencies>
