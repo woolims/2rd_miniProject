@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -344,21 +345,15 @@ footer {
 
 				<div class="auction_div">
 					<c:forEach var="vo" items="${ list }">
-						<div class="col-sm-2 product_auc">
-							<div
-								style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
-								onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
-								<img alt="사진" src=""><br>
-								<br>
-							</div>
-							<br>
-							<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
-							<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p>
-							<br>
-							<p style="text-align: left; margin: 0;">남은일자 :</p>
-							${ vo.endDate.substring(0,15) }
-						</div>
-					</c:forEach>
+				      	<div class="col-sm-2 product_auc">
+				      		<div style="width:100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;" onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
+				      			<img alt="사진" src=""><br><br>
+				      		</div><br>
+				      		<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
+				      		<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p><br>
+				      		<p style="text-align: left; margin: 0;">남은일자 : </p> <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+				      	</div>
+			      	</c:forEach>
 				</div>
 			</div>
 			<div class="col-sm-2 sidenav" style="background-color: #444444; color: #f1f1f1;">
