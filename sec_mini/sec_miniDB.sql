@@ -8,17 +8,7 @@ GRANT CONNECT, RESOURCE, CREATE SESSION TO mini2;
 
 -- 3. 추가 권한 부여
 GRANT CREATE TABLE TO mini2;
-GRANT CREATE VIEW TO mini2;<h3>인기 경매 품목</h3>
-    <c:forEach var="item" items="${ mostViewedList }">
-        <div class="product_auc" style="width:100%; margin-bottom: 20px;">
-            <div style="width:100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
-                 onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
-                <img src="${item.imagePath}" alt="사진" style="width:100%; height: auto;">
-            </div>
-            <p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
-            <p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
-        </div>
-    </c:forEach>
+GRANT CREATE VIEW TO mini2;
 GRANT CREATE PROCEDURE TO mini2;
 GRANT CREATE SEQUENCE TO mini2;
 
