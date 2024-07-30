@@ -130,7 +130,6 @@
         	}
         	
         	
-			f.method = "post";
 			f.action="a_board_insert.do";
 			f.submit();
         }

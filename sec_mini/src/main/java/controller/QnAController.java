@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.QnADao;
 import vo.QnAVo;
+import vo.UserVo;
 
 @Controller
 @RequestMapping("/qna/")
@@ -53,6 +54,9 @@ public class QnAController {
 	//QnA 작성
 	@RequestMapping("qna_write.do")
 	public String qna_write(QnAVo vo) {
+		UserVo user = (UserVo) session.getAttribute("user");
+		
+		vo.setUserNo(user.getUserNo());
 		
 		int res = qna_dao.write(vo);
 		

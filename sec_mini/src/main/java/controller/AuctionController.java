@@ -103,9 +103,9 @@ public class AuctionController {
 
 		int pNo = product_dao.insertProduct(vo);
 		vo.setpNo(pNo);
-		System.out.println(vo.getAutoExtension());
+		
 		int b_res = bid_dao.insertBid(vo);
-
+		
 		int res = aboard_dao.insertAboard(vo);
 
 		return "redirect:auction.do";
