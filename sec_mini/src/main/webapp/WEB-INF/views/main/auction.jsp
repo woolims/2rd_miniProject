@@ -354,8 +354,20 @@ footer {
 			      	</c:forEach>
 				</div>
 			</div>
-			<div class="col-sm-2 sidenav"
-				style="background-color: #444444; color: #f1f1f1;">side</div>
+			<div class="col-sm-2 sidenav" style="background-color: #444444; color: #f1f1f1;">
+				<h3>인기 경매 품목</h3>
+				<img src="resources/images/따봉도치.jpg" alt="사진" style="width: 300px; height: 300px;">
+				<c:forEach var="item" items="${ mostViewedList }">
+					<div class="product_auc" style="width: 100%; margin-bottom: 20px;">
+						<div style="width: 100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
+							 onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
+							<img src="${item.imagePath}" alt="사진" style="width: 100%; height: auto;">
+						</div>
+						<p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
+						<p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
+					</div>
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 
