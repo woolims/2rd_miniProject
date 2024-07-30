@@ -167,10 +167,11 @@ public class UserController {
 	 @RequestMapping("/charge.do") 
 	 public String charge(UserVo vo) {
 	 
+		UserVo vo1 = user_dao.selectOne(vo.getUserNo());vo.setMyCash(vo1.getMyCash() + vo.getMyCash());
 		int res = user_dao.update_myCash(vo);
 		 
 		if(res > 0) {
-			session.setAttribute("alertMsg", vo.getMyCash()+"포인트 충전되었습니다!");
+			session.setAttribute("alertMsg", "포인트 충전되었습니다!");
 			
 			UserVo user = (UserVo) session.getAttribute("user");
 			user = user_dao.selectOne(user.getUserNo());

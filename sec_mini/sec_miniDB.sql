@@ -78,6 +78,9 @@ CREATE TABLE Users (
 	myCash NUMBER DEFAULT 100
 );
 
+select * from users
+update users set myCash=0 where userNo=2
+
 -- Charge 테이블 생성
 CREATE TABLE Charge (
 	chargeNo NUMBER PRIMARY KEY,

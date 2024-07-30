@@ -221,13 +221,13 @@
 						</div>
 					    				
 						 </form>
-<!-- 						<button onclick="requestPay()">결제하기</button> 결제하기 버튼 생성 -->
-					<div class="kg_pay_btn">
+						<button onclick="requestPay()">결제하기</button> <!-- 결제하기 버튼 생성 -->
+<!-- 					<div class="kg_pay_btn">
 						<button type="button" onclick="kg_request_pay()">결제하기</button>
 					</div>
 					<div class="ka_pay_btn">
 						<button type="button" onclick="ka_request_pay()">카카오페이</button>
-					</div>
+					</div> -->
 				</div>
 				</div>
 			</div>
