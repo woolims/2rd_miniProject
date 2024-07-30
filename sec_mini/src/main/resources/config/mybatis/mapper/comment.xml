@@ -62,12 +62,24 @@
 
   <!-- 댓글 수정 -->
   <update id="update" parameterType="vo.CommentVo">
-    update Comments
-    set 
-      cmt_content = #{cmt_content}, 
-      cmt_ip = #{cmt_ip}, 
-      cmt_update = current_TIMESTAMP
-    where cmt_idx = #{cmt_idx}
+	update Comments
+	set
+	cmt_content = #{cmt_content},
+	cmt_ip = #{cmt_ip},
+	cmt_update = current_TIMESTAMP
+	where cmt_idx = #{cmt_idx}
   </update>
 
+
+  <!-- 특정 댓글 조회 -->
+  <select id="selectByIdx" parameterType="int" resultType="vo.CommentVo">
+    select * from Comments where cmt_idx = #{cmt_idx}
+  </select>
+
+  <!-- 댓글 관리자 삭제 업데이트 -->
+  <update id="markCommentAsDeleted" parameterType="int">
+    update Comments 
+    set is_deleted = 1 
+    where cmt_idx = #{cmt_idx}
+  </update>
 </mapper>

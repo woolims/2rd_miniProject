@@ -1,72 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>댓글 목록</title>
-  <meta charset="utf-8">
-  <style>
-    .comment {
-      margin-bottom: 10px;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background-color: #ffffff;
-    }
-    .comment-reply {
-      margin-left: 40px;
-    }
-    .comment-author {
-      font-weight: bold;
-    }
-    .comment-date {
-      font-size: 0.9em;
-      color: #888;
-    }
-    .comment-actions, .edit-buttons {
-      text-align: right;
-    }
-    .edit-area {
-      display: none;
-      width: 100%;
-      height: 100px;
-      resize: none;
-    }
-    .like-button {
-      background-color: white;
-      border: 1px solid #ddd;
-      color: black;
-      cursor: pointer;
-    }
-    .like-button.liked {
-      background-color: #ff6666;
-      border: 1px solid #ff6666;
-      color: white;
-    }
-  </style>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script type="text/javascript">
+<title>댓글 목록</title>
+<meta charset="utf-8">
+<style>
+.comment {
+	margin-bottom: 10px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background-color: #ffffff;
+}
+
+.comment-reply {
+	margin-left: 40px;
+}
+
+.comment-author {
+	font-weight: bold;
+}
+
+.comment-date {
+	font-size: 0.9em;
+	color: #888;
+}
+
+.comment-actions, .edit-buttons {
+	text-align: right;
+}
+
+.edit-area {
+	display: none;
+	width: 100%;
+	height: 100px;
+	resize: none;
+}
+
+.like-button {
+	background-color: white;
+	border: 1px solid #ddd;
+	color: black;
+	cursor: pointer;
+}
+
+.like-button.liked {
+	background-color: #ff6666;
+	border: 1px solid #ff6666;
+	color: white;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
     var g_page = 1;
 
-    function comment_delete(cmt_idx) {
-      if (confirm("정말 삭제하시겠습니까?") == false) return;
+    function comment_delete(cmt_idx, btn) {
+    	  if (confirm("정말 삭제하시겠습니까?") == false) return;
 
-      $.ajax({
-        url: "${pageContext.request.contextPath}/comment/delete.do",
-        data: { "cmt_idx": cmt_idx },
-        dataType: "json",
-        success: function(res_data) {
-          if (res_data.result == false) {
-            alert("삭제 실패!!");
-            return;
-          }
-          comment_list(g_page);
-        },
-        error: function(err) {
-          alert(err.responseText);
-        }
-      });
-    }
+    	  $(btn).prop('disabled', true); // 버튼 비활성화하여 중복 클릭 방지
+
+    	  console.log("Deleting comment with ID:", cmt_idx); // 디버그 로그 추가
+
+    	  $.ajax({
+    	    url: "${pageContext.request.contextPath}/comment/delete.do",
+    	    data: { "cmt_idx": cmt_idx },
+    	    dataType: "json",
+    	    success: function(res_data) {
+    	      $(btn).prop('disabled', false); // 버튼 다시 활성화
+    	      console.log("Delete response:", res_data); // 디버그 로그 추가
+
+    	      if (res_data.result == false) {
+    	        alert("삭제 실패!!");
+    	        return;
+    	      }
+    	      comment_list(g_page);
+    	    },
+    	    error: function(err) {
+    	      $(btn).prop('disabled', false); // 버튼 다시 활성화
+    	      console.error("Delete error:", err.responseText); // 디버그 로그 추가
+    	      alert(err.responseText);
+    	    }
+    	  });
+    	}
 
     function comment_edit(cmt_idx) {
       $("#comment-content-" + cmt_idx).hide();
@@ -172,32 +189,53 @@
   </script>
 </head>
 <body>
-  <c:if test="${not empty list}">
-    <div style="font-size: 10px;">
-      ${pageMenu}
-    </div>
-  </c:if>
-  <c:forEach var="vo" items="${list}">
-    <div class="comment">
-      <div class="comment-author">${vo.nickName}</div>
-      <div class="comment-date">${vo.cmt_regdate}</div>
-      <div class="comment-content" id="comment-content-${vo.cmt_idx}">${vo.cmt_content}</div>
-      <textarea class="form-control edit-area" id="edit-comment-${vo.cmt_idx}">${vo.cmt_content}</textarea>
-      <c:if test="${sessionScope.user.userNo eq vo.userNo}">
-        <div class="comment-actions" id="comment-actions-${vo.cmt_idx}">
-          <button type="button" class="btn btn-sm btn-primary" onclick="comment_edit('${vo.cmt_idx}')">수정</button>
-          <button type="button" class="btn btn-sm btn-danger" onclick="comment_delete('${vo.cmt_idx}')">삭제</button>
-        </div>
-        <div class="edit-buttons" id="edit-buttons-${vo.cmt_idx}" style="display: none;">
-          <button type="button" class="btn btn-sm btn-success" onclick="comment_save('${vo.cmt_idx}')">저장</button>
-          <button type="button" class="btn btn-sm btn-secondary" onclick="comment_cancel('${vo.cmt_idx}')">취소</button>
-        </div>
-      </c:if>
-      <div>
-        <button type="button" class="like-button" data-cmt-idx="${vo.cmt_idx}" onclick="toggleLike('${vo.cmt_idx}', this)">좋아요</button>
-        <span id="like-count-${vo.cmt_idx}">${vo.likeCount}</span>
-      </div>
-    </div>
-  </c:forEach>
+	<c:if test="${not empty list}">
+		<div style="font-size: 10px;">${pageMenu}</div>
+	</c:if>
+	<c:forEach var="vo" items="${list}">
+		<div class="comment">
+			<div class="comment-author">${vo.nickName}</div>
+			<div class="comment-date">${vo.cmt_regdate}</div>
+			<c:choose>
+				<c:when test="${vo.is_deleted == 1}">
+					<div class="comment-content" id="comment-content-${vo.cmt_idx}">관리자에
+						의해 삭제된 댓글입니다.</div>
+				</c:when>
+				<c:otherwise>
+					<div class="comment-content" id="comment-content-${vo.cmt_idx}">${vo.cmt_content}</div>
+					<textarea class="form-control edit-area"
+						id="edit-comment-${vo.cmt_idx}">${vo.cmt_content}</textarea>
+					<c:if
+						test="${sessionScope.user.userNo eq vo.userNo || sessionScope.user.nickName eq '관리자'}">
+						<div class="comment-actions" id="comment-actions-${vo.cmt_idx}">
+							<c:if test="${sessionScope.user.userNo eq vo.userNo}">
+								<button type="button" class="btn btn-sm btn-primary"
+									onclick="comment_edit('${vo.cmt_idx}')">수정</button>
+							</c:if>
+							<c:if test="${sessionScope.user.userNo eq vo.userNo || sessionScope.user.nickName eq '관리자'}">
+								<button type="button" class="btn btn-sm btn-danger"
+									onclick="comment_delete('${vo.cmt_idx}', this)">삭제</button>
+							</c:if>
+						</div>
+						<c:if test="${sessionScope.user.userNo eq vo.userNo}">
+							<div class="edit-buttons" id="edit-buttons-${vo.cmt_idx}"
+								style="display: none;">
+								<button type="button" class="btn btn-sm btn-success"
+									onclick="comment_save('${vo.cmt_idx}')">저장</button>
+								<button type="button" class="btn btn-sm btn-secondary"
+									onclick="comment_cancel('${vo.cmt_idx}')">취소</button>
+							</div>
+						</c:if>
+					</c:if>
+					<div>
+						<button type="button" class="like-button"
+							data-cmt-idx="${vo.cmt_idx}"
+							onclick="toggleLike('${vo.cmt_idx}', this)">좋아요</button>
+						<span id="like-count-${vo.cmt_idx}">${vo.likeCount}</span>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</c:forEach>
 </body>
 </html>

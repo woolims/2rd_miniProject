@@ -100,6 +100,9 @@ public class UserVo {
 		this.creatAt = creatAt;
 	}
 	
+    public boolean isAdmin() {
+        return "관리자".equals(this.nickName);
+    }
 	
 	
 }

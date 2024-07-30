@@ -90,100 +90,186 @@
       display: inline;
       margin: 0 2px;
     }
+    .like-button {
+      background-color: white;
+      border: 1px solid #ddd;
+      color: black;
+      cursor: pointer;
+    }
+    .like-button.liked {
+      background-color: #ff6666;
+      border: 1px solid #ff6666;
+      color: white;
+    }
+    .btn-pinned {
+      background-color: #ffd700;
+      border: 1px solid #ffd700;
+      color: black;
+    }
   </style>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    var g_page = 1;
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+  var g_page = 1;
 
-    function comment_insert() {
-      if ("${empty sessionScope.user}" == "true") {
-        if (confirm("로그인 후 댓글쓰기가 가능합니다. 로그인 하시겠습니까?") == false) return;
-        location.href = "${pageContext.request.contextPath}/main/login_form.do?url=" + encodeURIComponent(location.href);
-        return;
-      }
+  function comment_insert() {
+    if ("${empty sessionScope.user}" == "true") {
+      if (confirm("로그인 후 댓글쓰기가 가능합니다. 로그인 하시겠습니까?") == false) return;
+      location.href = "${pageContext.request.contextPath}/main/login_form.do?url=" + encodeURIComponent(location.href);
+      return;
+    }
 
-      let cmt_content = $("#cmt_content").val().trim();
-      if (cmt_content == '') {
-        alert("댓글 내용을 입력하세요!!");
+    let cmt_content = $("#cmt_content").val().trim();
+    if (cmt_content == '') {
+      alert("댓글 내용을 입력하세요!!");
+      $("#cmt_content").val("");
+      $("#cmt_content").focus();
+      return;
+    }
+
+    $.ajax({
+      url: "${pageContext.request.contextPath}/comment/insert.do",
+      data: {
+        cmt_content: cmt_content,
+        boardNo: "${vo.boardNo}",
+        userNo: "${sessionScope.user.userNo}",
+        nickName: "${sessionScope.user.nickName}"
+      },
+      dataType: "json",
+      success: function(res_data) {
         $("#cmt_content").val("");
-        $("#cmt_content").focus();
-        return;
+        if (res_data.result == false) {
+          alert("댓글 등록 실패!!");
+          return;
+        }
+        comment_list(1);
+      },
+      error: function(err) {
+        alert(err.responseText);
       }
-
-      $.ajax({
-        url: "${pageContext.request.contextPath}/comment/insert.do",
-        data: {
-          cmt_content: cmt_content,
-          boardNo: "${vo.boardNo}",
-          userNo: "${sessionScope.user.userNo}",
-          nickName: "${sessionScope.user.nickName}"
-        },
-        dataType: "json",
-        success: function(res_data) {
-          $("#cmt_content").val("");
-          if (res_data.result == false) {
-            alert("댓글 등록 실패!!");
-            return;
-          }
-          comment_list(1);
-        },
-        error: function(err) {
-          alert(err.responseText);
-        }
-      });
-    }
-
-    function comment_list(page) {
-      g_page = page;
-
-      $.ajax({
-        url: "${pageContext.request.contextPath}/comment/list.do",
-        data: { "boardNo": "${vo.boardNo}", "page": page },
-        success: function(res_data) {
-          $("#comment_display").html(res_data);
-          // 페이지네이션을 클릭할 때만 스크롤 이동
-          if (page != 1) {
-            $('html, body').scrollTop($('.comment-section').offset().top);
-          }
-        },
-        error: function(err) {
-          alert(err.responseText);
-        }
-      });
-    }
-
-    function likeComment(cmt_idx) {
-        // 세션에서 사용자 정보가 존재하는지 확인
-        const user = ${sessionScope.user != null ? 'true' : 'false'};
-        
-        if (!user) {
-            alert("로그인 후 좋아요를 누를 수 있습니다.");
-            return;
-        }
-
-        $.ajax({
-            url: "${pageContext.request.contextPath}/comment/likes/add.do",
-            type: "POST",
-            data: { cmt_idx: cmt_idx },
-            dataType: "json", // 서버 응답을 JSON으로 자동 파싱
-            success: function(response) {
-                if (response.result === true) {
-                    alert("좋아요가 성공적으로 반영되었습니다.");
-                    comment_list(g_page);
-                } else {
-                    alert(response.message || "좋아요 처리 중 오류가 발생했습니다.");
-                }
-            },
-            error: function(xhr, status, error) {
-                alert("좋아요 처리 중 오류가 발생했습니다: " + error);
-            }
-        });
-    }
-
-    $(document).ready(function() {
-      comment_list(1);
     });
-  </script>
+  }
+
+  function comment_list(page) {
+    g_page = page;
+
+    $.ajax({
+      url: "${pageContext.request.contextPath}/comment/list.do",
+      data: { "boardNo": "${vo.boardNo}", "page": page },
+      success: function(res_data) {
+        $("#comment_display").html(res_data);
+        // 페이지네이션을 클릭할 때만 스크롤 이동
+        if (page != 1) {
+          $('html, body').scrollTop($('.comment-section').offset().top);
+        }
+      },
+      error: function(err) {
+        alert(err.responseText);
+      }
+    });
+  }
+
+  function toggleLike(cmt_idx, btn) {
+    if ("${empty sessionScope.user}" == "true") {
+      alert("로그인 후 좋아요를 누를 수 있습니다.");
+      return;
+    }
+
+    $.ajax({
+      url: "${pageContext.request.contextPath}/comment/likes/toggle.do",
+      type: "POST",
+      data: { cmt_idx: cmt_idx },
+      dataType: "json",
+      success: function(response) {
+        if (response.result === "success") {
+          if (response.action === "added") {
+            $(btn).addClass("liked");
+          } else {
+            $(btn).removeClass("liked");
+          }
+          updateLikeCount(cmt_idx);
+        } else {
+          alert(response.message || "좋아요 처리 중 오류가 발생했습니다.");
+        }
+      },
+      error: function(xhr, status, error) {
+        alert("좋아요 처리 중 오류가 발생했습니다: " + error);
+      }
+    });
+  }
+
+  function comment_delete(cmt_idx, btn) {
+    if (confirm("정말 삭제하시겠습니까?") == false) return;
+
+    $(btn).prop('disabled', true); // 버튼 비활성화하여 중복 클릭 방지
+
+    $.ajax({
+      url: "${pageContext.request.contextPath}/comment/delete.do",
+      data: { "cmt_idx": cmt_idx },
+      dataType: "json",
+      success: function(res_data) {
+        $(btn).prop('disabled', false); // 버튼 다시 활성화
+
+        if (res_data.result == false) {
+          alert("삭제 실패!!");
+          return;
+        }
+        comment_list(g_page);
+      },
+      error: function(err) {
+        $(btn).prop('disabled', false); // 버튼 다시 활성화
+        alert(err.responseText);
+      }
+    });
+  }
+
+  function updateLikeCount(cmt_idx) {
+    $.ajax({
+      url: "${pageContext.request.contextPath}/comment/likes/count.do",
+      data: { cmt_idx: cmt_idx },
+      dataType: "json",
+      success: function(response) {
+        $("#like-count-" + cmt_idx).text(response.count);
+      }
+    });
+  }
+
+  function checkPinned(boardNo) {
+    let pinnedPosts = JSON.parse(localStorage.getItem("pinnedPosts")) || [];
+    return pinnedPosts.includes(boardNo);
+  }
+
+  function updatePinButton(boardNo) {
+    const pinButton = document.querySelector('#pin-button');
+    if (checkPinned(boardNo)) {
+      pinButton.classList.add('btn-pinned');
+      pinButton.textContent = '고정됨';
+    } else {
+      pinButton.classList.remove('btn-pinned');
+      pinButton.textContent = '고정';
+    }
+  }
+
+  function togglePin(boardNo) {
+    let pinnedPosts = JSON.parse(localStorage.getItem("pinnedPosts")) || [];
+    if (pinnedPosts.includes(boardNo)) {
+      pinnedPosts = pinnedPosts.filter(id => id !== boardNo);
+    } else {
+      pinnedPosts.push(boardNo);
+    }
+    localStorage.setItem("pinnedPosts", JSON.stringify(pinnedPosts));
+    alert("게시글 고정 상태가 변경되었습니다.");
+    updatePinButton(boardNo);
+  }
+
+  $(document).ready(function() {
+    comment_list(1);
+    updatePinButton(${vo.boardNo});
+  });
+</script>
+
+
+
+
 </head>
 <body>
 
@@ -204,6 +290,9 @@
             <li><a href="#" onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='delete.do?boardNo=${vo.boardNo}'">삭제</a></li>
           </ul>
         </div>
+      </c:if>
+      <c:if test="${sessionScope.user.nickName eq '관리자'}">
+        <button type="button" class="btn btn-info" id="pin-button" onclick="togglePin(${vo.boardNo})">고정</button>
       </c:if>
     </div>
   </div>
@@ -248,4 +337,3 @@
 
 </body>
 </html>
-

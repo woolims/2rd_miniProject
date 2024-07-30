@@ -76,20 +76,35 @@ CREATE TABLE Users (
 
 
 -- Board 테이블 생성
-CREATE TABLE Board (
-    boardNo NUMBER PRIMARY KEY, -- 게시글 번호
-    nickName  VARCHAR2(200) NOT NULL, -- 회원의 닉네임
-    userNo NUMBER NOT NULL, -- 회원 번호
-    title VARCHAR2(200) NOT NULL, -- 제목
-    boardContent VARCHAR2(2000) NOT NULL, -- 내용
-    createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 작성일
-    b_readhit INT DEFAULT 0, -- 조회수
-    updateAt TIMESTAMP, -- 수정일
-    CONSTRAINT fk_board_userNo FOREIGN KEY (userNo)
-        REFERENCES Users(userNo) ON DELETE CASCADE,
-    CONSTRAINT fk_board_nickName FOREIGN KEY (nickName)
-        REFERENCES Users(nickName) ON DELETE CASCADE
+CREATE TABLE Comments (
+    cmt_idx      int PRIMARY KEY,        -- 일련번호
+    cmt_content  VARCHAR2(2000),         -- 내용
+    cmt_ip       VARCHAR2(200),          -- 아이피
+    cmt_regdate  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 등록일자
+    cmt_update   TIMESTAMP,              -- 수정일자
+    boardNo      int,                    -- 게시물번호
+    userNo       int,                    -- 회원번호
+    nickName     VARCHAR2(200),          -- 회원 닉네임
+    CONSTRAINT FK_COMMENTS_BOARDNO FOREIGN KEY (boardNo) REFERENCES Board(boardNo) ON DELETE CASCADE
 );
+
+-- 외래키
+alter table Comments
+   add constraint fk_comments_boardNo foreign key(boardNo)
+                                      references Board(boardNo);
+
+alter table Comments
+   add constraint fk_comments_userNo foreign key(userNo)
+                                        references Users(userNo); 
+alter table Comments
+   add constraint fk_comments_nickName foreign key(nickName)
+                                        references Users(nickName); 
+                                        
+--댓글 삭제여부( 관리자인지, 아닌지) 
+ALTER TABLE Comments ADD is_deleted NUMBER(1) DEFAULT 0;
+
+
+
 
 INSERT INTO Board VALUES (board_no_seq.NEXTVAL, '관리자', 1, '제목입니다.', '내용입니다.', DEFAULT, 0, TO_TIMESTAMP('2024-07-24', 'YYYY-MM-DD'));
 
@@ -124,6 +139,8 @@ INCREMENT BY 1
 NOCACHE;
 
 
+
+
 CREATE TABLE Comments (
     cmt_idx      int PRIMARY KEY,        -- 일련번호
     cmt_content  VARCHAR2(2000),         -- 내용
@@ -137,17 +154,18 @@ CREATE TABLE Comments (
 );
 
 
--- 외래키
-alter table Comments
-   add constraint fk_comments_boardNo foreign key(boardNo)
-                                      references Board(boardNo);
+--- 외래키 설정
+ALTER TABLE Comment_Likes
+   ADD CONSTRAINT fk_comment_likes_cmt_idx FOREIGN KEY(cmt_idx)
+                                      REFERENCES Comments(cmt_idx) ON DELETE CASCADE;
 
-alter table Comments
-   add constraint fk_comments_userNo foreign key(userNo)
-                                        references Users(userNo); 
-alter table Comments
-   add constraint fk_comments_nickName foreign key(nickName)
-                                        references Users(nickName); 
+ALTER TABLE Comment_Likes
+   ADD CONSTRAINT fk_comment_likes_userNo FOREIGN KEY(userNo)
+                                      REFERENCES Users(userNo) ON DELETE CASCADE;
+
+-- 유니크 제약 조건 추가
+ALTER TABLE Comment_Likes
+ADD CONSTRAINT unique_user_comment_likes UNIQUE (cmt_idx, userNo);
 
 select * from
 (

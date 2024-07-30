@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,15 +34,35 @@
     .table th, .table td {
       text-align: center;
     }
+    .pinned-post {
+      background-color: pink; /* 고정된 게시글을 위한 배경색 */
+    }
   </style>
-  
-   <script type="text/javascript">
+  <script type="text/javascript">
     function insert_form(){
       //새글쓰기 폼 띄우기
       location.href = "<%=request.getContextPath()%>/board/insert_form.do";
     }
+
+    // 고정된 게시글을 상단에 표시하기 위한 함수
+    function displayPinnedPosts() {
+      let pinnedPosts = JSON.parse(localStorage.getItem("pinnedPosts")) || [];
+      if (pinnedPosts.length > 0) {
+        pinnedPosts.forEach(function(postId) {
+          let postElement = document.getElementById("post-" + postId);
+          if (postElement) {
+            postElement.classList.add("pinned-post");
+            postElement.querySelector('.post-no').innerHTML = '<span class="glyphicon glyphicon-pushpin"></span>';
+            postElement.parentElement.prepend(postElement);
+          }
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      displayPinnedPosts();
+    });
   </script>
-  
 </head>
 <body>
 
@@ -85,8 +105,8 @@
       </thead>
       <tbody>
         <c:forEach var="vo" items="${list}">
-          <tr>
-            <td>${vo.boardNo}</td>
+          <tr id="post-${vo.boardNo}">
+            <td class="post-no">${vo.boardNo}</td>
             <td><a href="view.do?boardNo=${vo.boardNo}">${vo.title}</a></td>
             <td>${vo.nickName}</td>
             <td>${vo.createAt}</td>
@@ -103,3 +123,4 @@
 
 </body>
 </html>
+

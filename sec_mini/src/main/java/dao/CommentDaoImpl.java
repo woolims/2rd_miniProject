@@ -44,4 +44,17 @@ public class CommentDaoImpl implements CommentDao {
     public int update(CommentVo vo) {
         return sqlSession.update("comment.update", vo);
     }
+    
+    private static final String NAMESPACE = "comment";
+    
+    
+    @Override
+    public CommentVo selectByIdx(int cmt_idx) {
+        return sqlSession.selectOne(NAMESPACE + ".selectByIdx", cmt_idx);
+    }
+    
+    @Override
+    public int markCommentAsDeleted(int cmt_idx) {
+        return sqlSession.update(NAMESPACE + ".markCommentAsDeleted", cmt_idx);
+    }
 }
