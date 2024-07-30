@@ -21,9 +21,16 @@ public class BidDao {
 
 		return sqlSession.selectList("bid.select_bid");
 	}
+	
+//	입찰자 전체 조회
+	public BidVo select_bid_player() {
+
+		return sqlSession.selectOne("bid.select_bid_player");
+	}
+	
 
 //	입찰페이지 번호만 조회
-	public int selectOne_bidNo() {
+	public BidVo selectOne_bidNo() {
 
 		return sqlSession.selectOne("bid.selectOne_bidNo");
 	}
@@ -93,11 +100,22 @@ public class BidDao {
 		
 		return sqlSession.update("bid.bid_success2", vo);
 	}
+
 	
 //	특정 경매에 참여하는 유저를 구별하기위한 sql문
-	public List<BidVo> bid_check(int vo){
+	public List<BidVo> bid_check(BidVo  vo){
 
 		return sqlSession.selectList("bid.bid_check", vo);
 	}
+	
+//	재입찰하는 유저번호를 체크하는 sql문
+	public BidVo re_user_check(BidVo vo) {
+		
+		return sqlSession.selectOne("bid.re_user_check",vo);
+	}
+
+
+
+	
 
 }

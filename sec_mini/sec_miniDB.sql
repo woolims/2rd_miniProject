@@ -340,18 +340,26 @@ VALUES (p_no_seq.nextVal, 'Product B', 1, 2, 'product_b.png', 'Description of Pr
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
 VALUES (p_no_seq.nextVal, 'Product C', 1, 2, 'product_c.png', 'Description of Product C', 4, 12000, 8);
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
-VALUES (p_no_seq.nextVal, 'Product D', 2, 6, 'product_d.png', 'Description of Product D', 5, 18000, 3);
+VALUES (p_no_seq.nextVal, 'Product D', 2, 1, 'product_d.png', 'Description of Product D', 4, 20000, 8);
+INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
+VALUES (p_no_seq.nextVal, 'Product E', 4, 2, 'product_e.png', 'Description of Product E', 4, 29000, 8);
+
+--select *from Product
+--delete from Product
 
 -- 입찰 테이블의 더미 데이터
 INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (bid_no_seq.nextVal, 1, 8000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY);
+VALUES (bid_no_seq.nextVal, 1, 15000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY);
 INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
 VALUES (bid_no_seq.nextVal, 2, 12000, CURRENT_TIMESTAMP + INTERVAL '2' DAY, CURRENT_TIMESTAMP, 'N', 'Y', 1000, CURRENT_TIMESTAMP + INTERVAL '2' DAY);
 INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
 VALUES (bid_no_seq.nextVal, 3, 9000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 'N', 'N', 700, CURRENT_TIMESTAMP + INTERVAL '4' DAY);
 INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (bid_no_seq.nextVal, 4, 15000, CURRENT_TIMESTAMP + INTERVAL '1' DAY, CURRENT_TIMESTAMP, 'Y', 'Y', 2000, CURRENT_TIMESTAMP + INTERVAL '1' DAY);
+VALUES (bid_no_seq.nextVal, 4, 90000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 'N', 'N', 1200, CURRENT_TIMESTAMP + INTERVAL '4' DAY);
 
+--select *from Bid
+
+--delete from Bid 
 
 -- 입찰자 테이블의 더미 데이터
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
@@ -361,11 +369,14 @@ VALUES (bidP_no_seq.nextval, 1, 2, 2200);
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
 VALUES (bidP_no_seq.nextval, 2, 1, 3000);
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 2, 2, 1000);
+VALUES (bidP_no_seq.nextval, 3, 2, 1000);
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 3, 1, 10000);
+VALUES (bidP_no_seq.nextval, 4, 1, 10000);
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
 VALUES (bidP_no_seq.nextval, 4, 1, 321000);
+
+--select * from BidPlayer
+--delete from BidPlayer 
 
 -- 경매 테이블의 더미 데이터
 INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
@@ -374,8 +385,9 @@ INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, view
 VALUES (aboard_no_seq.nextVal, 2, 1, CURRENT_TIMESTAMP, 'N', 'Y', 50);
 INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
 VALUES (aboard_no_seq.nextVal, 3, 2, CURRENT_TIMESTAMP, 'N', 'N', 80);
-INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
-VALUES (aboard_no_seq.nextVal, 4, 1, CURRENT_TIMESTAMP, 'N', 'Y', 120);
+
+--delete from Aboard 
+--select * from Aboard
 
 -- 상품 조회
 select * from Product
@@ -445,8 +457,6 @@ FROM Bid b
 INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
 INNER JOIN Users u ON bp.userNo = u.userNo
 INNER JOIN Product p ON b.pNo = p.pNo;
-
-
 ========================================================================================================================================================================
 select * from Aboard a, Product p, Bid b, Category c where a.pNo = p.pNo and p.pNo = b.pNo and p.categoryNo = c.categoryNo and c.ca
 

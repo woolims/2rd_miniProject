@@ -9,6 +9,7 @@ public class BidVo {
 	String earlyTermination;
 	int minBidUnit;
 	String endDate;
+	int bidPNo;
 	int userNo;
 	int bidNo;
 	int pNo;
@@ -21,6 +22,12 @@ public class BidVo {
 	int pPieces;
 	
 	
+	public int getBidPNo() {
+		return bidPNo;
+	}
+	public void setBidPNo(int bidPNo) {
+		this.bidPNo = bidPNo;
+	}
 	public int getEntryBidPrice() {
 		return entryBidPrice;
 	}
