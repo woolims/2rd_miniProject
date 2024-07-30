@@ -85,24 +85,24 @@ body {
   				console.log(editor.getData());
   				
   				//입력값 검증
-  				let boardTitle 	= f.boardTitle.value.trim();
-  				let boardContent	= editor.getData();
+  				let qnaTitle 	= f.qnaTitle.value.trim();
+  				let qnaContent	= editor.getData();
   				
-  				f.boardContent.value = boardContent;
+  				f.qnaContent.value = qnaContent;
   				
-  				console.log(f.boardContent.value);
+  				console.log(f.qnaContent.value);
   				
-  				if(boardTitle==''){
+  				if(qnaTitle==''){
   					alert("제목을 입력하세요.");
-  					f.boardTitle.value=""; //지우기
-  					f.boardTitle.focus();
+  					f.qnaTitle.value=""; //지우기
+  					f.qnaTitle.focus();
   					return;
   				}
   				
-  				if(boardContent==''){
+  				if(qnaContent==''){
   					alert("내용을 입력하세요.");
-  					f.boardContent.value=""; //지우기
-  					f.boardContent.focus();
+  					f.qnaContent.value=""; //지우기
+  					f.qnaContent.focus();
   					return;
   				}
   				
@@ -123,12 +123,12 @@ body {
                 <form>
                     <div class="form-group">
                         <label for="title">제목</label>
-                        <input type="text" class="form-control" id="boardTitle" name="boardTitle" required>
+                        <input type="text" class="form-control" id="qnaTitle" name="qnaTitle" required>
                     </div>
                     <div class="form-group">
                         <label for="content">내용</label>
                         <div id="editor">
-                        	<textarea name="boardContent"></textarea>
+                        	<textarea name="qnaContent"></textarea>
                         </div>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="send(this.form)">등록</button>

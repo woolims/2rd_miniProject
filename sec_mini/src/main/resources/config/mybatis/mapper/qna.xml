@@ -11,22 +11,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 상세조회 -->
 	<select id="selectOne_qnaNo" parameterType="int" resultType="qna">
-		select * from QnAView where qnaNo=#{ qnaNo }
+		select * from QnAView where qnaNo=#{qnaNo}
 	</select>
 	
 	<!-- QnA 작성 -->
 	<insert id="qna_insert" parameterType="qna">
-		INSERT INTO qna VALUES(qna_no_seq.nextVal, #{ userNo }, #{ qnaTitle }, #{ qnaContent }, default)
+		INSERT INTO QnA VALUES(qna_no_seq.nextVal, #{userNo}, #{qnaTitle}, #{qnaContent}, default)
 	</insert>
 	
 	<!-- QnA 삭제 -->
 	<delete id="qna_delete" parameterType="int">
-		delete from qna where qnaNo=#{ qnaNo }
+		delete from QnA where qnaNo=#{qnaNo}
 	</delete>
 	
 	<!-- QnA 수정 -->
 	<update id="qna_update" parameterType="qna">
-		update qna set qnaTitle=#{ qnaTitle },qnaContent=#{ qnaContent } where qnaNo=#{ qnaNo }
+		update qna set qnaTitle=#{qnaTitle},qnaContent=#{qnaContent} where qnaNo=#{qnaNo}
 	</update>
 	
 </mapper>

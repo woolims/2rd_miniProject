@@ -250,7 +250,6 @@ CREATE TABLE QnA (
 	REFERENCES Users(userNo) ON DELETE CASCADE
 );
 
-
 -- 유저 데이터
 insert into Users values(user_no_seq.nextval, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
 insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);

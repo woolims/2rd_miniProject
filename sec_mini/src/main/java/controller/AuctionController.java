@@ -90,7 +90,9 @@ public class AuctionController {
 	public String a_board_insert(AboardVo vo) {
 		
 		UserVo user = (UserVo) session.getAttribute("user");
-
+		
+		System.out.println(user.getUserNo());
+		
 		// session timeout
 		if (user == null) {
 

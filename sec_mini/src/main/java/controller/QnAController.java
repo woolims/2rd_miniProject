@@ -56,6 +56,11 @@ public class QnAController {
 	public String qna_write(QnAVo vo) {
 		UserVo user = (UserVo) session.getAttribute("user");
 		
+		// session timeout
+		if (user == null) {
+			return "redirect:../login_form.do";
+		}
+				
 		vo.setUserNo(user.getUserNo());
 		
 		int res = qna_dao.write(vo);
