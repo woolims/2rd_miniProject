@@ -14,7 +14,7 @@ public class AboardVo {
 	
 	int bidNo;
 	int entryBidPrice;
-	Timestamp remaningTime;
+	String remaningTime;
 	Timestamp registrationTime;
 	String autoExtension;
 	String earlyTermination;
@@ -41,11 +41,17 @@ public class AboardVo {
 	public void setAuctionBoardNo(int auctionBoardNo) {
 		this.auctionBoardNo = auctionBoardNo;
 	}
-	public int getBidNo() {
-		return bidNo;
+	public int getpNo() {
+		return pNo;
 	}
-	public void setBidNo(int bidNo) {
-		this.bidNo = bidNo;
+	public void setpNo(int pNo) {
+		this.pNo = pNo;
+	}
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 	public Timestamp getCreateAt() {
 		return createAt;
@@ -71,16 +77,22 @@ public class AboardVo {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
+	public int getBidNo() {
+		return bidNo;
+	}
+	public void setBidNo(int bidNo) {
+		this.bidNo = bidNo;
+	}
 	public int getEntryBidPrice() {
 		return entryBidPrice;
 	}
 	public void setEntryBidPrice(int entryBidPrice) {
 		this.entryBidPrice = entryBidPrice;
 	}
-	public Timestamp getRemaningTime() {
+	public String getRemaningTime() {
 		return remaningTime;
 	}
-	public void setRemaningTime(Timestamp remaningTime) {
+	public void setRemaningTime(String remaningTime) {
 		this.remaningTime = remaningTime;
 	}
 	public Timestamp getRegistrationTime() {
@@ -112,12 +124,6 @@ public class AboardVo {
 	}
 	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
-	}
-	public int getpNo() {
-		return pNo;
-	}
-	public void setpNo(int pNo) {
-		this.pNo = pNo;
 	}
 	public String getpName() {
 		return pName;
@@ -178,12 +184,6 @@ public class AboardVo {
 	}
 	public void setD_categoryName(String d_categoryName) {
 		this.d_categoryName = d_categoryName;
-	}
-	public int getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
 	}
 	
 	

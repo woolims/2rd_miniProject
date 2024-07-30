@@ -88,25 +88,29 @@ public class AuctionController {
 
 	@RequestMapping("/a_board_insert.do")
 	public String a_board_insert(AboardVo vo) {
-
+		
 		UserVo user = (UserVo) session.getAttribute("user");
 
 		// session timeout
 		if (user == null) {
 
-			return "redirect:../member/login_form.do";
+			return "redirect:login_form.do";
 		}
 		vo.setUserNo(user.getUserNo());
 
 		String pDesc = vo.getpDesc().replaceAll("\n", "<br>");
 		vo.setpDesc(pDesc);
-
-		int pNo = product_dao.insertProduct(vo);
+		
+		int res = product_dao.insertProduct(vo);
+		
+		int pNo = product_dao.selectMaxPNo();
+		
 		vo.setpNo(pNo);
 		
-		int b_res = bid_dao.insertBid(vo);
 		
-		int res = aboard_dao.insertAboard(vo);
+		res = bid_dao.insertBid(vo);
+		
+		res = aboard_dao.insertAboard(vo);
 
 		return "redirect:auction.do";
 	}

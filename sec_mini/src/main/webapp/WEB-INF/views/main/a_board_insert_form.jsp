@@ -153,14 +153,16 @@
 					</div>
 				</div>
 				<div class="col-sm-1"><p style="text-align: center;">>></p></div>
-				<form class="">
+				
+				
+				<form >
 					<input type="hidden" id="autoExtension" name="autoExtension" value="N">
 					<div class="col-sm-6" style="font-weight:bold; height: 100%; margin-top: 20px;">
 						<table class="p_info">
 							
 							<tr>
 								<td>상품 사진</td>
-								<td><input type="file" class="n" id="pImage" name="pImage"></td>
+								<td><!-- <input type="file" class="n" id="pImage" name="pImage"> --></td>
 							</tr>
 							<tr>
 								<td>상품명</td>
@@ -207,7 +209,7 @@
 							<tr>
 								<td>종료 일자</td>
 								<td>
-									<select class="n" style="width: 100px;" id="endDate" name="remaningTime">
+									<select class="n" style="width: 100px;" id="remaningTime" name="remaningTime">
 										<option value="0.5">12시간</option>
 										<option value="1">하루</option>
 										<option value="2">이틀</option>
