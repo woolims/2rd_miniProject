@@ -83,6 +83,22 @@ body {
 	}
 }
 </style>
+
+<script type="text/javascript">
+
+	function check_user(qnaNo, userNo){
+		
+		if(userNo == ${user.userNo} || ${user.userNo} == 1){
+			
+			location.href = "qna_select.do?qnaNo="+qnaNo;
+			
+		}else{
+			alert("해당 내용은 관리자와 본인만 확인 가능합니다.");
+		}
+		
+	}
+
+</script>
 </head>
 <body>
 
@@ -118,17 +134,19 @@ body {
 					style="margin-top: 20px; table-layout: fixed;">
 					<thead>
 						<tr>
-							<th>번호</th>
-							<th style="width: 35%; text-align: center;">제목</th>
+							<th style="text-align: center;">번호</th>
+							<th style="width: 45%; text-align: center;">제목</th>
 							<th style="width: 25%; text-align: center;">작성일</th>
+							<th style="width: 20%; text-align: center;">답변 여부</th>
 						</tr>
 					</thead>
 					<tbody style="background-color: white;">
 						<c:forEach var="vo" items="${ list }">
-					      	<tr onclick="location.href='qna_select.do?qnaNo=${ vo.qnaNo }'">
-					      		<td>${ vo.qnaNo }</td>
-					      		<td>${ vo.qnaTitle }</td>
-					      		<td><fmt:formatDate value="${vo.qnaCreateAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					      	<tr onclick="check_user('${vo.qnaNo}', '${vo.userNo}');">
+					      		<td style="text-align: center;">${ vo.qnaNo }</td>
+					      		<td style="width: 45%; text-align: left;">${ vo.qnaTitle }</td>
+					      		<td style="width: 25%; text-align: center;"><fmt:formatDate value="${vo.qnaCreateAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					      		<td style="width: 20%; text-align: center;">미구현</td>
 					      	</tr>
 			      		</c:forEach>
 					</tbody>
