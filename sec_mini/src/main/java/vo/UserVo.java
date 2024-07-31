@@ -9,8 +9,8 @@ public class UserVo {
 	String userAddr;
 	String phone;
 	String nickName;
-	int myCash;
 	String creatAt;
+	int myCash;
 	
 	public UserVo() {
 		// TODO Auto-generated constructor stub
@@ -53,15 +53,15 @@ public class UserVo {
 		this.creatAt = creatAt;
 	}
 	
+	
+
 
 	public int getMyCash() {
 		return myCash;
 	}
-
 	public void setMyCash(int myCash) {
 		this.myCash = myCash;
 	}
-
 	public int getUserNo() {
 		return userNo;
 	}
