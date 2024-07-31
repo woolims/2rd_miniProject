@@ -43,11 +43,14 @@
 	</bean>
 
 	<!-- CommentDao 생성 -->
-	<bean id="comment_dao"  class="dao.CommentDaoImpl"  autowire="default"></bean>
+	<bean id="comment_dao"  class="dao.CommentDaoImpl">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
 
 	<!-- CommentLikesDao 생성 -->
 	<bean id="commentLikesDao" class="dao.CommentLikesDaoImpl">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
-
+	
+	
 </beans>
