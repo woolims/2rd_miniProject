@@ -19,9 +19,15 @@ public class BidVo {
 	String pDesc;
 	String useAt;
 	int startPrice;
-	int pPieces;
+	int nowBid;
 	
 	
+	public int getNowBid() {
+		return nowBid;
+	}
+	public void setNowBid(int nowBid) {
+		this.nowBid = nowBid;
+	}
 	public int getBidPNo() {
 		return bidPNo;
 	}
@@ -124,12 +130,7 @@ public class BidVo {
 	public void setStartPrice(int startPrice) {
 		this.startPrice = startPrice;
 	}
-	public int getpPieces() {
-		return pPieces;
-	}
-	public void setpPieces(int pPieces) {
-		this.pPieces = pPieces;
-	}
+	
 	
 	
 

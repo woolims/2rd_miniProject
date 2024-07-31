@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.BidDao;
-import vo.AboardVo;
 import vo.BidVo;
 
 @Controller
@@ -33,10 +29,16 @@ public class BidController {
 		int startPrice = bid_dao.new_bid_price_select(vo.getpNo());
 		int entryBidPrice = bid_dao.entry_bid_select(vo.getBidNo());
 		int myCash = bid_dao.cashCheck(vo.getUserNo());
-
+		String pName = bid_dao.p_name_select(vo.getpNo());
+		
+		vo.setEntryBidPrice(entryBidPrice);
+		vo.setStartPrice(startPrice);
+		vo.setpName(pName);
+		
 		if (startPrice < myCash) {
 			// 유저가 가진 금액이 상품등록 금액보다 많을 경우 통과
 			if (entryBidPrice == 0) {
+				
 				model.addAttribute("vo",vo);
 				return "bid/bid_main"; // 진짜 입찰페이지로 이동
 			} else {
@@ -46,13 +48,13 @@ public class BidController {
 					return "bid/bid_main"; // 진짜 입찰페이지로 이동
 				} else {
 					model.addAttribute("userNo", vo.getUserNo());
-					return "bid/bid_charging";
+					return "main/charge_form";
 					// 충전페이지로 연결시키는 JSP로 이동
 				}
 			}
 		} else {
 			model.addAttribute("userNo", vo.getUserNo());
-			return "bid/bid_charging";
+			return "main/charge_form";
 			// 충전페이지로 연결시키는 JSP로 이동
 		}
 	}
@@ -65,12 +67,7 @@ public class BidController {
 		return "bid/bid_test";
 	}
 
-////	메인 입찰 페이지로 이동
-//	@RequestMapping("bid_main.do")
-//	public String bid_main() {
-//		return "bid/bid_main";
-//	}
-//	int userNo, int bidNo, int pNo, int playPrice
+
 //	유저가 입찰성공시 작동할 메소드
 	@RequestMapping("bid_success.do")
 	public String bid_success(BidVo vo, Model model) {
@@ -79,33 +76,33 @@ public class BidController {
 		BidVo userNoCheck = bid_dao.re_user_check(vo);
 		
 		vo.setEntryBidPrice(vo.getPlayPrice());
+		vo.setNowBid(vo.getPlayPrice());
 		
+		bid_dao.now_bid_update(vo);
 		bid_dao.entry_bid_update(vo);
 		
-		int entryBidPrice = vo.getEntryBidPrice();
+		int nowBid = vo.getNowBid();
+		String pName = bid_dao.p_name_select(vo.getpNo());
+		vo.setpName(pName);
 		
-		if(entryBidPrice<200000) {
-			entryBidPrice = vo.getEntryBidPrice()+5000;		//20만원 미만 금액은 최소입찰단위가 5000원
-		}else if(entryBidPrice>=200000 && entryBidPrice < 1000000) {
-			entryBidPrice = vo.getEntryBidPrice()+15000;	//20만원 이상 100만원 미만 금액은 최소입찰단위가 15000원
-		}else if(entryBidPrice>=1000000 && entryBidPrice < 5000000) {
-			entryBidPrice = vo.getEntryBidPrice()+30000;	//100만원 이상 500만원 미만 금액은 최소입찰단위가 30000원
-		}else if(entryBidPrice>=5000000) {
-			entryBidPrice = vo.getEntryBidPrice()+100000;	//500만원 이상 금액은 최소입찰단위가 100000만원
+		if(nowBid<200000) {
+			nowBid = vo.getEntryBidPrice()+5000;		//20만원 미만 금액은 최소입찰단위가 5000원
+		}else if(nowBid>=200000 && nowBid < 1000000) {
+			nowBid = vo.getEntryBidPrice()+15000;	//20만원 이상 100만원 미만 금액은 최소입찰단위가 15000원
+		}else if(nowBid>=1000000 && nowBid < 5000000) {
+			nowBid = vo.getEntryBidPrice()+30000;	//100만원 이상 500만원 미만 금액은 최소입찰단위가 30000원
+		}else if(nowBid>=5000000) {
+			nowBid = vo.getEntryBidPrice()+100000;	//500만원 이상 금액은 최소입찰단위가 100000만원
 		}
 		
-		vo.setEntryBidPrice(entryBidPrice);
+		vo.setNowBid(nowBid);
 		
 		if (userNoCheck==null) {
 			
-			System.out.println("여기는 컨트롤러 비드석세스안에 있는 이프문 안에 있는 트루의 결과야 success1 insert");
-			System.out.println(vo.getEntryBidPrice());
 			model.addAttribute("vo",vo);
 			bid_dao.bid_success1(vo);
 		} else {
 			
-			System.out.println("여기는 컨트롤러 비드석세스안에 있는 이프문 안에 있는 펄스의 결과야 success2 update");
-			System.out.println(vo.getEntryBidPrice());
 			model.addAttribute("vo",vo);
 			bid_dao.bid_success2(vo);
 		}

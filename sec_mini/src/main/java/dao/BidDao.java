@@ -119,6 +119,16 @@ public class BidDao {
 		return sqlSession.update("bid.entry_bid_update",vo);
 	}
 
+	public int now_bid_update(BidVo vo) {
+
+		return sqlSession.update("bid.now_bid_update",vo);
+	}
+
+	public String p_name_select(int pNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bid.p_name_select",pNo);
+	}
+
 
 
 	

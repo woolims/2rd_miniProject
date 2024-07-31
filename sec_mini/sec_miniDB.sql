@@ -138,6 +138,8 @@ CREATE TABLE Bid (
 	earlyTermination char(1) DEFAULT 'N' CHECK(earlyTermination IN ('Y','N')),
 	minBidUnit NUMBER DEFAULT 1,
 	endDate TIMESTAMP  DEFAULT CURRENT_TIMESTAMP + INTERVAL '1' DAY,
+	nowBid NUMBER NOT NULL,
+	
 	CONSTRAINT fk_bid_pNo FOREIGN KEY (pNo)
 	REFERENCES Product(pNo) ON DELETE CASCADE
 );
@@ -271,7 +273,8 @@ CREATE TABLE QnAComment (
 
 -- 유저 데이터
 insert into Users values(user_no_seq.nextval, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
-insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);
+insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, 1000000);
+insert into Users values(user_no_seq.nextval, '직원2', 'one13', 'one13', '비공개', '010-124-124', '직원2', default, 100000000);
 
 INSERT INTO Category VALUES (category_no_seq.nextVal, '자동차 및 차량');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '패션 및 액세서리');
@@ -373,29 +376,17 @@ INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt,
 VALUES (p_no_seq.nextVal, 'Product D', 2, 6, 'product_d.png', 'Description of Product D', 5, 18000, 3);
 
 -- 입찰 테이블의 더미 데이터
-INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (bid_no_seq.nextVal, 1, 8000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY);
-INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (bid_no_seq.nextVal, 2, 12000, CURRENT_TIMESTAMP + INTERVAL '2' DAY, CURRENT_TIMESTAMP, 'N', 'Y', 1000, CURRENT_TIMESTAMP + INTERVAL '2' DAY);
-INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (bid_no_seq.nextVal, 3, 9000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 'N', 'N', 700, CURRENT_TIMESTAMP + INTERVAL '4' DAY);
-INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (bid_no_seq.nextVal, 4, 15000, CURRENT_TIMESTAMP + INTERVAL '1' DAY, CURRENT_TIMESTAMP, 'Y', 'Y', 2000, CURRENT_TIMESTAMP + INTERVAL '1' DAY);
+INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate,nowBid)
+VALUES (bid_no_seq.nextVal, 1, 8000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY,0);
+INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate,nowBid)
+VALUES (bid_no_seq.nextVal, 2, 12000, CURRENT_TIMESTAMP + INTERVAL '2' DAY, CURRENT_TIMESTAMP, 'N', 'Y', 1000, CURRENT_TIMESTAMP + INTERVAL '2' DAY,0);
+INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate,nowBid)
+VALUES (bid_no_seq.nextVal, 3, 9000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 'N', 'N', 700, CURRENT_TIMESTAMP + INTERVAL '4' DAY,0);
+INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate,nowBid)
+VALUES (bid_no_seq.nextVal, 4, 15000, CURRENT_TIMESTAMP + INTERVAL '1' DAY, CURRENT_TIMESTAMP, 'Y', 'Y', 2000, CURRENT_TIMESTAMP + INTERVAL '1' DAY,0);
 
 
--- 입찰자 테이블의 더미 데이터
-INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 1, 1, 1000);
-INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 1, 2, 2200);
-INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 2, 1, 3000);
-INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 2, 2, 1000);
-INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 3, 1, 10000);
-INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 4, 1, 321000);
+-- 입찰자 테이블의 더미 데이터 이제 없어
 
 -- 경매 테이블의 더미 데이터
 INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
@@ -477,6 +468,34 @@ FROM QnAComment qc
 INNER JOIN Users u ON qc.userNo = u.userNo;
 
 
+create or replace view Bid_view as
+select
+	b.entryBidPrice,
+	b.remaningTime,
+	b.registrationTime,
+	b.autoExtension,
+	b.earlyTermination,
+	b.minBidUnit,
+	b.endDate,
+	b.pNo,
+	b.nowBid,
+	bp.bidNo,
+	bp.bidPNo,
+	bp.userNo,
+	bp.playPrice,
+	u.myCash,
+	p.pName,
+	p.pDesc,
+	p.useAt,
+	p.startPrice
+FROM Bid b
+INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
+INNER JOIN Users u ON bp.userNo = u.userNo
+INNER JOIN product p ON b.pNo = p.pNo;
+
+
+
+
 ========================================================================================================================================================================
 
 -- 상품 조회
@@ -487,6 +506,8 @@ select * from Bid
 select * from Aboard
 -- 경매 조회
 select * from Users
+-- 입찰자 조회
+select * from BidPlayer
 
 select * from category
 
@@ -575,7 +596,6 @@ insert into aboard values(
 		)
 
 */
-
 
 
 
