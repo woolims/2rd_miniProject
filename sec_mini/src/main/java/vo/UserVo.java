@@ -12,7 +12,6 @@ public class UserVo {
 	int myCash;
 	String creatAt;
 	
-	
 	public UserVo() {
 		// TODO Auto-generated constructor stub
 	}
@@ -39,6 +38,7 @@ public class UserVo {
 		this.nickName = nickName;
 	}
 	
+
 	public UserVo(int userNo, String userName, String userId, String userPwd, String userAddr, String phone,
 			String nickName, int myCash, String creatAt) {
 		super();
@@ -53,7 +53,6 @@ public class UserVo {
 		this.creatAt = creatAt;
 	}
 
-	
 	public int getMyCash() {
 		return myCash;
 	}

@@ -78,17 +78,22 @@ CREATE TABLE Users (
 	myCash NUMBER DEFAULT 100
 );
 
+select * from users
+update users set myCash=0 where userNo=2
+
 -- Charge 테이블 생성
 CREATE TABLE Charge (
 	chargeNo NUMBER PRIMARY KEY,
 	userNo NUMBER NOT NULL,
 	chargeAmt NUMBER NOT NULL,
 	chargeCard VARCHAR2(200) NOT NULL,
-	yesCh char(1) default 'N' check(yesCh IN ('Y','N')),
 	CONSTRAINT fk_charge_userNo FOREIGN KEY (userNo)
 	REFERENCES Users(userNo) ON DELETE CASCADE
 );
 
+	-- API 구현 못했을 때
+	yesCh char(1) default 'N' check(yesCh IN ('Y','N')),
+	
 -- Category 테이블 생성
 CREATE TABLE Category (
 	categoryNo NUMBER PRIMARY KEY,
