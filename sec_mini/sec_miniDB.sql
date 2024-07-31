@@ -12,8 +12,6 @@ GRANT CREATE VIEW TO mini2;
 GRANT CREATE PROCEDURE TO mini2;
 GRANT CREATE SEQUENCE TO mini2;
 
-
-
 -- 시퀀스 삭제
 DROP SEQUENCE aboard_no_seq;
 DROP SEQUENCE scrap_no_seq;

@@ -9,8 +9,8 @@ public class UserVo {
 	String userAddr;
 	String phone;
 	String nickName;
-	int myCash;
 	String creatAt;
+	int myCash;
 	
 	public UserVo() {
 		// TODO Auto-generated constructor stub
@@ -52,15 +52,16 @@ public class UserVo {
 		this.myCash = myCash;
 		this.creatAt = creatAt;
 	}
+	
+	
+
 
 	public int getMyCash() {
 		return myCash;
 	}
-
 	public void setMyCash(int myCash) {
 		this.myCash = myCash;
 	}
-
 	public int getUserNo() {
 		return userNo;
 	}
@@ -110,6 +111,9 @@ public class UserVo {
 		this.creatAt = creatAt;
 	}
 	
+    public boolean isAdmin() {
+        return "관리자".equals(this.nickName);
+    }
 	
 	
 }

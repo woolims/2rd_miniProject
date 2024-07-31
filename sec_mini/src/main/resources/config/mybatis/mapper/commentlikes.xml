@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="commentLikes">
+  <!-- 좋아요 추가 -->
+  <insert id="insert" parameterType="vo.CommentLikesVo">
+    insert into Comment_Likes (c_likeNo, cmt_idx, userNo, like_date)
+    values (#{c_likeNo}, #{cmt_idx}, #{userNo}, current_timestamp)
+  </insert>
+
+  <!-- 시퀀스 값 가져오기 -->
+  <select id="getNextVal" resultType="int">
+    SELECT seq_Comment_Likes_c_likeNo.NEXTVAL FROM dual
+  </select>
+
+  <!-- 좋아요 삭제 -->
+  <delete id="delete" parameterType="vo.CommentLikesVo">
+    delete from Comment_Likes where cmt_idx = #{cmt_idx} and userNo = #{userNo}
+  </delete>
+
+  <!-- 좋아요 취소 -->
+  <delete id="deleteLike" parameterType="vo.CommentLikesVo">
+    delete from Comment_Likes where cmt_idx = #{cmt_idx} and userNo = #{userNo}
+  </delete>
+
+  <!-- 댓글의 좋아요 수 -->
+  <select id="count" parameterType="int" resultType="int">
+    select count(*) from Comment_Likes where cmt_idx = #{cmt_idx}
+  </select>
+
+  <!-- 사용자가 해당 댓글을 좋아요 했는지 확인 -->
+  <select id="isLikedByUser" parameterType="vo.CommentLikesVo" resultType="int">
+    select count(*) from Comment_Likes where cmt_idx = #{cmt_idx} and userNo = #{userNo}
+</select>
+  
+  <!-- 댓글 삭제 시 해당 댓글의 좋아요 삭제 -->
+  <delete id="deleteByComment" parameterType="int">
+    DELETE FROM Comment_Likes WHERE cmt_idx = #{cmt_idx}
+  </delete>
+</mapper>
