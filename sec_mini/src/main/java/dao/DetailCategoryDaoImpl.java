@@ -19,4 +19,10 @@ public class DetailCategoryDaoImpl implements DetailCategoryDao {
         return sqlSession.selectList("category.d_category_list");
     }
 
+	@Override
+	public List<DetailCategoryVo> selectList(int categoryNo) {
+		// TODO Auto-generated method stub
+		 return sqlSession.selectList("category.d_category_list_from_categoryno", categoryNo);
+	}
+
 }

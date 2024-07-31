@@ -144,7 +144,33 @@
         }
         
         function select_d_category(){
-        	
+        	 const categoryNo = $("#categoryNo").val();
+        	 
+        	 $.ajax({
+        		 url		: "d_category_list.do",
+        		 data		: {"categoryNo": categoryNo},
+        		 dataType	: "json",
+        		 success	: function(res_data){
+        			 // res_data = [{"d_categoryNo":1,"d_categoryName":"중고차"},{"d_categoryNo":2,"d_categoryName":"신차"},{"d_categoryNo":3,"d_categoryName":"전기차"},{"d_categoryNo":4,"d_categoryName":"오토바이"},{"d_categoryNo":5,"d_categoryName":"자동차 용품"}]
+        			 
+        			 //이전 옵션 제거
+        			 $("#d_categoryNo option").remove();
+        			 for(let dCategory of res_data){
+        				 
+        				 //console.log(dCategory.d_categoryName);
+        				 $("#d_categoryNo").append(`<option value='\${dCategory.d_categoryNo}'>\${dCategory.d_categoryName}</option>`);
+        				 
+        			 }
+        			 
+        		 },
+        		 error		: function(err){
+        			 alert(err.responseText);
+        		 }
+        	 });
+        	 
+        	 
+        	 
+        	 
         }
     </script>
 </head>
@@ -212,7 +238,8 @@
                             <tr>
                                 <td>카테고리</td>
                                 <td>
-                                    <select class="n" style="width: 100px; color: black;" id="categoryNo" name="categoryNo" onchange="select_d_category();">
+                                    <select class="n" style="color: black;" id="categoryNo" name="categoryNo" onchange="select_d_category();">
+                                        <option value="0">:::: 대분류항목을 선택하세요 ::::</option>
                                     	<c:forEach var="category" items="${ category_list }">
                                     		<option value="${ category.categoryNo }">${ category.categoryName }</option>
                                     	</c:forEach>

@@ -550,6 +550,7 @@ insert into aboard values(
 
 
 
+select * from CATEGORY
 
-
+select * from d_CATEGORY where categoryno = 1
 
