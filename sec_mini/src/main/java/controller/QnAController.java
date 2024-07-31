@@ -77,24 +77,4 @@ public class QnAController {
 		return "redirect:qna.do";
 	}
 	
-	//QnA 수정폼 이동
-	@RequestMapping("qna_modify_form.do")
-	public String qna_modify_form(int qnaNo, Model model) {
-		
-		QnAVo vo = qna_dao.selectOne(qnaNo);
-		
-		model.addAttribute("vo", vo);
-		
-		return "qna/qna_modify_form";
-	}
-	
-	//QnA 수정
-	@RequestMapping("qna_modify.do")
-	public String qna_modify(QnAVo vo) {
-		
-		int res = qna_dao.update(vo);
-		
-		return "redirect:qna.do";
-	}
-	
 }
