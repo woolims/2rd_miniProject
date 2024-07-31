@@ -30,8 +30,10 @@ DROP SEQUENCE charge_no_seq;
 DROP SEQUENCE category_no_seq;
 DROP SEQUENCE d_category_no_seq;
 DROP SEQUENCE qna_no_seq;
+DROP SEQUENCE qnac_no_seq;
 
 -- 테이블 삭제
+DROP TABLE QnAComment;
 DROP TABLE QnA;
 DROP TABLE Comment_Likes;
 DROP TABLE Comments;
@@ -64,6 +66,7 @@ CREATE SEQUENCE charge_no_seq;
 CREATE SEQUENCE category_no_seq;
 CREATE SEQUENCE d_category_no_seq;
 CREATE SEQUENCE qna_no_seq;
+CREATE SEQUENCE qnac_no_seq;
 
 -- Users 테이블 생성
 CREATE TABLE Users (
@@ -252,6 +255,19 @@ CREATE TABLE QnA (
 	qnaContent clob NOT NULL,
 	qnaCreateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT fk_qna_userNo FOREIGN KEY (userNo)
+	REFERENCES Users(userNo) ON DELETE CASCADE
+);
+
+-- QnAComment 테이블 생성
+CREATE TABLE QnAComment (
+	qnaCommentNo NUMBER PRIMARY KEY,
+	qnaNo NUMBER NOT NULL,
+	userNo NUMBER NOT NULL,
+	commentContent VARCHAR2(2000) NOT NULL,
+	createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT fk_qnacomment_qnaNo FOREIGN KEY (qnaNo)
+	REFERENCES QnA(qnaNo) ON DELETE CASCADE,
+	CONSTRAINT fk_qnacomments_userNo FOREIGN KEY (userNo)
 	REFERENCES Users(userNo) ON DELETE CASCADE
 );
 
@@ -448,6 +464,19 @@ SELECT
 	u.userName
 FROM QnA q
 INNER JOIN Users u ON q.userNo = u.userNo;
+
+-- QnA 답글 조회
+CREATE OR REPLACE VIEW QnACommentView AS
+SELECT DISTINCT
+	qc.qnaCommentNo,
+    qc.qnaNo,
+	qc.userNo,
+	qc.commentContent,
+	qc.CreateAt,
+	qc.userNo,
+	u.userName
+FROM QnAComment qc
+INNER JOIN Users u ON qc.userNo = u.userNo;
 
 
 ========================================================================================================================================================================

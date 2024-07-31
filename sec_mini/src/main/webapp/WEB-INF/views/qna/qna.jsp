@@ -88,7 +88,7 @@ body {
 
 	function check_user(qnaNo, userNo){
 		
-		if(userNo == ${user.userNo} || ${user.userNo} == 1){
+		if((userNo == ${user.userNo} || ${user.userNo} == 1) && ${not empty user}){
 			
 			location.href = "qna_select.do?qnaNo="+qnaNo;
 			
@@ -141,14 +141,21 @@ body {
 						</tr>
 					</thead>
 					<tbody style="background-color: white;">
-						<c:forEach var="vo" items="${ list }">
-					      	<tr onclick="check_user('${vo.qnaNo}', '${vo.userNo}');">
-					      		<td style="text-align: center;">${ vo.qnaNo }</td>
-					      		<td style="width: 45%; text-align: left;">${ vo.qnaTitle }</td>
-					      		<td style="width: 25%; text-align: center;"><fmt:formatDate value="${vo.qnaCreateAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					      		<td style="width: 20%; text-align: center;">미구현</td>
-					      	</tr>
-			      		</c:forEach>
+						<c:if test="${not empty user}">
+							<c:forEach var="vo" items="${list}">
+							    <tr onclick="check_user('${vo.qnaNo}', '${vo.userNo}');">
+							        <td style="text-align: center;">${ vo.qnaNo }</td>
+							        <td style="width: 45%; text-align: left;">${ vo.qnaTitle }</td>
+							        <td style="width: 25%; text-align: center;"><fmt:formatDate value="${vo.qnaCreateAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							        <td style="width: 20%; text-align: center;">미구현</td>
+							    </tr>
+						    </c:forEach>
+						</c:if>
+						<c:if test="${empty user}">
+						    <tr>
+						        <td colspan="4" style="text-align: center;">로그인 후 조회할 수 있습니다.</td>
+						    </tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
