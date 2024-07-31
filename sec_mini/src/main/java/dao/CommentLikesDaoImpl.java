@@ -13,6 +13,14 @@ public class CommentLikesDaoImpl implements CommentLikesDao {
     @Autowired
     SqlSession sqlSession;
 
+    public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
+	public SqlSession getSqlSession() {
+        return sqlSession;
+    }
+    
     @Override
     public int insert(CommentLikesVo vo) {
         int c_likeNo = sqlSession.selectOne(NAMESPACE + ".getNextVal");

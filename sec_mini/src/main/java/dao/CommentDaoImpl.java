@@ -15,6 +15,14 @@ public class CommentDaoImpl implements CommentDao {
 	@Autowired
     private SqlSession sqlSession;
 
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
+	public SqlSession getSqlSession() {
+        return sqlSession;
+    }
+	
     @Override
     public List<CommentVo> selectList(int boardNo) {
         return sqlSession.selectList("comment.comment_list", boardNo);
