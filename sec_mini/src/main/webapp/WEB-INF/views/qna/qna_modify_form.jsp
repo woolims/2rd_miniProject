@@ -141,7 +141,7 @@ body {
             .create( document.querySelector( '#editor' ), {language: 'ko'} )
             .then(newEditor => {
                 editor = newEditor;
-                editor.setData('${ vo.qnaContent}');
+                editor.setData('${ vo.qnaContent }');
             })
             .catch( error => {
                 console.error( '에디터 로드 중 오류가 발생했습니다.', error );
