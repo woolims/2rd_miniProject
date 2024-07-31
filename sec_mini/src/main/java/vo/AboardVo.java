@@ -1,11 +1,13 @@
 package vo;
 
+import java.sql.Timestamp;
+
 public class AboardVo {
 
 	int auctionBoardNo;
 	int pNo;
 	int userNo;
-	String createAt;
+	Timestamp createAt;
 	String deleteAt;
 	String endAt;
 	int viewCount;
@@ -13,11 +15,11 @@ public class AboardVo {
 	int bidNo;
 	int entryBidPrice;
 	String remaningTime;
-	String registrationTime;
+	Timestamp registrationTime;
 	String autoExtension;
 	String earlyTermination;
 	int minBidUnit;
-	String endDate;
+	Timestamp endDate;
 	
 
 	String pName;
@@ -39,16 +41,22 @@ public class AboardVo {
 	public void setAuctionBoardNo(int auctionBoardNo) {
 		this.auctionBoardNo = auctionBoardNo;
 	}
-	public int getBidNo() {
-		return bidNo;
+	public int getpNo() {
+		return pNo;
 	}
-	public void setBidNo(int bidNo) {
-		this.bidNo = bidNo;
+	public void setpNo(int pNo) {
+		this.pNo = pNo;
 	}
-	public String getCreateAt() {
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+	public Timestamp getCreateAt() {
 		return createAt;
 	}
-	public void setCreateAt(String createAt) {
+	public void setCreateAt(Timestamp createAt) {
 		this.createAt = createAt;
 	}
 	public String getDeleteAt() {
@@ -69,6 +77,12 @@ public class AboardVo {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
+	public int getBidNo() {
+		return bidNo;
+	}
+	public void setBidNo(int bidNo) {
+		this.bidNo = bidNo;
+	}
 	public int getEntryBidPrice() {
 		return entryBidPrice;
 	}
@@ -81,10 +95,10 @@ public class AboardVo {
 	public void setRemaningTime(String remaningTime) {
 		this.remaningTime = remaningTime;
 	}
-	public String getRegistrationTime() {
+	public Timestamp getRegistrationTime() {
 		return registrationTime;
 	}
-	public void setRegistrationTime(String registrationTime) {
+	public void setRegistrationTime(Timestamp registrationTime) {
 		this.registrationTime = registrationTime;
 	}
 	public String getAutoExtension() {
@@ -105,17 +119,11 @@ public class AboardVo {
 	public void setMinBidUnit(int minBidUnit) {
 		this.minBidUnit = minBidUnit;
 	}
-	public String getEndDate() {
+	public Timestamp getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(String endDate) {
+	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
-	}
-	public int getpNo() {
-		return pNo;
-	}
-	public void setpNo(int pNo) {
-		this.pNo = pNo;
 	}
 	public String getpName() {
 		return pName;
@@ -176,12 +184,6 @@ public class AboardVo {
 	}
 	public void setD_categoryName(String d_categoryName) {
 		this.d_categoryName = d_categoryName;
-	}
-	public int getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
 	}
 	
 	

@@ -18,7 +18,6 @@ public class BidDao {
 
 //	입찰페이지 정보 전체조회
 	public List<BidVo> select_bid() {
-
 		return sqlSession.selectList("bid.select_bid");
 	}
 	

@@ -29,8 +29,10 @@ DROP SEQUENCE pay_no_seq;
 DROP SEQUENCE charge_no_seq;
 DROP SEQUENCE category_no_seq;
 DROP SEQUENCE d_category_no_seq;
+DROP SEQUENCE qna_no_seq;
 
 -- 테이블 삭제
+DROP TABLE QnA;
 DROP TABLE Comment_Likes;
 DROP TABLE Comments;
 DROP TABLE Board;
@@ -45,7 +47,6 @@ DROP TABLE D_Category;
 DROP TABLE Category;
 DROP TABLE Charge;
 DROP TABLE Users;
-
 
 -- 시퀀스 생성
 CREATE SEQUENCE aboard_no_seq;
@@ -62,6 +63,7 @@ CREATE SEQUENCE pay_no_seq;
 CREATE SEQUENCE charge_no_seq;
 CREATE SEQUENCE category_no_seq;
 CREATE SEQUENCE d_category_no_seq;
+CREATE SEQUENCE qna_no_seq;
 
 -- Users 테이블 생성
 CREATE TABLE Users (
@@ -76,17 +78,22 @@ CREATE TABLE Users (
 	myCash NUMBER DEFAULT 100
 );
 
+select * from users
+update users set myCash=0 where userNo=2
+
 -- Charge 테이블 생성
 CREATE TABLE Charge (
 	chargeNo NUMBER PRIMARY KEY,
 	userNo NUMBER NOT NULL,
 	chargeAmt NUMBER NOT NULL,
 	chargeCard VARCHAR2(200) NOT NULL,
-	yesCh char(1) default 'N' check(yesCh IN ('Y','N')),
 	CONSTRAINT fk_charge_userNo FOREIGN KEY (userNo)
 	REFERENCES Users(userNo) ON DELETE CASCADE
 );
 
+	-- API 구현 못했을 때
+	yesCh char(1) default 'N' check(yesCh IN ('Y','N')),
+	
 -- Category 테이블 생성
 CREATE TABLE Category (
 	categoryNo NUMBER PRIMARY KEY,
@@ -236,11 +243,22 @@ CREATE TABLE Comment_Likes (
 	CONSTRAINT fk_commentlike_commentNo FOREIGN KEY (commentNo)
 	REFERENCES Comments(commentNo) ON DELETE CASCADE
 );
+
+-- QnA 테이블 생성
+CREATE TABLE QnA (
+	qnaNo NUMBER PRIMARY KEY,
+	userNo NUMBER NOT NULL,
+	qnaTitle VARCHAR2(200) NOT NULL,
+	qnaContent clob NOT NULL,
+	qnaCreateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT fk_qna_userNo FOREIGN KEY (userNo)
+	REFERENCES Users(userNo) ON DELETE CASCADE
+);
+
+-- 유저 데이터
 insert into Users values(user_no_seq.nextval, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
-insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, 1000000);
-insert into Users values(user_no_seq.nextval, '직원2', 'one13', 'one13', '비공개', '010-124-124', '직원2', default, 10000000);
---delete from Users
---select *from Users
+insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);
+
 INSERT INTO Category VALUES (category_no_seq.nextVal, '자동차 및 차량');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '패션 및 액세서리');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '스포츠 및 레저');
@@ -329,10 +347,7 @@ INSERT INTO D_Category VALUES (61, '애완동물 용품', 10);
 INSERT INTO D_Category VALUES (62, '부동산', 11);
 INSERT INTO D_Category VALUES (63, '토지', 11);
 INSERT INTO D_Category VALUES (64, '기타', 11);
-delete from Product
-delete from Bid
-delete from BidPlayer
-delete from Aboard
+
 -- 상품 테이블의 더미 데이터
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
 VALUES (p_no_seq.nextVal, 'Product A', 1, 1, 'product_a.png', 'Description of Product A', 3, 10000, 10);
@@ -341,26 +356,18 @@ VALUES (p_no_seq.nextVal, 'Product B', 1, 2, 'product_b.png', 'Description of Pr
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
 VALUES (p_no_seq.nextVal, 'Product C', 1, 2, 'product_c.png', 'Description of Product C', 4, 12000, 8);
 INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
-VALUES (p_no_seq.nextVal, 'Product D', 2, 1, 'product_d.png', 'Description of Product D', 4, 20000, 8);
-INSERT INTO Product (pNo, pName, categoryNo, d_categoryNo, pImage, pDesc, useAt, startPrice, pPieces)
-VALUES (p_no_seq.nextVal, 'Product E', 4, 2, 'product_e.png', 'Description of Product E', 4, 29000, 8);
-
---select *from Product
---delete from Product
+VALUES (p_no_seq.nextVal, 'Product D', 2, 6, 'product_d.png', 'Description of Product D', 5, 18000, 3);
 
 -- 입찰 테이블의 더미 데이터
 INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (bid_no_seq.nextVal, 1, 15000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY);
+VALUES (bid_no_seq.nextVal, 1, 8000, CURRENT_TIMESTAMP + INTERVAL '3' DAY, CURRENT_TIMESTAMP, 'Y', 'N', 500, CURRENT_TIMESTAMP + INTERVAL '3' DAY);
 INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
 VALUES (bid_no_seq.nextVal, 2, 12000, CURRENT_TIMESTAMP + INTERVAL '2' DAY, CURRENT_TIMESTAMP, 'N', 'Y', 1000, CURRENT_TIMESTAMP + INTERVAL '2' DAY);
 INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
 VALUES (bid_no_seq.nextVal, 3, 9000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 'N', 'N', 700, CURRENT_TIMESTAMP + INTERVAL '4' DAY);
 INSERT INTO Bid (bidNo, pNo, entryBidPrice, remaningTime, registrationTime, autoExtension, earlyTermination, minBidUnit, endDate)
-VALUES (bid_no_seq.nextVal, 4, 90000, CURRENT_TIMESTAMP + INTERVAL '4' DAY, CURRENT_TIMESTAMP, 'N', 'N', 1200, CURRENT_TIMESTAMP + INTERVAL '4' DAY);
+VALUES (bid_no_seq.nextVal, 4, 15000, CURRENT_TIMESTAMP + INTERVAL '1' DAY, CURRENT_TIMESTAMP, 'Y', 'Y', 2000, CURRENT_TIMESTAMP + INTERVAL '1' DAY);
 
---select *from Bid
-
---delete from Bid 
 
 -- 입찰자 테이블의 더미 데이터
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
@@ -370,14 +377,11 @@ VALUES (bidP_no_seq.nextval, 1, 2, 2200);
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
 VALUES (bidP_no_seq.nextval, 2, 1, 3000);
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 3, 2, 1000);
+VALUES (bidP_no_seq.nextval, 2, 2, 1000);
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
-VALUES (bidP_no_seq.nextval, 4, 1, 10000);
+VALUES (bidP_no_seq.nextval, 3, 1, 10000);
 INSERT INTO BidPlayer (bidPNo, bidNo, userNo, playPrice)
 VALUES (bidP_no_seq.nextval, 4, 1, 321000);
-
---select * from BidPlayer
---delete from BidPlayer 
 
 -- 경매 테이블의 더미 데이터
 INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
@@ -386,20 +390,18 @@ INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, view
 VALUES (aboard_no_seq.nextVal, 2, 1, CURRENT_TIMESTAMP, 'N', 'Y', 50);
 INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
 VALUES (aboard_no_seq.nextVal, 3, 2, CURRENT_TIMESTAMP, 'N', 'N', 80);
+INSERT INTO Aboard (auctionBoardNo, pNo, userNo, createAt, deleteAt, endAt, viewCount)
+VALUES (aboard_no_seq.nextVal, 4, 1, CURRENT_TIMESTAMP, 'N', 'Y', 120);
 
---delete from Aboard 
---select * from Aboard
+-- QnA 테이블의 더미 데이터
+INSERT INTO QnA (qnaNo, userNo, qnaTitle, qnaContent, qnaCreateAt)
+VALUES (qna_no_seq.nextVal, 2, 'QnA를 진행합니다.', 'QnA가 뭔가요?', default);
+INSERT INTO QnA (qnaNo, userNo, qnaTitle, qnaContent, qnaCreateAt)
+VALUES (qna_no_seq.nextVal, 2, '제 상품 좀 환불 가능할까요?', '샀는데 하자가 너무 많아요. 환불해주세요.', default);
+INSERT INTO QnA (qnaNo, userNo, qnaTitle, qnaContent, qnaCreateAt)
+VALUES (qna_no_seq.nextVal, 2, '포인트 충전이 안 되네요.', '충전을 시도했는데 충전이 안 된다고 떠요.', default);
 
--- 상품 조회
-select * from Product
--- 입찰 조회
-select * from Bid
--- 경매 조회
-select * from Aboard
--- 경매 조회
-select * from Users
 
-select * from category
 -- 전체 조회
 CREATE OR REPLACE VIEW AuctionView AS
 SELECT DISTINCT
@@ -435,30 +437,32 @@ INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
 
 
-CREATE OR REPLACE VIEW Bid_Player_User_PView AS
-SELECT DISTINCT
-    b.entryBidPrice,
-    b.remaningTime,
-    b.registrationTime,
-    b.autoExtension,
-    b.earlyTermination,
-    b.minBidUnit,
-    b.endDate,
-    bp.userNo,
-    bp.bidNo,
-    bp.playPrice,
-    u.myCash,
-    p.pNo,
-    p.pName,
-    p.pDesc,
-    p.useAt,
-    p.startPrice,
-    p.pPieces
-FROM Bid b
-INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
-INNER JOIN Users u ON bp.userNo = u.userNo
-INNER JOIN Product p ON b.pNo = p.pNo;
+-- QnA 전체 조회
+CREATE OR REPLACE VIEW QnAView AS
+SELECT
+    q.qnaNo,
+	q.userNo,
+	q.qnaTitle,
+	q.qnaContent,
+	q.qnaCreateAt,
+	u.userName
+FROM QnA q
+INNER JOIN Users u ON q.userNo = u.userNo;
+
+
 ========================================================================================================================================================================
+
+-- 상품 조회
+select * from Product
+-- 입찰 조회
+select * from Bid
+-- 경매 조회
+select * from Aboard
+-- 경매 조회
+select * from Users
+
+select * from category
+
 select * from Aboard a, Product p, Bid b, Category c where a.pNo = p.pNo and p.pNo = b.pNo and p.categoryNo = c.categoryNo and c.ca
 
 --입찰 정보 조회
@@ -513,11 +517,6 @@ FROM Product p
 INNER JOIN Bid b ON p.pNo = b.pNo
 INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
-
-
-
-
-
 
 select * from Product p, D_Category dc where p.d_categoryNo = dc.d_categoryNo
 select * from Product p, Category c, D_Category dc where p.d_categoryNo = dc.d_categoryNo and c.categoryNo = dc.categoryNo order by pNo

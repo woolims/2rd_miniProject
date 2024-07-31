@@ -156,4 +156,48 @@ public class UserController {
 			return "redirect:delete_form.do";
 		}
 	}
+	
+	// 충전 폼 이동
+	@RequestMapping("/charge_form.do")
+	public String charge_form() {
+		
+		return "main/charge_form";
+	}
+	
+	 @RequestMapping(value="/charge.do",
+     produces="application/json; charset=utf-8")
+	 @ResponseBody
+	 public String charge(UserVo vo) {
+	 
+		UserVo vo1 = user_dao.selectOne(vo.getUserNo());
+		 vo.setMyCash(vo1.getMyCash() + vo.getMyCash());
+		 
+		int res = user_dao.update_myCash(vo);
+
+		 
+		if(res > 0) {
+			session.setAttribute("alertMsg", "포인트 충전되었습니다!");
+			
+			UserVo user = (UserVo) session.getAttribute("user");
+			user = user_dao.selectOne(user.getUserNo());
+
+			session.setAttribute("user", user);
+			
+			//{"result" : true}
+			String json = String.format("{\"result\" : %d}", res);
+			
+			return json;
+			
+		}else {
+			
+			session.setAttribute("alertMsg", "충전에 실패했습니다!");
+			return "redirect:mypage.do";
+		}
+	 
+	 }
+	 
+	 
+	 
 }
+	
+	

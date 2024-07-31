@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -103,14 +104,14 @@ a {
 }
 
 .side-bar {
-    position: fixed; /* 스크롤을 따라오도록 지정 */
-    background-color: #2b2b2b; /* 어두운 사이드바 배경 */
-    color: #ffcc00; /* 밝은 텍스트 색상 */
-    border-right: 2px solid #ff6666; /* 내용과 분리되는 테두리 */
-    width: var(--side-bar-width);
-    overflow: hidden; /* 넘치는 메뉴 요소 숨기기 */
-    transform: translate(calc(var(--side-bar-width) * -0.8), 0);
-    transition: 0.5s;
+	position: fixed; /* 스크롤을 따라오도록 지정 */
+	background-color: #2b2b2b; /* 어두운 사이드바 배경 */
+	color: #ffcc00; /* 밝은 텍스트 색상 */
+	border-right: 2px solid #ff6666; /* 내용과 분리되는 테두리 */
+	width: var(--side-bar-width);
+	overflow: hidden; /* 넘치는 메뉴 요소 숨기기 */
+	transform: translate(calc(var(--side-bar-width)* -0.8), 0);
+	transition: 0.5s;
 }
 
 .col-sm-2.sidenav {
@@ -189,14 +190,14 @@ a {
 
 /* 모든 메뉴의 a에 속성값 부여 */
 .side-bar ul>li>a {
-    display: block;
-    color: #ffcc00; /* 텍스트의 밝은 색상 */
-    font-size: 1.4rem;
-    font-weight: bold;
-    transition: 0.5s;
-    opacity: 0; /* 초기 상태에서 글자 숨김 */
-    transform: translateX(-100px); /* 초기 상태에서 글자를 왼쪽으로 이동 */
-    padding: 10px 20px; /* 항목의 패딩 조정 */
+	display: block;
+	color: #ffcc00; /* 텍스트의 밝은 색상 */
+	font-size: 1.4rem;
+	font-weight: bold;
+	transition: 0.5s;
+	opacity: 0; /* 초기 상태에서 글자 숨김 */
+	transform: translateX(-100px); /* 초기 상태에서 글자를 왼쪽으로 이동 */
+	padding: 10px 20px; /* 항목의 패딩 조정 */
 }
 
 .side-bar:hover ul>li>a {
@@ -220,7 +221,8 @@ a {
 	margin-left: 2px;
 	display: block;
 	position: absolute;
-	background-color: #333; opacity : 0.8; /* 하위 메뉴의 더 어두운 배경 */
+	background-color: #333;
+	opacity: 0.8; /* 하위 메뉴의 더 어두운 배경 */
 	top: 0; /* 2차 메뉴의 상단을 1차 메뉴의 상단에 고정 */
 	left: 100%; /* 2차 메뉴를 1차 메뉴의 너비만큼 이동 */
 	width: 90%; /* 1차 메뉴의 너비를 상속 */
@@ -247,11 +249,11 @@ a {
 /* 사이드바 끝 */
 
 /* 배경 이미지*/
-/* body {
-    height: 100vh;
-    background: url(../images/blackmarket.jpg) no-repeat center;
-    background-size: cover;
-} */
+body {
+	height: 100vh;
+	background: url(resources/images/.jpg) no-repeat center;
+	background-size: cover;
+}
 
 /* 푸터 스타일 */
 footer {
@@ -264,7 +266,7 @@ footer {
 /* 커스텀 끝 */
 </style>
 </head>
-<body style="background-color: #444444; color: #f1f1f1;">
+<body style="background-color: #303030; color: #f1f1f1;">
 
 	<%@ include file="../menubar/menubar.jsp"%>
 
@@ -272,7 +274,7 @@ footer {
 		class="container-fluid text-center">
 		<div class="row content">
 			<div
-				style="position: relative; z-index: 2; background-color: #444444; color: #f1f1f1;"
+				style="position: relative; z-index: 2; background-color: #303030; color: #f1f1f1;"
 				class="col-sm-2 sidenav">
 				<!-- Sidebar -->
 				<aside class="side-bar">
@@ -311,11 +313,12 @@ footer {
 
 			</div>
 			<div class="col-sm-8 text-left"
-				style="background-color: #333333; color: #f1f1f1;">
+				style="background-color: #303030; color: #f1f1f1;">
 				<h2 class="title_auction" style="color: #FFD700;">암시장</h2>
 				<div style="text-align: right;">
 					<c:if test="${ not empty user }">
-						<input class="btn btn-primary" type="button" value="경매 올리기" onclick="location.href='a_board_insert_form.do'">
+						<input class="btn btn-primary" type="button" value="경매 올리기"
+							onclick="location.href='a_board_insert_form.do'">
 					</c:if>
 					<%--     <ul>
 				      <c:forEach var="category" items="${ category_list }">
@@ -342,19 +345,38 @@ footer {
 
 				<div class="auction_div">
 					<c:forEach var="vo" items="${ list }">
-				      	<div class="col-sm-2 product_auc">
-				      		<div style="width:100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;" onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
-				      			<img alt="사진" src=""><br><br>
-				      		</div><br>
-				      		<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
-				      		<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p><br>
-				      		<p style="text-align: left; margin: 0;">남은일자 :</p> ${ vo.endDate.substring(0,15) }
-				      	</div>
-			      	</c:forEach>
+						<div class="col-sm-2 product_auc">
+							<div
+								style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
+								onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
+								<img alt="사진" src=""><br>
+								<br>
+							</div>
+							<br>
+							<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
+							<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p>
+							<br>
+							<p style="text-align: left; margin: 0;">남은일자 :</p>
+							<fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+							
+						</div>
+					</c:forEach>
 				</div>
 			</div>
-			<div class="col-sm-2 sidenav"
-				style="background-color: #444444; color: #f1f1f1;">side</div>
+			<div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
+				<h3>인기 경매 품목</h3>
+				<img src="resources/images/따봉도치.jpg" alt="사진" style="width: 300px; height: 300px;">
+				<c:forEach var="item" items="${ mostViewedList }">
+					<div class="product_auc" style="width: 100%; margin-bottom: 20px;">
+						<div style="width: 100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
+							 onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
+							<img src="${item.imagePath}" alt="사진" style="width: 100%; height: auto;">
+						</div>
+						<p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
+						<p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
+					</div>
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 

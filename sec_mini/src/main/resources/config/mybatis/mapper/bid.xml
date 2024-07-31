@@ -9,17 +9,17 @@
 	</select>
 	
 	<!--입찰 등록 -->
-	<insert id="bid_insert" parameterType="bid">
+	<insert id="bid_insert" parameterType="aboard">
 		insert into bid values(
 			bid_no_seq.nextVal,
-			#{ pNo },
-			#{ startPrice },
-			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{ remaningTime }, 'DAY'),
+			#{pNo},
+			#{startPrice},
+			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{remaningTime}, 'DAY'),
 			default,
-			#{ autoExtension },
+			#{autoExtension},
 			default,
 			default,
-			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{ remaningTime }, 'DAY')
+			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{remaningTime}, 'DAY')
 		)
 	</insert>
 	
@@ -30,7 +30,7 @@
 	
 	<!-- 입찰 삭제 -->
 	<delete id="bid_delete" parameterType="int">
-		delete from bid where bidNo=#{ bidNo }
+		delete from bid where bidNo=#{bidNo}
 	</delete>
 
 

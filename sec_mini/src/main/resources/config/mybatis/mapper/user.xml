@@ -42,6 +42,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update users set userName=#{userName},userId=#{userId},userPwd=#{userPwd},userAddr=#{userAddr},phone=#{phone} where userNo=#{userNo}
 	</update>
 	
+	<!-- 포인트 수정 -->
+	<update id="user_update_mycash" parameterType="user">
+		
+		<![CDATA[ 
+		    update users set myCash = #{myCash}  where userNo=#{userNo}
+		 ]]>
+		
+	</update>
+	
 	<!-- 유저 삭제 -->
 	<delete id="user_delete" parameterType="int">
 		delete from users where userNo=#{ userNo }

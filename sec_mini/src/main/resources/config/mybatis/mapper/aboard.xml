@@ -18,8 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="aboard_insert" parameterType="aboard">
 		insert into Aboard values(
 			aboard_no_seq.nextVal,
-			#{ pNo },
-			#{ userNo },
+			#{pNo},
+			#{userNo},
 			default,
 			default,
 			default,
