@@ -179,6 +179,16 @@
 		
 		
 	}
+	
+	function back() {
+		if(confirm("메인화면으로 돌아가시겠습니까?")==true){
+			location.href='home.do';
+		}else{
+			return;
+		}
+		
+	}
+	
 
 </script>
 
@@ -217,23 +227,20 @@
 							<label>보유 포인트 : </label>
 							<fmt:formatNumber type="number" maxFractionDigits="3" value="${ user.myCash }"/>원
 						</div>
-
+					
 						<div class="form-group">
-								<input type="text" class="form-control" name="playPrice" placeholder="입찰할 가격을 입력하세요"> 
-								<input type="button" class="btn btn-success" value="입찰하기" name="playPrice_btn" onclick="bid(this.form);"
-								style="margin-top: 3px; text-align: center;">
+								<input type="text" class="form-control" name="playPrice" placeholder="입찰할 가격을 입력하세요">
+								<input type="button" class="btn btn-success" value="입찰하기" name="playPrice_btn" onclick="bid(this.form);" style="margin-top: 3px;">
 						</div>
 
 						<div style="text-align: center; margin-top: 20px;">
 							<input class="btn btn-primary" type="button" value="돌아가기"
-								onclick="location.href='home.do'"> 
+								onclick="back();"> 
 							<input class="btn btn-warning" type="button" value="충전하기"
 								onclick="location.href='charge_form.do'">
 						</div>
 					</form>
-					<form>
-						
-					</form>
+					
 				</div>
 			</div>
 		</div>

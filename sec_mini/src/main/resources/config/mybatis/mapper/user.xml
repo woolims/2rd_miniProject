@@ -11,14 +11,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!--유저 등록 -->
 	<insert id="user_insert" parameterType="user">
-		insert into users(userNo,userName,userId,userPwd,userAddr,phone,nickName) values(
+		insert into users values(
 			user_no_seq.nextVal,
-			#{ userName }, 
-			#{ userId },
-			#{ userPwd },
-			#{ userAddr },
-			#{ phone },
-			#{ nickName }
+			#{userName}, 
+			#{userId},
+			#{userPwd},
+			#{userAddr},
+			#{phone},
+			#{nickName},
+			default,
+			default
 		)
 	</insert>
 	
@@ -53,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 유저 삭제 -->
 	<delete id="user_delete" parameterType="int">
-		delete from users where userNo=#{ userNo }
+		delete from users where userNo=#{userNo}
 	</delete>
 </mapper>
 
