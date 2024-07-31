@@ -26,7 +26,7 @@ public class BidController {
 	@Autowired
 	BidDao bid_dao;
 	
-	@RequestMapping("/bid_start.do")		//입찰페이지로 가는 버튼클릭시 실행
+	@RequestMapping("bid_start.do")		//입찰페이지로 가는 버튼클릭시 실행
 	public String bid_start(int pNo,int bidNo, int userNo, Model model) {		
 		int startPrice = bid_dao.new_bid_price_select(pNo);
 		int entryBidPrice = bid_dao.entry_bid_select(bidNo);
@@ -55,27 +55,27 @@ public class BidController {
 	
 	
 //	충전페이지 연결용 페이지
-	@RequestMapping("/bid_charging.do")
+	@RequestMapping("bid_charging.do")
 	public String bid_charging() {
 		
 		return "bid/bid_charging";
 	}
 	
 //	테스트용 페이지
-	@RequestMapping("/bid_test.do")
+	@RequestMapping("bid_test.do")
 	public String bid_test() {
 		
 		return "bid/bid_test";
 	}
 	
 //	메인 입찰 페이지로 이동
-	@RequestMapping("/bid_main.do")
+	@RequestMapping("bid_main.do")
 	public String bid_main() {
 		return "bid/bid_main";
 	}
 	
 //	유저마다 처음으로 입찰성공시 작동할 메소드
-	@RequestMapping("/bid_success1.do")
+	@RequestMapping("bid_success1.do")
 	public String bid_success1(BidVo vo) {
 		
 		int res = bid_dao.bid_success1(vo);
@@ -84,7 +84,7 @@ public class BidController {
 	}
 	
 //	유저마다 재입찰성공시 작동할 메소드
-	@RequestMapping("/bid_success2.do")
+	@RequestMapping("bid_success2.do")
 	public String bid_success2(BidVo vo) {
 		
 		int res = bid_dao.bid_success2(vo);
