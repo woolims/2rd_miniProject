@@ -8,19 +8,15 @@ import vo.DetailCategoryVo;
 
 public class DetailCategoryDaoImpl implements DetailCategoryDao {
 
-	SqlSession sqlSession;
-	
-	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
+    private SqlSession sqlSession;
 
-	
-	@Override
-	public List<DetailCategoryVo> selectList() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("category.d_category_list");
-	}
-	
+    public void setSqlSession(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
 
+    @Override
+    public List<DetailCategoryVo> selectList() {
+        return sqlSession.selectList("category.d_category_list");
+    }
 
 }
