@@ -19,7 +19,8 @@
 			#{autoExtension},
 			default,
 			default,
-			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{remaningTime}, 'DAY')
+			CURRENT_TIMESTAMP + NUMTODSINTERVAL(#{remaningTime}, 'DAY'),
+			0
 		)
 	</insert>
 	
