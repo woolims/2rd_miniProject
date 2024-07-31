@@ -274,7 +274,7 @@ footer {
 		class="container-fluid text-center">
 		<div class="row content">
 			<div
-				style="position: relative; z-index: 2; background-color: #444444; color: #f1f1f1;"
+				style="position: relative; z-index: 2; background-color: #303030; color: #f1f1f1;"
 				class="col-sm-2 sidenav">
 				<!-- Sidebar -->
 				<aside class="side-bar">
@@ -313,7 +313,7 @@ footer {
 
 			</div>
 			<div class="col-sm-8 text-left"
-				style="background-color: #333333; color: #f1f1f1;">
+				style="background-color: #303030; color: #f1f1f1;">
 				<h2 class="title_auction" style="color: #FFD700;">암시장</h2>
 				<div style="text-align: right;">
 					<c:if test="${ not empty user }">
@@ -363,7 +363,7 @@ footer {
 					</c:forEach>
 				</div>
 			</div>
-			<div class="col-sm-2 sidenav" style="background-color: #444444; color: #f1f1f1;">
+			<div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
 				<h3>인기 경매 품목</h3>
 				<img src="resources/images/따봉도치.jpg" alt="사진" style="width: 300px; height: 300px;">
 				<c:forEach var="item" items="${ mostViewedList }">

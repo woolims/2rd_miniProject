@@ -93,7 +93,7 @@
 
     <div style="background-color: #303030; color: #f1f1f1;" class="container-fluid text-center">
         <div class="content">
-            <div style="background-color: #444444; color: #f1f1f1;" class="col-sm-2 sidenav">side</div>
+            <div style="background-color: #303030; color: #f1f1f1;" class="col-sm-2 sidenav">side</div>
             <div class="col-sm-8 text-left">
                 <div class="col-sm-12 text-right" style="height: 50px; margin-top: 25px; z-index: 10; position: relative;">
                     <input style="background-color: #303030; color: #f1f1f1;" type="button" value="목록으로 돌아가기" onclick="location.href='auction.do?categoryNo=${vo.categoryNo}'">
@@ -167,7 +167,7 @@
                     </c:if>
                 </form>
             </div>
-            <div class="col-sm-2 sidenav" style="background-color: #444444; color: #f1f1f1;">
+            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
                 <h3>인기 경매 품목</h3>
                 <img src="resources/images/따봉도치.jpg" alt="사진" style="width: 300px; height: 300px;">
                 <c:forEach var="item" items="${ mostViewedList }">

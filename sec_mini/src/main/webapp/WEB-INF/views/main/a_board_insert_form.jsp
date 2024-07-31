@@ -166,7 +166,7 @@
 
     <div style="background-color: #303030; color: #f1f1f1;" class="container-fluid text-center">
         <div class="content">
-            <div style="background-color: #444444; color: #f1f1f1;" class="col-sm-2 sidenav"></div>
+            <div style="background-color: #303030; color: #f1f1f1;" class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <!-- 목록으로 돌아가기 버튼 위치 변경 -->
                 <div class="col-sm-12 text-right" style="height: 50px; margin-top: 25px; z-index: 10; position: relative;">
@@ -295,7 +295,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-sm-2 sidenav" style="background-color: #444444; color: #f1f1f1;">
+            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
                 <h3>인기 경매 품목</h3>
                 <img src="resources/images/따봉도치.jpg" alt="사진" style="width: 300px; height: 300px;">
                 <c:forEach var="item" items="${ mostViewedList }">
