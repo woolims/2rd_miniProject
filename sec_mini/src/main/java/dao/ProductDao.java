@@ -21,8 +21,9 @@ public class ProductDao {
 	}
 	
 	public int insertProduct(AboardVo vo) {
-		sqlSession.insert("product.product_insert", vo);
-		return vo.getpNo();
+		return sqlSession.insert("product.product_insert", vo);
+		//System.out.println(vo.getpNo());
+		//return vo.getpNo();
 	}
 	
 	public int updateProduct(ProductVo vo) {
@@ -31,6 +32,11 @@ public class ProductDao {
 	
 	public int deleteProduct(int pNo) {
 		return sqlSession.delete("product.product_delete", pNo);
+	}
+
+	public int selectMaxPNo() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("product.product_max_pno");
 	}
 	
 }

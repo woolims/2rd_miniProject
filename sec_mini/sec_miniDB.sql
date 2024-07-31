@@ -250,7 +250,6 @@ CREATE TABLE QnA (
 	REFERENCES Users(userNo) ON DELETE CASCADE
 );
 
-
 -- 유저 데이터
 insert into Users values(user_no_seq.nextval, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
 insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, default);
@@ -397,16 +396,7 @@ VALUES (qna_no_seq.nextVal, 2, '제 상품 좀 환불 가능할까요?', '샀는
 INSERT INTO QnA (qnaNo, userNo, qnaTitle, qnaContent, qnaCreateAt)
 VALUES (qna_no_seq.nextVal, 2, '포인트 충전이 안 되네요.', '충전을 시도했는데 충전이 안 된다고 떠요.', default);
 
--- 상품 조회
-select * from Product
--- 입찰 조회
-select * from Bid
--- 경매 조회
-select * from Aboard
--- 경매 조회
-select * from Users
 
-select * from category
 -- 전체 조회
 CREATE OR REPLACE VIEW AuctionView AS
 SELECT DISTINCT
@@ -456,6 +446,18 @@ INNER JOIN Users u ON q.userNo = u.userNo;
 
 
 ========================================================================================================================================================================
+
+-- 상품 조회
+select * from Product
+-- 입찰 조회
+select * from Bid
+-- 경매 조회
+select * from Aboard
+-- 경매 조회
+select * from Users
+
+select * from category
+
 select * from Aboard a, Product p, Bid b, Category c where a.pNo = p.pNo and p.pNo = b.pNo and p.categoryNo = c.categoryNo and c.ca
 
 --입찰 정보 조회
