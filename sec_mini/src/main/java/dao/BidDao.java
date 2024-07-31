@@ -114,6 +114,12 @@ public class BidDao {
 		return sqlSession.selectOne("bid.re_user_check",vo);
 	}
 
+	public int entry_bid_update(BidVo vo) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.update("bid.entry_bid_update",vo);
+	}
+
 
 
 	

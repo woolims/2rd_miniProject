@@ -27,12 +27,12 @@
 		let startPrice  	= parseInt(${vo.startPrice});
 		let myCash 			= parseInt(${user.myCash});
 		let entryBidPrice   = parseInt(${vo.entryBidPrice});
-		
-		
+		console.log(${vo.entryBidPrice})
+		console.log(${vo.startPrice})
 		if(startPrice<entryBidPrice){	//입찰된 금액이 있는지 여부
+			console.log('여기는 입찰금액이 있을때 트루인 이프문이야')
 			if(playPrice > entryBidPrice){
 				if(myCash>playPrice){
-					
 					alert('입찰성공!');
 					location.href="bid_success.do?userNo=${vo.userNo}&bidNo=${vo.bidNo}&pNo=${vo.pNo}&playPrice="+playPrice;					
 					
@@ -44,15 +44,15 @@
 					return;
 				}
 			}else{
-				alert('현재 등록된 최고입찰가보다 높게 등록해야합니다\n최고입찰가:${vo.entryBidPrice}');
+				alert('현재 등록된 입찰가능한 가격보다 높게 등록해야합니다\n현재 최고입찰가:${vo.entryBidPrice}');
 				f.playPrice.value="";
 				f.playPrice.focus();
 				return;
 			}
 		}else{
+			console.log('여기는 입찰금액이 없을때 이프문이야')
 			if(playPrice > startPrice){
 				if(myCash > playPrice){
-					
 					alert('입찰성공!');
 					location.href="bid_success.do?userNo=${vo.userNo}&bidNo=${vo.bidNo}&pNo=${vo.pNo}&playPrice="+playPrice;
 					return;
@@ -64,7 +64,7 @@
 					return;
 				}
 			}else{
-				alert('현재 등록된 최소입찰가보다 높게 등록해야합니다\n현재 최소입찰가: ${vo.startPrice}');
+				alert('현재 등록된 최소입찰가보다 높게 등록해야합니다\n현재 최소입찰가:${vo.startPrice}');
 				f.playPrice.value="";
 				f.playPrice.focus();
 				return;
@@ -90,6 +90,7 @@
 			<input type="number" name="playPrice">
 			<input type="button" value="입찰하기" name="playPrice_btn" onclick="bid(this.form);">
 		</div>
+		<a href="home.do">메인화면</a>
 	</form>
 
 </body>

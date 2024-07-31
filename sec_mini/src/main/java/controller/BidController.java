@@ -80,17 +80,40 @@ public class BidController {
 //	유저가 입찰성공시 작동할 메소드
 	@RequestMapping("bid_success.do")
 	public String bid_success(BidVo vo, Model model) {
-
+		
+		
 		BidVo userNoCheck = bid_dao.re_user_check(vo);
-	
+		
+		vo.setEntryBidPrice(vo.getPlayPrice());
+		
+		bid_dao.entry_bid_update(vo);
+		
+		int entryBidPrice = vo.getEntryBidPrice();
+		
+		if(entryBidPrice<200000) {
+			entryBidPrice = vo.getEntryBidPrice()+5000;		//20만원 미만 금액은 최소입찰단위가 5000원
+		}else if(entryBidPrice>=200000 && entryBidPrice < 1000000) {
+			entryBidPrice = vo.getEntryBidPrice()+15000;	//20만원 이상 100만원 미만 금액은 최소입찰단위가 15000원
+		}else if(entryBidPrice>=1000000 && entryBidPrice < 5000000) {
+			entryBidPrice = vo.getEntryBidPrice()+30000;	//100만원 이상 500만원 미만 금액은 최소입찰단위가 30000원
+		}else if(entryBidPrice>=5000000) {
+			entryBidPrice = vo.getEntryBidPrice()+100000;	//500만원 이상 금액은 최소입찰단위가 100000만원
+		}
+		
+		vo.setEntryBidPrice(entryBidPrice);
+		
 		if (userNoCheck==null) {
-			System.out.println("여기는 컨트롤러 비드석세스안에 있는 이프문 안에 있는 트루의 결과야");
+			
+			System.out.println("여기는 컨트롤러 비드석세스안에 있는 이프문 안에 있는 트루의 결과야 success1 insert");
+			System.out.println(vo.getEntryBidPrice());
 			model.addAttribute("vo",vo);
-			int res = bid_dao.bid_success1(vo);
+			bid_dao.bid_success1(vo);
 		} else {
-			System.out.println("여기는 컨트롤러 비드석세스안에 있는 이프문 안에 있는 펄스의 결과야");
+			
+			System.out.println("여기는 컨트롤러 비드석세스안에 있는 이프문 안에 있는 펄스의 결과야 success2 update");
+			System.out.println(vo.getEntryBidPrice());
 			model.addAttribute("vo",vo);
-			int res = bid_dao.bid_success2(vo);
+			bid_dao.bid_success2(vo);
 		}
 
 		return "bid/bid_main";

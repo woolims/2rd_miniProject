@@ -86,10 +86,14 @@
 <update id="bid_success2" parameterType="bid">
 	update BidPlayer set playPrice = #{playPrice} where bidNo=#{bidNo} 
 </update>
-
+<!-- 해당 경매에 한번이상 참여했던 유저인지 판별 -->
 <select id="re_user_check" parameterType="bid" resultType="bid">
 	select * from BidPlayer where userNo=#{userNo} and bidNo=#{bidNo}
 </select>
+<!-- 최고입찰가를 업데이트하는 sql문 -->
+<update id="entry_bid_update" parameterType="bid">
+ 	update Bid set entryBidPrice = #{playPrice} where bidNo=#{bidNo}
+</update>
 
 
 

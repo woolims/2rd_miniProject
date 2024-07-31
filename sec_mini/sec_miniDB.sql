@@ -238,8 +238,9 @@ CREATE TABLE Comment_Likes (
 );
 insert into Users values(user_no_seq.nextval, '관리자', 'admin', 'admin', '비공개', '비공개', '관리자', default, default);
 insert into Users values(user_no_seq.nextval, '직원', 'one12', 'one12', '비공개', '010-123-123', '직원', default, 1000000);
-
-select *from Users
+insert into Users values(user_no_seq.nextval, '직원2', 'one13', 'one13', '비공개', '010-124-124', '직원2', default, 10000000);
+--delete from Users
+--select *from Users
 INSERT INTO Category VALUES (category_no_seq.nextVal, '자동차 및 차량');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '패션 및 액세서리');
 INSERT INTO Category VALUES (category_no_seq.nextVal, '스포츠 및 레저');
