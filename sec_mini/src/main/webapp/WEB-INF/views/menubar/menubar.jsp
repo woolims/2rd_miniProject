@@ -51,9 +51,12 @@
       }
       .row.content {height:auto;} 
     }
+  
+    
   </style>
 </head>
 <body>
+
 
 <!-- 알러창 띄워주기 -->
 <c:if test="${ not empty alertMsg }">

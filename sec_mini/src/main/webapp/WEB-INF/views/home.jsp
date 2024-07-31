@@ -108,6 +108,7 @@ body {
     color: #ffffff; /* 아이콘 색상 변경 */
     font-size: 2rem; /* 아이콘 크기 조정 */
 }
+
 </style>
 </head>
 <body style="background-color: #303030; color: #f1f1f1;">

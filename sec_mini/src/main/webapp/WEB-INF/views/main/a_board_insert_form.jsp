@@ -99,8 +99,10 @@
 
 </style>
 
-<script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
     // 기존 스크립트 유지
+    <c:set var="autoState" value="false"/>
     var autoState = ${autoState};
 
     function turnAuto() {
@@ -228,18 +230,18 @@
                             </tr>
                             <tr>
                                 <td>상품명</td>
-                                <td><input type="text" class="n" id="pName" name="pName"></td>
+                                <td><input style="color: black;" type="text" class="n" id="pName" name="pName"></td>
                             </tr>
                             <tr>
                                 <td>카테고리</td>
                                 <td>
-                                    <select class="n" style="width: 100px;" id="categoryNo" name="categoryNo">
+                                    <select class="n" style="width: 100px; color: black;" id="categoryNo" name="categoryNo">
                                         <option value="1">대분류1</option>
                                         <option value="2">대분류2</option>
                                         <option value="3">대분류3</option>
                                         <option value="4">대분류4</option>
                                     </select>
-                                    <select style="width: 100px;" id="d_categoryNo" name="d_categoryNo">
+                                    <select style="color: black; width: 100px;" id="d_categoryNo" name="d_categoryNo">
                                         <option value="1">소분류1</option>
                                         <option value="2">소분류2</option>
                                         <option value="3">소분류3</option>
@@ -249,12 +251,12 @@
                             </tr>
                             <tr>
                                 <td>상품 설명</td>
-                                <td><input type="text" class="n" id="pDesc" name="pDesc" value="간단한 상품 설명"></td>
+                                <td><input style="color: black;" type="text" class="n" id="pDesc" name="pDesc" value="간단한 상품 설명"></td>
                             </tr>
                             <tr>
                                 <td>사용 정도</td>
                                 <td>
-                                    <select class="n" style="width: 100px;" id="useAt" name="useAt">
+                                    <select class="n" style="width: 100px; color: black;" id="useAt" name="useAt">
                                         <option value="5">5점</option>
                                         <option value="4">4점</option>
                                         <option value="3">3점</option>
@@ -266,12 +268,12 @@
                             </tr>
                             <tr>
                                 <td>입찰 시작가</td>
-                                <td><input type="text" class="n" id="startPrice" name="startPrice"></td>
+                                <td><input style="color: black;" type="text" class="n" id="startPrice" name="startPrice"></td>
                             </tr>
                             <tr>
                                 <td>종료 일자</td>
                                 <td>
-                                    <select class="n" style="width: 100px;" id="endDate" name="remaningTime">
+                                    <select class="n" style="width: 100px; color: black;" id="endDate" name="remaningTime">
                                         <option value="0.5">12시간</option>
                                         <option value="1">하루</option>
                                         <option value="2">이틀</option>
