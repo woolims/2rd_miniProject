@@ -39,9 +39,13 @@
  	select * from bid
 </select>
 
-<!-- 입찰페이지 번호만 조회 -->
-<select id="selectOne_bidNo" resultType="int">
- 	select bidNo from bid
+<!-- 입찰자 번호만 조회 -->
+<select id="selectOne_bidNo" resultType="bid">
+ 	select bidNo from Bid
+</select>
+<!-- 입찰자 전체조회 -->
+<select id="select_bid_player" resultType="bid">
+	select * from BidPlayer
 </select>
 
 <!-- 유저 번호만 조회 -->
@@ -57,7 +61,7 @@
 
 <!-- 경매페이지에 띄울 최고입찰금액 -->
 <select  id="entry_bid_select" parameterType="int" resultType="int">
-	select max(entryBidPrice) from bid  where pNo=#{pNo}
+	select max(entryBidPrice) from bid  where bidNo=#{bidNo}
 </select>
 
 <!-- 경매에 참여한 개인이 입력한 최고값 개인열람용-->
@@ -72,16 +76,26 @@
 
 <!-- 해당 경매에 처음으로 입찰 성공시 유저의 정보 등록 -->
 <insert id="bid_success1" parameterType="bid">
-	insert into BidPlayer values(#{bidNo},
-							 	 #{bidPNo},
+	insert into BidPlayer values(#{bidPNo},
+							 	 #{bidNo},
 								 #{userNo},
-								 #{playPrice}
+								 #{playPrice})
 </insert>
 
-<!-- 해당 경메에 재입찰 성공시 유저의 정보업데이트 -->
-<update id="bid_success2" parameterType="int">
-	update Bid_Player_User_PView set playPrice = #{playPrice} where bidNo=#{bidNo} 
+<!-- 해당 경매에 재입찰 성공시 유저의 정보업데이트 -->
+<update id="bid_success2" parameterType="bid">
+	update BidPlayer set playPrice = #{playPrice} where bidNo=#{bidNo} 
 </update>
+<!-- 해당 경매에 한번이상 참여했던 유저인지 판별 -->
+<select id="re_user_check" parameterType="bid" resultType="bid">
+	select * from BidPlayer where userNo=#{userNo} and bidNo=#{bidNo}
+</select>
+<!-- 최고입찰가를 업데이트하는 sql문 -->
+<update id="entry_bid_update" parameterType="bid">
+ 	update Bid set entryBidPrice = #{playPrice} where bidNo=#{bidNo}
+</update>
+
+
 
 
 </mapper>

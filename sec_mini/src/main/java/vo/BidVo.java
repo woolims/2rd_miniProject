@@ -2,9 +2,6 @@ package vo;
 
 public class BidVo {
 	
-	int bidNo;
-	int pNo;
-	int userNo;
 	int entryBidPrice;
 	String remaningTime;
 	String registrationTime;
@@ -12,25 +9,24 @@ public class BidVo {
 	String earlyTermination;
 	int minBidUnit;
 	String endDate;
+	int bidPNo;
+	int userNo;
+	int bidNo;
+	int pNo;
+	int playPrice;
+	int myCash;
+	String pName;
+	String pDesc;
+	String useAt;
+	int startPrice;
+	int pPieces;
 	
 	
-	public int getBidNo() {
-		return bidNo;
+	public int getBidPNo() {
+		return bidPNo;
 	}
-	public void setBidNo(int bidNo) {
-		this.bidNo = bidNo;
-	}
-	public int getpNo() {
-		return pNo;
-	}
-	public void setpNo(int pNo) {
-		this.pNo = pNo;
-	}
-	public int getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setBidPNo(int bidPNo) {
+		this.bidPNo = bidPNo;
 	}
 	public int getEntryBidPrice() {
 		return entryBidPrice;
@@ -74,5 +70,68 @@ public class BidVo {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+	public int getBidNo() {
+		return bidNo;
+	}
+	public void setBidNo(int bidNo) {
+		this.bidNo = bidNo;
+	}
+	public int getpNo() {
+		return pNo;
+	}
+	public void setpNo(int pNo) {
+		this.pNo = pNo;
+	}
+	public int getPlayPrice() {
+		return playPrice;
+	}
+	public void setPlayPrice(int playPrice) {
+		this.playPrice = playPrice;
+	}
+	public int getMyCash() {
+		return myCash;
+	}
+	public void setMyCash(int myCash) {
+		this.myCash = myCash;
+	}
+	public String getpName() {
+		return pName;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+	public String getpDesc() {
+		return pDesc;
+	}
+	public void setpDesc(String pDesc) {
+		this.pDesc = pDesc;
+	}
+	public String getUseAt() {
+		return useAt;
+	}
+	public void setUseAt(String useAt) {
+		this.useAt = useAt;
+	}
+	public int getStartPrice() {
+		return startPrice;
+	}
+	public void setStartPrice(int startPrice) {
+		this.startPrice = startPrice;
+	}
+	public int getpPieces() {
+		return pPieces;
+	}
+	public void setpPieces(int pPieces) {
+		this.pPieces = pPieces;
+	}
+	
+	
+
 	
 }
