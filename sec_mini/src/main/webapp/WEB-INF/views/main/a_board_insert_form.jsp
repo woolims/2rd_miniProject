@@ -7,40 +7,33 @@
 <title>2차 미니 프로젝트 경매화면</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 <style type="text/css">
 /* 기존 스타일은 그대로 유지 */
 .title_auction {
     margin-top: 50px;
     margin-bottom: 50px;
 }
-
 .cate {
     width: 100%;
     background: gray;
 }
-
 .cate_si {
     width: 25%;
     height: 40px;
     vertical-align: middle;
 }
-
 .cate_si>a {
     color: white;
 }
-
 .auction_div {
     width: 100%;
     margin: auto;
     margin-top: 30px;
     /* background: green; */
 }
-
 .product_auc {
     display: inline-block;
     width: 200px !important;
@@ -52,37 +45,31 @@
     margin-bottom: 10px;
     background: yellow;
 }
-
 .p_info{
      margin-left: 100px;
      margin-bottom: 50px;
 }
-
 .n {
     margin-top: 20px;
     margin-bottom: 20px;
     margin-left: 20px;
 }
-
 #autoButton{
     width: 300px;
     height: 50px;
     margin-top: 20px;
 }
-
 .banner {
     position: relative; /* 배너의 위치를 상대적으로 설정 */
     width: 100%;
     margin-bottom: 0; /* 마진 제거 */
 }
-
 .carousel-inner .item img {
     width: 100%; /* 이미지의 너비를 컨테이너에 맞게 설정 */
     height: auto; /* 높이는 자동으로 조정 */
     max-height: 600px; /* 최대 높이 제한 */
     object-fit: contain; /* 이미지를 비율에 맞게 조정 */
 }
-
 .carousel-caption {
     position: absolute; /* 절대 위치 설정 */
     bottom: 0 !important; /* 배너 하단에 붙이기 */
@@ -92,23 +79,18 @@
     border-radius: 5px; /* 모서리 둥글게 */
     text-align: center; /* 텍스트 중앙 정렬 */
 }
-
 .carousel-indicators {
 	margin-bottom: 0px !important;
 }
-
 </style>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     // 기존 스크립트 유지
     <c:set var="autoState" value="false"/>
     var autoState = ${autoState};
-
     function turnAuto() {
         autoState = !autoState;
         var button = document.getElementById('autoButton');
-        
         if (autoState) {
             button.value = '자동연장 ON';
             button.className = 'btn btn-primary';
@@ -116,7 +98,6 @@
             button.value = '자동연장 OFF';
             button.className = 'btn btn-danger';
         }
-
         $.ajax({
             url: 'a_board_insert_form.do',
             type: 'POST',
@@ -129,7 +110,6 @@
             }
         });
     }
-    
         function send(f){
         	
         	let pName = f.pName.value.trim();
@@ -162,23 +142,48 @@
 			f.action="a_board_insert.do";
 			f.submit();
         }
+        
+        function select_d_category(){
+        	 const categoryNo = $("#categoryNo").val();
+        	 
+        	 $.ajax({
+        		 url		: "d_category_list.do",
+        		 data		: {"categoryNo": categoryNo},
+        		 dataType	: "json",
+        		 success	: function(res_data){
+        			 // res_data = [{"d_categoryNo":1,"d_categoryName":"중고차"},{"d_categoryNo":2,"d_categoryName":"신차"},{"d_categoryNo":3,"d_categoryName":"전기차"},{"d_categoryNo":4,"d_categoryName":"오토바이"},{"d_categoryNo":5,"d_categoryName":"자동차 용품"}]
+        			 
+        			 //이전 옵션 제거
+        			 $("#d_categoryNo option").remove();
+        			 for(let dCategory of res_data){
+        				 
+        				 //console.log(dCategory.d_categoryName);
+        				 $("#d_categoryNo").append(`<option value='\${dCategory.d_categoryNo}'>\${dCategory.d_categoryName}</option>`);
+        				 
+        			 }
+        			 
+        		 },
+        		 error		: function(err){
+        			 alert(err.responseText);
+        		 }
+        	 });
+        	 
+        	 
+        	 
+        	 
+        }
     </script>
-
 </head>
 <body>
     <%@ include file="../menubar/menubar.jsp"%>
-
-    <div style="background-color: #303030; color: #f1f1f1;" class="container-fluid text-center">
+    <div style="background-color: #303030; color: #F1F1F1;" class="container-fluid text-center">
         <div class="content">
-            <div style="background-color: #303030; color: #f1f1f1;" class="col-sm-2 sidenav"></div>
+            <div style="background-color: #303030; color: #F1F1F1;" class="col-sm-2 sidenav"></div>
             <div class="col-sm-8 text-left">
                 <!-- 목록으로 돌아가기 버튼 위치 변경 -->
                 <div class="col-sm-12 text-right" style="height: 50px; margin-top: 25px; z-index: 10; position: relative;">
-                    <input style="background-color: #303030; color: #f1f1f1;" type="button" value="목록으로 돌아가기" onclick="location.href='auction.do?categoryNo=${vo.categoryNo}'">
+                    <input style="background-color: #303030; color: #F1F1F1;" type="button" value="목록으로 돌아가기" onclick="location.href='auction.do?categoryNo=${vo.categoryNo}'">
                 </div>
-                
-                
-
                 <!-- 업로드 이미지 -->
 				<div class="banner">
 					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -207,18 +212,16 @@
 								</div>
 							</div>
 						</div>
-						<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> 
-							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
+						<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 							<span class="sr-only">Previous</span>
-						</a> 
+						</a>
 						<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
 							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 							<span class="sr-only">Next</span>
 						</a>
 					</div>
 				</div>
-
-
                 <form class="">
                     <input type="hidden" id="autoExtension" name="autoExtension" value="N">
                     <div class="col-sm-6" style="font-weight:bold; height: 100%; margin-top: 20px;">
@@ -235,17 +238,14 @@
                             <tr>
                                 <td>카테고리</td>
                                 <td>
-                                    <select class="n" style="width: 100px; color: black;" id="categoryNo" name="categoryNo">
-                                        <option value="1">대분류1</option>
-                                        <option value="2">대분류2</option>
-                                        <option value="3">대분류3</option>
-                                        <option value="4">대분류4</option>
+                                    <select class="n" style="color: black;" id="categoryNo" name="categoryNo" onchange="select_d_category();">
+                                        <option value="0">:::: 대분류항목을 선택하세요 ::::</option>
+                                    	<c:forEach var="category" items="${ category_list }">
+                                    		<option value="${ category.categoryNo }">${ category.categoryName }</option>
+                                    	</c:forEach>
                                     </select>
                                     <select style="color: black; width: 100px;" id="d_categoryNo" name="d_categoryNo">
-                                        <option value="1">소분류1</option>
-                                        <option value="2">소분류2</option>
-                                        <option value="3">소분류3</option>
-                                        <option value="4">소분류4</option>
+                                    	
                                     </select>
                                 </td>
                             </tr>
@@ -300,7 +300,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
+            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #F1F1F1;">
                 <h3>인기 경매 품목</h3>
                 <img src="resources/images/따봉도치.jpg" alt="사진" style="width: 300px; height: 300px;">
                 <c:forEach var="item" items="${ mostViewedList }">
@@ -309,16 +309,14 @@
                              onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
                             <img src="${item.imagePath}" alt="사진" style="width: 100%; height: auto;">
                         </div>
-                        <p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
-                        <p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
+                        <p style="text-align: left; margin: 0; color: #FFCC00;">상품명: ${item.pName}</p>
+                        <p style="text-align: left; margin: 0; color: #FFCC00;">조회수: ${item.viewCount}</p>
                     </div>
                 </c:forEach>
             </div>
         </div>
     </div>
-
     <%@ include file="../menubar/footer.jsp"%>
-    
     <script>
         $(function() {
             $('#auction').attr('class', 'active');

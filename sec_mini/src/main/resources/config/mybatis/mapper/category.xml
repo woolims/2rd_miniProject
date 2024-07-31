@@ -13,6 +13,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<select id="d_category_list_from_categoryno"  parameterType="int"  resultType="d_category">
+	   select * from D_Category where categoryNo = #{ categoryNo }
+	</select>
+	
 </mapper>
 
 
