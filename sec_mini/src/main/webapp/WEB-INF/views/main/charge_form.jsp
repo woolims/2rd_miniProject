@@ -125,51 +125,103 @@
 	
 	function requestPay() {
 		
-	var cash = $("input[name='myCash']:checked").val();
+	//로그인이 안되었으면
+	if("${ empty user }" == "true"){
+	 
+	 if(confirm("로그인후 충전이 가능합니다\n로그인 하시겠습니까?")==false) return;
+	 
+	 //alert(location.href);
+	 // 로그인폼으로 이동
+	 location.href="login_form.do?url=" + encodeURIComponent(location.href) ;
+	 
+	 return;
+	}
 
+	//radio value 값 받아오기
+	var cash = $("input[name='myCash']:checked").val();
 		
     IMP.request_pay({
       pg: "html5_inicis",
       pay_method : 'card',
       merchant_uid: merchant_uid, 
-      name : '테스트결제',
+      name : '포인트충전',
       amount : cash,
-      buyer_email : '',
+      buyer_email : '${ user.userNo }',
       buyer_name : '${ user.userName }',
       buyer_tel : '${ user.phone }',
       buyer_addr : '${ user.userAddr }',
       buyer_postcode : ''
     },  function (rsp) {
+    	
     	console.log(rsp);
+        console.log(rsp.buyer_email);
+      	console.log(rsp.paid_amount);
         if (rsp.success) {
         	 alert("결제 완료하였습니다.");
-            /* // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+            // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
             // jQuery로 HTTP 요청
             jQuery.ajax({
-              url: "chargn_form.jsp", 
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
+              url: "charge.do", 
+              method: "post",
+              //headers: { "Content-Type": "application/json" },
               data: {
-                imp_uid		: rsp.imp_uid,       // 결제 고유번호
-                merchant_uid: rsp.merchant_uid   // 주문번호
-              }
+  				userNo 	 : rsp.buyer_email,
+				//userName : rsp.buyer_name,
+				//phone 	 : rsp.buyer_tel,
+				myCash 	 : rsp.paid_amount
+/*              imp_uid		: rsp.imp_uid,       // 결제 고유번호
+                merchant_uid: rsp.merchant_uid   // 주문번호 */      
+              },
+              	dataType :	"json",
+              	success :  function(res){
+              		
+    				if(res.result > 0) {
+    					
+    					location.href = "charge_form.do";
+						
+    					return;
+    					
+    				}
+              	}
+                       	
             }).done(function (data) {
               // 가맹점 서버 결제 API 성공시 로직
-            }) */
+            }) 
 
-    	    f.method = "post";
-    		f.action = "charge.do";
-    		f.submit();
             
           } else {
         	  
-            alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+            alert("결제에 실패하였습니다.\n에러 내용: " + rsp.error_msg);
           }
     });//end:rsp
     
 }//end:requestPay()
 
 </script>
+
+<!--             jQuery.ajax({
+            	
+            	url		:	"cahrge.do",
+            	method	: 	"POST",
+            	/* headers	: 	{ "Content-Type": "application/json" }, */
+            	data	:	{ 
+            				"userNo" 	: rsp.userNo,
+            				"userName" 	: rsp.userName,
+            				"phone" 	: rsp.phone,
+            				"myCash" 	: rsp.myCash,
+            				"imp_uid" 	: rsp.imp_uid,
+            				"merchant_uid" : rsp.merchant_uid
+            				},
+            	dataTpye : "json",
+            	success : function(res_data){
+            		
+            		location.href="modify_form.do";
+            	},
+            	error : function(err) {
+            		
+            		alert(err.responseText);
+            	}
+            })  -->
 
 <!-- <script type="text/javascript">
 
@@ -200,7 +252,6 @@
 </head>
 <body>
 	<%@ include file="../menubar/menubar.jsp"%>
-	
 	<div class="container" style="min-height: 900px;">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -220,12 +271,17 @@
 						</div>
 						
 						<div class="form-group">
-							<label>포인트</label> <br>
-							<input type="radio" class="" id="myCash" name="myCash" value="10000" checked="checked">10000원 &nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" class="" id="myCash" name="myCash" value="50000">50000원 &nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" class="" id="myCash" name="myCash" value="100000">100,000원 &nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" class="" id="myCash" name="myCash" value="1000000">1,000,000원 &nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" class="" id="myCash" name="myCash" value="5000000">5,000,000원
+							<label>보유 포인트</label>
+							<input type="text" class="form-control" id="myCash" name="myCash" value="${ user.myCash }" readonly="readonly">
+						</div>
+						
+						<div class="form-group">
+							<label>충전 금액</label> <br>
+							<input type="radio" id="ac1" name="myCash" value="100" checked="checked"><label for="ac1">100원</label> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="ac2" name="myCash" value="50000"><label for="ac2">50000원</label>  &nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="ac3" name="myCash" value="100000"><label for="ac3">100,000원</label>  &nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="ac4" name="myCash" value="1000000"><label for="ac4">1,000,000원</label>  &nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="radio" id="ac5" name="myCash" value="5000000"><label for="ac5">5,000,000원</label> 
 						</div>
 						
 						<div style="text-align: center; margin-top: 20px;">
@@ -235,11 +291,8 @@
 					    	 onclick="send(this.form)"> -->
 					    	 <input  class="btn btn-warning" type="button" value="충전하기"
 					    	 onclick="requestPay()">
-						</div>
-					    				
+						</div>					    				
 						 </form>
-						 
-						<!-- <button onclick="requestPay()">결제하기</button> -->
 				</div>
 				</div>
 			</div>
