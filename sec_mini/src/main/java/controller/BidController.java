@@ -57,12 +57,6 @@ public class BidController {
 		}
 	}
 
-//	충전페이지 연결용 페이지
-	@RequestMapping("charge_form.do")
-	public String bid_charging() {
-
-		return "bid/bid_charging";
-	}
 
 //	테스트용 페이지
 	@RequestMapping("bid_test.do")

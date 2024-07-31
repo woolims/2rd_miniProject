@@ -85,6 +85,23 @@
         f.action = "aboard_delete.do";
         f.submit();
     }
+    
+	function bid_check() {
+		
+		//로그인 여부 체크
+		if("${ empty user }" == "true"){
+			
+			if(confirm("입찰은 로그인후 가능합니다\n로그인 하시겠습니까?")==false) return;
+			
+			//로그인폼으로 이동
+			location.href="login_form.do";
+			
+			return;
+		}
+		
+		location.href='bid_start.do?bidNo=${vo.bidNo}&userNo=${user.userNo}&pNo=${vo.pNo}'
+		
+	}
 </script>
 </head>
 <body>
@@ -160,7 +177,7 @@
                         </div>
                     </div>
                     <c:if test="${ user.userNo ne vo.userNo }">
-                        <input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;">
+                        <input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;" onclick="bid_check();">
                     </c:if>
                     <c:if test="${ user.userNo eq vo.userNo }">
                         <input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px;">
