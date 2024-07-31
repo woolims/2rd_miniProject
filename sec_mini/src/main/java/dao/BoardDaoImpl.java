@@ -1,45 +1,48 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import vo.BoardVo;
 
-@Repository("board_dao") // 앞으로 참조하는 참조변수 이름은 board_dao이다 참조받은건 BoardDao라는 뜻
+@Repository("board_dao")
 public class BoardDaoImpl implements BoardDao {
-	
-	public BoardDaoImpl() {
-		// TODO Auto-generated constructor stub
-		System.out.println("--BoardDaoImpl()--");
-	}
-	
+
+    public BoardDaoImpl() {
+        System.out.println("--BoardDaoImpl()--");
+    }
+
     @Autowired
     private SqlSession sqlSession;
 
-	@Override
-	public List<BoardVo> selectList() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("board.board_list");
-	}
+    @Override
+    public List<BoardVo> selectList() {
+        return sqlSession.selectList("board.board_list");
+    }
 
-	@Override
-	public int insert(BoardVo vo) {
-		// TODO Auto-generated method stub
-		return sqlSession.insert("board.board_insert", vo);
-	}
+    @Override
+    public List<BoardVo> selectList(Map<String, Object> map) {
+        return sqlSession.selectList("board.board_list_condition", map);
+    }
 
-	@Override
-	public BoardVo selectOne(int boardNo) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("board.board_one",boardNo); //sqlSession에 넣었으니 mapper에 작성해야한다
-	}
+    @Override
+    public int insert(BoardVo vo) {
+        return sqlSession.insert("board.board_insert", vo);
+    }
 
-	@Override
-	public int update_readhit(int boardNo) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("board.board_update_readhit", boardNo); // 이 게시글의 조회수를 증가시키는 놈.. mapper에 등록해야한다.
-	}
+    @Override
+    public BoardVo selectOne(int boardNo) {
+        return sqlSession.selectOne("board.board_one", boardNo);
+    }
+
+    @Override
+    public int update_readhit(int boardNo) {
+        return sqlSession.update("board.board_update_readhit", boardNo);
+    }
 
     @Override
     public int update(BoardVo vo) {
@@ -51,5 +54,16 @@ public class BoardDaoImpl implements BoardDao {
         return sqlSession.delete("board.board_delete", boardNo);
     }
 
-}
+    @Override
+    public int selectRowTotal(Map<String, Object> map) {
+        return sqlSession.selectOne("board.board_row_total", map);
+    }
 
+    @Override
+    public int updatePinStatus(int boardNo, int isPinned) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("boardNo", boardNo);
+        params.put("isPinned", isPinned);
+        return sqlSession.update("board.updatePinStatus", params);
+    }
+}

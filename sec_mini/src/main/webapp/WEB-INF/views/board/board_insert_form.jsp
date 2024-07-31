@@ -41,8 +41,24 @@
   <script type="text/javascript">
     function send(f){
       // Quill editor의 내용을 hidden textarea에 동기화
-      document.querySelector('#boardContent').value = quill.root.innerHTML;
+      document.querySelector('#boardContent').value = quill.root.innerHTML.trim();
       
+      let title = f.title.value.trim();
+      let boardContent = quill.root.innerHTML.trim();
+
+      if (title === '') {
+        alert("제목을 입력하세요!!");
+        f.title.value = "";
+        f.title.focus();
+        return;
+      }
+      
+      if (boardContent === '' || boardContent === '<p><br></p>') {
+        alert("내용을 입력하세요!!");
+        quill.focus();
+        return;
+      }
+
       // 폼을 제출
       f.submit();
     }
@@ -55,7 +71,7 @@
 <div class="container">
   <h2>글을 작성하는 공간입니다.</h2>
   
-  <form action="${pageContext.request.contextPath}/board/insert.do" method="post" enctype="multipart/form-data" class="content">
+  <form id="insertForm" action="${pageContext.request.contextPath}/board/insert.do" method="post" enctype="multipart/form-data" class="content">
     <!-- 제목 -->
     <div class="form-group">
       <label for="title">제목:</label>
@@ -101,3 +117,4 @@
 
 </body>
 </html>
+
