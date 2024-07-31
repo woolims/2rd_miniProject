@@ -54,8 +54,14 @@
   
     
   </style>
+  
 </head>
 <body>
+
+<!-- Modal Start --> 
+<%@include file="mypageModal.jsp" %>
+<%@include file="loginModal.jsp" %>
+<!-- Modal End -->
 
 
 <!-- 알러창 띄워주기 -->
@@ -87,11 +93,13 @@
       <ul class="nav navbar-nav navbar-right">
       	<!-- 로그인이 안 된 경우 -->
       	<c:if test="${ empty user }">
-        	<li><a href="${ pageContext.request.contextPath }/login_form.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+<%--         	<li><a href="${ pageContext.request.contextPath }/login_form.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> --%>
+        	<li><a href="" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </c:if>
         <!-- 로그인 된 경우 -->
         <c:if test="${ not empty user }">
-			<li><a href="${ pageContext.request.contextPath }/mypage.do">${ user.nickName } 님</a></li>
+			<li><a href="" data-toggle="modal" data-target="#mypageModal">${ user.nickName } 님</a></li>
+			<li><a href="${ pageContext.request.contextPath }/charge_form.do">잔여 포인트 ${ user.myCash }</a></li>
 			<li><a href="${ pageContext.request.contextPath }/logout.do"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         </c:if>
       </ul>

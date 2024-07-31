@@ -72,9 +72,6 @@ body {
 <body>
 	<%@ include file="../menubar/menubar.jsp" %>
 	
-	<nav>
-	</nav>
-
 	<div class="container" style="min-height: 900px;">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -117,7 +114,7 @@ body {
 						class="btn btn-primary btn-block" disabled="disabled" value="가입하기">
 					</form>
 					<p class="text-center">
-						이미 회원이세요? <a href="login_form.do">로그인</a>
+						이미 회원이세요? <a href="" data-toggle="modal" data-target="#loginModal">로그인</a>
 					</p>
 				</div>
 			</div>
