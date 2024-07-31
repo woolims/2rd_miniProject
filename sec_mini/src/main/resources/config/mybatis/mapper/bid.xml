@@ -95,7 +95,15 @@
  	update Bid set entryBidPrice = #{playPrice} where bidNo=#{bidNo}
 </update>
 
+<!-- 현재 입찰 가능한 가격 업데이트 -->
+<update id="now_bid_update" parameterType="bid">
+	update Bid set nowBid = #{playPrice} where bidNo=#{bidNo}
+</update>
 
+<!-- 상품이름 검색 -->
+<select id="p_name_select" parameterType="int" resultType="String">
+	select pName from Product where pNo=#{pNo}
+</select>
 
 
 </mapper>

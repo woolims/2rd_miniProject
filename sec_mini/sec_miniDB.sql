@@ -439,6 +439,34 @@ FROM QnA q
 INNER JOIN Users u ON q.userNo = u.userNo;
 
 
+create or replace view Bid_view as
+select
+	b.entryBidPrice,
+	b.remaningTime,
+	b.registrationTime,
+	b.autoExtension,
+	b.earlyTermination,
+	b.minBidUnit,
+	b.endDate,
+	b.pNo,
+	b.nowBid,
+	bp.bidNo,
+	bp.bidPNo,
+	bp.userNo,
+	bp.playPrice,
+	u.myCash,
+	p.pName,
+	p.pDesc,
+	p.useAt,
+	p.startPrice
+FROM Bid b
+INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
+INNER JOIN Users u ON bp.userNo = u.userNo
+INNER JOIN product p ON b.pNo = p.pNo;
+
+
+
+
 ========================================================================================================================================================================
 
 -- 상품 조회
@@ -449,6 +477,8 @@ select * from Bid
 select * from Aboard
 -- 경매 조회
 select * from Users
+-- 입찰자 조회
+select * from BidPlayer
 
 select * from category
 
@@ -537,7 +567,6 @@ insert into aboard values(
 		)
 
 */
-
 
 
 
