@@ -82,19 +82,19 @@ public class BidController {
 		
 		bid_dao.entry_bid_update(vo);
 		
-		int entryBidPrice = vo.getEntryBidPrice();
+		int bidPrice = vo.getEntryBidPrice();
 		
-		if(entryBidPrice<200000) {
-			entryBidPrice = vo.getEntryBidPrice()+5000;		//20만원 미만 금액은 최소입찰단위가 5000원
-		}else if(entryBidPrice>=200000 && entryBidPrice < 1000000) {
-			entryBidPrice = vo.getEntryBidPrice()+15000;	//20만원 이상 100만원 미만 금액은 최소입찰단위가 15000원
-		}else if(entryBidPrice>=1000000 && entryBidPrice < 5000000) {
-			entryBidPrice = vo.getEntryBidPrice()+30000;	//100만원 이상 500만원 미만 금액은 최소입찰단위가 30000원
-		}else if(entryBidPrice>=5000000) {
-			entryBidPrice = vo.getEntryBidPrice()+100000;	//500만원 이상 금액은 최소입찰단위가 100000만원
+		if(bidPrice<200000) {
+			bidPrice = vo.getEntryBidPrice()+5000;		//20만원 미만 금액은 최소입찰단위가 5000원
+		}else if(bidPrice>=200000 && bidPrice < 1000000) {
+			bidPrice = vo.getEntryBidPrice()+15000;	//20만원 이상 100만원 미만 금액은 최소입찰단위가 15000원
+		}else if(bidPrice>=1000000 && bidPrice < 5000000) {
+			bidPrice = vo.getEntryBidPrice()+30000;	//100만원 이상 500만원 미만 금액은 최소입찰단위가 30000원
+		}else if(bidPrice>=5000000) {
+			bidPrice = vo.getEntryBidPrice()+100000;	//500만원 이상 금액은 최소입찰단위가 100000만원
 		}
 		
-		vo.setEntryBidPrice(entryBidPrice);
+		vo.setEntryBidPrice(bidPrice);
 		
 		if (userNoCheck==null) {
 			
