@@ -12,8 +12,8 @@ import vo.CommentVo;
 @Repository
 public class CommentDaoImpl implements CommentDao {
 
-    @Autowired
-    SqlSession sqlSession;
+	@Autowired
+    private SqlSession sqlSession;
 
     @Override
     public List<CommentVo> selectList(int boardNo) {
