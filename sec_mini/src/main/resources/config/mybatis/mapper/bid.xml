@@ -105,5 +105,8 @@
 	select pName from Product where pNo=#{pNo}
 </select>
 
+<select id="now_bid_select" parameterType="int" resultType="int">
+	select max(nowBid) from Bid where bidNo=#{bidNo}
+</select>
 
 </mapper>

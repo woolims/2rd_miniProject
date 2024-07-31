@@ -30,7 +30,9 @@ public class BidController {
 		int entryBidPrice = bid_dao.entry_bid_select(vo.getBidNo());
 		int myCash = bid_dao.cashCheck(vo.getUserNo());
 		String pName = bid_dao.p_name_select(vo.getpNo());
+		int nowBid = bid_dao.now_bid_select(vo.getBidNo());
 		
+		vo.setNowBid(nowBid);
 		vo.setEntryBidPrice(entryBidPrice);
 		vo.setStartPrice(startPrice);
 		vo.setpName(pName);

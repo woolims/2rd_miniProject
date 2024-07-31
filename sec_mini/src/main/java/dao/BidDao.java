@@ -129,6 +129,11 @@ public class BidDao {
 		return sqlSession.selectOne("bid.p_name_select",pNo);
 	}
 
+	public int now_bid_select(int bidNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bid.now_bid_select",bidNo);
+	}
+
 
 
 	
