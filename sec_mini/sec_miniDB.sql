@@ -595,6 +595,16 @@ insert into aboard values(
 			default
 		)
 
+SELECT * FROM (
+    SELECT * FROM Board
+    ORDER BY createAt DESC
+) WHERE ROWNUM <= 3;
+
+
+Select board_no_seq.NEXTVAL from dual
+
+select * from board
+
 */
 
 
