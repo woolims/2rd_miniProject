@@ -70,6 +70,7 @@
         }
     </style>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript">
         function del(qnaNo) {
             if (confirm('정말 삭제 하시겠습니까?') == false) return;
@@ -123,14 +124,15 @@
                 url: "${pageContext.request.contextPath}/qna_comment/list.do",
                 data: { "qnaNo": "${vo.qnaNo}", "page": page },
                 success: function(res_data) {
-                    $("#comment_display").html(res_data);
+                    console.log('서버 응답 데이터:', res_data); // 서버 응답 확인
+                    $("#comment_display").html(res_data); // HTML로 댓글 목록 설정
                     // 페이지네이션을 클릭할 때만 스크롤 이동
                     if (page != 1) {
                         $('html, body').scrollTop($('.comment-section').offset().top);
                     }
                 },
                 error: function(err) {
-                    alert(err.responseText);
+                    alert("댓글 목록 로드 실패: " + err.responseText);
                 }
             });
         }

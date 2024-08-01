@@ -1,10 +1,12 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import vo.QnACommentVo;
 import vo.QnAVo;
 
 public class QnADao {
@@ -20,6 +22,11 @@ public class QnADao {
 	//전체 조회
 	public List<QnAVo> qnaList() {
 		return sqlSession.selectList("qna.select_list");
+	}//end:boardList()
+	
+	//전체 조회
+	public List<QnAVo> qnaList(Map<String, Object> map) {
+		return sqlSession.selectList("qna.select_list_paging", map);
 	}//end:boardList()
 
 	//상세 조회
@@ -41,5 +48,13 @@ public class QnADao {
 	public int update(QnAVo vo) {
 		return sqlSession.update("qna.qna_update", vo);
 	}//end: update()
+
+	public int selectRowTotal(Map<String, Object> map) {
+		return sqlSession.selectOne("qna.qna_row_total", map);
+	}
+
+	public List<QnACommentVo> qnaCList() {
+		return sqlSession.selectList("qna.qna_comment_list");
+	}
 	
 }

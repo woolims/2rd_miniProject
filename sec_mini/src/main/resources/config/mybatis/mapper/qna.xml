@@ -3,31 +3,72 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qna">
-	
+
 	<!-- 전체조회 -->
 	<select id="select_list" resultType="qna">
 		select * from QnAView
 	</select>
-	
+
 	<!-- 상세조회 -->
-	<select id="selectOne_qnaNo" parameterType="int" resultType="qna">
+	<select id="selectOne_qnaNo" parameterType="int"
+		resultType="qna">
 		select * from QnAView where qnaNo=#{qnaNo}
 	</select>
-	
+
 	<!-- QnA 작성 -->
 	<insert id="qna_insert" parameterType="qna">
-		INSERT INTO QnA VALUES(qna_no_seq.nextVal, #{userNo}, #{qnaTitle}, #{qnaContent}, default)
+		INSERT INTO QnA
+		VALUES(qna_no_seq.nextVal, #{userNo}, #{qnaTitle}, #{qnaContent}, default)
 	</insert>
-	
+
 	<!-- QnA 삭제 -->
 	<delete id="qna_delete" parameterType="int">
 		delete from QnA where qnaNo=#{qnaNo}
 	</delete>
-	
+
 	<!-- QnA 수정 -->
 	<update id="qna_update" parameterType="qna">
-		update qna set qnaTitle=#{qnaTitle},qnaContent=#{qnaContent} where qnaNo=#{qnaNo}
+		update QnA set qnaTitle=#{qnaTitle},qnaContent=#{qnaContent} where qnaNo=#{qnaNo}
 	</update>
+
+	<!-- 검색조건별 조회, 페이징 처리 -->
+	<select id="select_list_paging" parameterType="Map" resultType="qna">
+		SELECT * FROM (
+			SELECT
+			RANK() OVER (ORDER BY qnaNo DESC) AS no,
+			v.*
+			FROM (
+				SELECT qnaNo, userNo, qnaTitle, qnaContent, qnaCreateAt, userName
+				FROM QnAView
+				<trim prefix="WHERE" prefixOverrides="OR">
+					<if test="userName != null">
+						userName LIKE '%' || #{userName} || '%'
+					</if>
+					<if test="qnaContent != null">
+						OR qnaTitle LIKE '%' || #{qnaTitle} || '%'
+					</if>
+				</trim>
+			) v
+		) WHERE no BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 검색조건별 레코드수 구하기 -->
+	<select id="qna_row_total" parameterType="Map" resultType="int">
+		SELECT NVL(COUNT(*), 0)
+		FROM QnAView
+		<trim prefix="WHERE" prefixOverrides="OR">
+			<if test="userName != null">
+				userName LIKE '%' || #{userName} || '%'
+			</if>
+			<if test="qnaTitle != null">
+				OR qnaTitle LIKE '%' || #{qnaTitle} || '%'
+			</if>
+		</trim>
+	</select>
+
+	<select id="qna_comment_list" resultType="qnac">
+		select * from QnACommentView where userName = '관리자'
+	</select>
 	
 </mapper>
 

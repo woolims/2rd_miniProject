@@ -11,11 +11,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <!-- 커스텀 CSS -->
 <style>
-body {
-	background-color: #f8f9fa;
-}
+body, html {
+      height: 100%;
+      margin: 0;
+    }
 
 .navbar {
 	margin-bottom: 0;
@@ -86,6 +93,32 @@ body {
 
 <script type="text/javascript">
 
+
+	function find() {
+	    let search = $("#search").val();
+	    let search_text = $("#search_text").val().trim();
+
+	    if (search === "all") {
+	        location.href = "qna.do";
+	        return;
+	    }
+
+	    if (search_text === "") {
+	        alert("검색어를 입력하세요!!");
+	        $("#search_text").focus();
+	        return;
+	    }
+
+	    // JavaScript에서 직접 사용
+	    location.href = "qna.do?search=" + search + "&search_text=" + search_text;
+	}
+
+      function changeFilter() {
+        let search = $("#search").val();
+        if (search === "all") {
+          location.href = "qna.do";
+        }
+      }
 	function check_user(qnaNo, userNo){
 		
 		if((userNo == ${user.userNo} || ${user.userNo} == 1) && ${not empty user}){
@@ -106,7 +139,7 @@ body {
 	<%@include file="../menubar/mypageModal.jsp" %>
 	<%@include file="../menubar/loginModal.jsp" %>
 
-	<div class="container div-size">
+	<div class="container div-size" style="min-height: 1000px;">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="row">
@@ -120,17 +153,19 @@ body {
 					</div>
 				</div>
 
-				<!-- 검색 폼 -->
-				<form method="GET" action="board.jsp" style="margin-top: 20px;">
-					<div class="input-group">
-						<input type="text" class="form-control" name="search"
-							placeholder="검색어를 입력하세요"
-							value="<%=request.getParameter("search") != null ? request.getParameter("search") : ""%>">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">검색</button>
-						</span>
-					</div>
-				</form>
+				<!-- 상단 검색 창 -->
+			    <%-- <div class="search-container">
+			      <form class="form-inline search-box">
+			        <select id="search" class="form-control" onchange="changeFilter()">
+			          <option value="all" <c:if test="${param.search == 'all'}">selected</c:if>>전체</option>
+			          <option value="userName" <c:if test="${param.search == 'userName'}">selected</c:if>>이름</option>
+			          <option value="qnaTitle" <c:if test="${param.search == 'qnaTitle'}">selected</c:if>>제목</option>
+			          <option value="name_title" <c:if test="${param.search == 'name_title'}">selected</c:if>>이름+제목</option>
+			        </select>
+			        <input id="search_text" class="form-control" placeholder="검색어 입력" value="${param.search_text != 'null' ? param.search_text : ''}">
+			        <button onclick="find()">검색</button>
+			      </form>
+			    </div> --%>
 
 				<table class="table table-striped"
 					style="margin-top: 20px; table-layout: fixed;">
@@ -143,25 +178,41 @@ body {
 						</tr>
 					</thead>
 					<tbody style="background-color: white;">
-						<c:if test="${not empty user}">
-							<c:forEach var="vo" items="${list}">
-							    <tr onclick="check_user('${vo.qnaNo}', '${vo.userNo}');">
-							        <td style="text-align: center;">${ vo.qnaNo }</td>
-							        <td style="width: 45%; text-align: left;">${ vo.qnaTitle }</td>
-							        <td style="width: 25%; text-align: center;"><fmt:formatDate value="${vo.qnaCreateAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							        <td style="width: 20%; text-align: center;">미구현</td>
-							    </tr>
-						    </c:forEach>
-						</c:if>
 						<c:if test="${empty user}">
-						    <tr>
-						        <td colspan="4" style="text-align: center;">로그인 후 조회할 수 있습니다.</td>
-						    </tr>
+							</table>
+							<h1 style="text-align: center; margin-top: 50px;">로그인 후에 이용해주세요.</h1>
+							
+						</c:if>
+						<c:if test="${not empty user}">
+						    <c:forEach var="vo" items="${list}">
+						        <tr onclick="check_user('${vo.qnaNo}', '${vo.userNo}');">
+						            <td style="text-align: center;">${vo.qnaNo}</td>
+						            <td style="width: 45%; text-align: left;">${vo.qnaTitle}</td>
+						            <td style="width: 25%; text-align: center;">
+						                <fmt:formatDate value="${vo.qnaCreateAt}" pattern="yyyy-MM-dd HH:mm:ss" />
+						            </td>
+						            <td style="width: 20%; text-align: center;">
+						                <c:choose>
+						                    <c:when test="${answerMap[vo.qnaNo] eq true}">답변 완료</c:when>
+						                    <c:otherwise>답변 미완료</c:otherwise>
+						                </c:choose>
+						            </td>
+						        </tr>
+						    </c:forEach>
 						</c:if>
 					</tbody>
 				</table>
 			</div>
 		</div>
+		<c:if test="${not empty user}">
+			<!-- 페이지 메뉴 -->
+			<div class="pagination-container" style="text-align: center;">
+				<nav aria-label="Page navigation">
+					<ul class="pagination">${pageMenu}
+					</ul>
+				</nav>
+			</div>
+		</c:if>
 	</div>
 
 	<%@ include file="../menubar/footer.jsp"%>
