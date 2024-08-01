@@ -142,8 +142,6 @@ public class BidController {
 			BidVo user_sb = bid_dao.user_sb(user_playPrice);
 			
 			//낙찰된 유저정보를 낙찰DB에 저장
-			
-			
 			SBVo sb_vo = new SBVo();
 			
 			sb_vo.setUserNo(user_sb.getUserNo());
