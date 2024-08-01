@@ -19,7 +19,7 @@
 
 #mypageModal {
     position: fixed;
-    left: 71%; 
+    left: 70%; 
     top: 52%; 
     transform: translate(-50%, -50%);
 }
@@ -63,10 +63,12 @@
 				</div>
 
 				<div style="text-align: center; margin-top: 20px;">
-					<input class="btn btn-success" type="button" value="홈으로"
-						onclick="location.href='${ pageContext.request.contextPath }/home.do'"> <input
-						class="btn btn-primary" type="button" value="마이페이지"
-						onclick="location.href='${ pageContext.request.contextPath }/mypage.do'">
+					<input class="btn btn-info" type="button" value="홈으로"
+						onclick="location.href='${ pageContext.request.contextPath }/home.do'"> 
+					<input class="btn btn-success" type="button" value="프로필 수정"
+					onclick="location.href='${ pageContext.request.contextPath }/mypage.do'">
+					<input class="btn btn-primary" type="button" value="마이옥션"
+					onclick="location.href='${ pageContext.request.contextPath }/myauction.do'">
 				</div>
 			</form>
 

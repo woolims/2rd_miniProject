@@ -1,14 +1,19 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import dao.AboardDao;
 import dao.UserDao;
+import vo.AboardVo;
 import vo.UserVo;
 
 @Controller
@@ -104,7 +109,7 @@ public class UserController {
 		
 		if(user == null) {
 			session.setAttribute("alertMsg", "로그인한 사용자만 접근 가능");
-			return "home.do";
+			return "redirect:home.do";
 		}else {
 			
 			
@@ -204,6 +209,31 @@ public class UserController {
 	 }
 	 
 	 
+	@Autowired
+	AboardDao aboard_dao;
+
+	// 마이옥션 이동
+	@RequestMapping("/myauction.do")
+	public String myauction(Model model) {
+		
+		List<AboardVo> list = aboard_dao.selectList();
+
+		model.addAttribute("list", list);
+		
+		UserVo user = (UserVo) session.getAttribute("user");
+		
+		if(user == null) {
+			session.setAttribute("alertMsg", "로그인한 사용자만 접근 가능");
+			
+
+			return "redirect:home.do";
+		}else {
+			
+		
+			return "main/myauction";
+		}
+			
+	}
 	 
 }
 	
