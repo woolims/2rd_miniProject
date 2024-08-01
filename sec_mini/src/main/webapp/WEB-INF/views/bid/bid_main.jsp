@@ -220,7 +220,7 @@ console.log(${end_check});
 							</c:if>
 						</div>
 						<div>
-							<fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+							<p>종료일자: <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
 						</div>
 						<div class="form-group" style="text-align: right;font-size: 20px;">
 						<label>현재 입찰가 : </label>

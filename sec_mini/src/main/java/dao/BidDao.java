@@ -1,5 +1,6 @@
 package dao;
 
+import java.security.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -154,7 +155,7 @@ public class BidDao {
 		return sqlSession.selectOne("bid.p_no_select_one",bidNo);
 	}
 
-	public String end_date_check(int bidNo) {
+	public Timestamp end_date_check(int bidNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("bid.end_date_check",bidNo);
 	}

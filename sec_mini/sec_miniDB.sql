@@ -509,7 +509,8 @@ select * from Users
 select * from BidPlayer
 
 select * from category
-
+select SUBSTR(endDate,1,19) from bid
+select SUBSTR(endDate,-1,19) from Bid where bidNo=1
 select * from Aboard a, Product p, Bid b, Category c where a.pNo = p.pNo and p.pNo = b.pNo and p.categoryNo = c.categoryNo and c.ca
 
 --입찰 정보 조회
