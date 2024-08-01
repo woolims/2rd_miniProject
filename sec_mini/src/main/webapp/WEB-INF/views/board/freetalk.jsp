@@ -227,6 +227,7 @@
             <th>글쓴이</th>
             <th>작성시간</th>
             <th>댓글수</th>
+            <th>조회수</th>
           </tr>
         </thead>
         <tbody>
@@ -238,6 +239,7 @@
               <td>${vo.nickName}</td>
               <td class="post-date">${vo.createAt}</td>
               <td>${vo.b_readhit}</td>
+              <td></td>
             </tr>
           </c:forEach>
         </tbody>

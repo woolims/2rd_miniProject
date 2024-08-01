@@ -121,40 +121,42 @@
             }
         });
     }
-        function send(f){
+        
+    function send(f){
         	
-        	let pName = f.pName.value.trim();
-        	let pDesc = f.pDesc.value.trim();
-        	let startPrice = f.startPrice.value.trim();
-        	
-        	if(pName==''){
-     		   alert("상품명을 입력하세요");
-    		   f.pName.value="";
-    		   f.pName.focus();
+       	let pName = f.pName.value.trim();
+       	let pDesc = f.pDesc.value.trim();
+       	let startPrice = f.startPrice.value.trim();
+       	
+       	if(pName==''){
+    		   alert("상품명을 입력하세요");
+   		   f.pName.value="";
+   		   f.pName.focus();
+   		   return;
+       	}
+       	if(pDesc==''){
+     		   alert("상품 설명을 입력하세요");
+    		   f.pDesc.value="";
+    		   f.pDesc.focus();
     		   return;
         	}
-        	if(pDesc==''){
-      		   alert("상품 설명을 입력하세요");
-     		   f.pDesc.value="";
-     		   f.pDesc.focus();
-     		   return;
-         	}
-        	if(startPrice==''){
-      		   alert("시작가를 입력하세요");
-     		   f.startPrice.value="";
-     		   f.startPrice.focus();
-     		   return;
-         	}
-        	if(autoState){
-        		f.autoExtension.value = "Y";
+       	if(startPrice==''){
+     		   alert("시작가를 입력하세요");
+    		   f.startPrice.value="";
+    		   f.startPrice.focus();
+    		   return;
         	}
-        	
-        	
-			f.action="a_board_insert.do";
-			f.submit();
-        }
+       	if(autoState){
+       		f.autoExtension.value = "Y";
+       	}
+       	
+       	
+		f.action="a_board_insert.do";
+		f.submit();
+    }
         
-        function select_d_category(){
+        
+    function select_d_category(){
         	 const categoryNo = $("#categoryNo").val();
         	 
         	 $.ajax({
@@ -233,14 +235,15 @@
 						</a>
 					</div>
 				</div>
-                <form class="">
+                <form method="POST" enctype="multipart/form-data">
+                
                     <input type="hidden" id="autoExtension" name="autoExtension" value="N">
                     <div class="col-sm-6" style="font-weight:bold; height: 100%; margin-top: 20px;">
                         <table class="p_info">
                             <!-- 기존 상품 정보 입력 폼 유지 -->
                             <tr>
                                 <td>상품 사진</td>
-                                <td><input type="file" class="n" id="pImage" name="pImage"></td>
+                                <td><input type="file" class="form-control n" id="pImage" name="photo"></td>
                             </tr>
                             <tr>
                                 <td>상품명</td>

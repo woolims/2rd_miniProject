@@ -86,5 +86,10 @@
 		    ORDER BY createAt DESC
 		) WHERE ROWNUM &lt;= 3
   </select>
+  
+  <!--  조회수 증가  -->
+  <update id="board_update_readhit" parameterType="int"> 
+  	update board set b_readhit = b_readhit + 1 where boardNo=#{ boardNo } 
+  </update>
 
 </mapper>

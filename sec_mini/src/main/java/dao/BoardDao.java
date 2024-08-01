@@ -10,7 +10,6 @@ public interface BoardDao {
     int insert(BoardVo vo);
     BoardVo selectOne(int boardNo);
     int update_readhit(int boardNo);
-    int update_readhit2(int boardNo);
     int update(BoardVo vo);
     int delete(int boardNo);
     	
