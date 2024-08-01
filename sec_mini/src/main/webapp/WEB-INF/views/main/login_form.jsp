@@ -86,7 +86,7 @@ body {
 						<button type="button" onclick="send(this.form)" class="btn btn-primary btn-block">로그인</button>
 					</form>
 					<p class="text-center">
-						아직 회원이 아니세요? <a href="register_form.do">회원가입</a>
+						아직 회원이 아니세요? <a href="" data-toggle="modal" data-target="#registerModal">회원가입</a>
 					</p>
 				</div>
 			</div>

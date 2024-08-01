@@ -1,4 +1,4 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,14 +9,12 @@
 <!-- 커스텀 CSS -->
 <style>
 body {
-	background-color: #f8f9fa;
+	background-color: #F8F9FA;
 }
-
 .navbar {
 	margin-bottom: 0;
 	border-radius: 0;
 }
-
 .signup-container {
 	max-width: 400px;
 	margin: 100px auto;
@@ -26,52 +24,46 @@ body {
 	border-radius: 5px;
 	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
-
 .signup-container h2 {
 	text-align: center;
 	margin-bottom: 30px;
 	font-weight: bold;
-	color: #007bff;
+	color: #007BFF;
 }
-
 .signup-form .form-control {
 	border-radius: 20px;
 	margin-bottom: 15px;
 }
-
 .signup-form button[type="submit"] {
 	padding: 12px 20px;
 	font-size: 18px;
-	background-color: #007bff;
+	background-color: #007BFF;
 	color: #fff;
 	border: none;
 	border-radius: 20px;
 	cursor: pointer;
 }
-
 .signup-form button[type="submit"]:hover {
-	background-color: #0056b3;
+	background-color: #0056B3;
 }
-
 .footer {
-	background-color: #f2f2f2;
+	background-color: #F2F2F2;
 	padding: 25px;
 	text-align: center;
 }
-
 @media ( max-width : 768px) {
 	.signup-container {
 		margin-top: 50px;
 	}
 }
-
-
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 	<%@ include file="../menubar/menubar.jsp" %>
 	
+	<nav>
+	</nav>
 	<div class="container" style="min-height: 900px;">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -110,50 +102,47 @@ body {
 							<input type="text" class="form-control" id="nickName" name="nickName"
 								placeholder="닉네임" required>
 						</div>
-						<input id="btn_register" button type="button" onclick="send(this.form);" 
+						<input id="btn_register" button type="button" onclick="send(this.form);"
 						class="btn btn-primary btn-block" disabled="disabled" value="가입하기">
 					</form>
 					<p class="text-center">
-						이미 회원이세요? <a href="" data-toggle="modal" data-target="#loginModal">로그인</a>
+						이미 회원이세요? <a href="login_form.do">로그인</a>
 					</p>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<%@ include file="../menubar/footer.jsp" %>
-
 <script type="text/javascript">
 function find_addr(){
-	   
+	  
 	   new daum.Postcode({
 	        oncomplete: function(data) {
 	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-	            // 예제를 참고하여 다양한 활용법을 확인해 보세요. 위에 데이타가 존코드에 들가 이 존코드를 addr 인풋태그 id에 
+	            // 예제를 참고하여 다양한 활용법을 확인해 보세요. 위에 데이타가 존코드에 들가 이 존코드를 addr 인풋태그 id에
 	            $("#userAddr").val(data.address); 	  //선택한 정보의 주소 넣기
 	        }
 	    }).open();
 }//end:find_addr()
-
 	function check_id(){
 		 //회원가입 버튼은 비활성화
 	  	 // <input id="btn_register" type="button" ...  disabled="disabled">
 		  $("#btn_register").prop("disabled", true);
-		  
+		 
 		  let userId = $("#userId").val();
-		  
+		 
 		  if(userId.length==0){
 		   		
 		   		$("#id_msg").html("");
 		   		return;
 		   	}
-		  
+		 
 		  if(userId.length<3){
 		    	
 		    	$("#id_msg").html("id는 3자리 이상 입력하세요").css("color","red");
 		    	return;
 		    }
-		  
+		 
 		  $.ajax({
 		    	url		:	"check_id.do",     //MemberCheckIdAction
 		    	data	:	{"userId":userId}, //parameter   => check_id.do?mem_id=one
@@ -173,7 +162,7 @@ function find_addr(){
 		    	error	:	function(err){
 		    		alert(err.responseText);
 		    	}
-		    });	   	  
+		    });	   	 
 	}//end:check_id
 	
 	
@@ -202,10 +191,6 @@ function find_addr(){
 			 f.submit();
 		}
 	}
-
 </script>
-
-
-
 </body>
 </html>

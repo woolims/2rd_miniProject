@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>2차 미니 프로젝트 로그인화면</title>
 
 <!-- 커스텀 CSS -->
 <style>
@@ -77,6 +77,11 @@ body {
 </style>
 </head>
 <body>
+	
+	<!-- Modal Start --> 
+	<%@include file="registerModal.jsp" %>
+	<!-- Modal End -->
+	
 	<!-- Modal -->
 	<div class="modal fade" id="loginModal" role="dialog"
 		style="width: 100%; height: 100%;">
@@ -107,9 +112,10 @@ body {
 
 						<div style="text-align: center; margin-top: 20px;">
 							<input class="btn btn-success" type="button" value="홈으로"
-								onclick="location.href='home.do'"> <input
+								onclick="location.href='home.do'"> <!-- <input
 								class="btn btn-primary" type="button" value="회원가입"
-								onclick="location.href='register_form.do'">
+								onclick="location.href='register_form.do'"> -->
+								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">회원가입</button>
 						</div>
 					</form>
 
@@ -128,6 +134,8 @@ body {
 			f.action="login.do";
 			f.submit();
 		}
+		
+		
 	
 	</script>
 </body>
