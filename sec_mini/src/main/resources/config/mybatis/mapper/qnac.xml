@@ -3,12 +3,64 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qnac">
-	
+
 	<!-- 전체조회 -->
-	<select id="select_list" resultType="qnac">
-		select * from QnAView
+	<select id="select_list" parameterType="int" resultType="qnac">
+		select *
+		from QnACommentView where qnaNo=#{qnaNo} order by createAt asc
 	</select>
-	
+
+	<!-- Paging조회 -->
+	<select id="qnac_page_list" parameterType="Map"
+		resultType="qnac">
+		select * from
+		(
+			select
+				rownum as no,
+				q.*
+			from
+			(
+				select * from QnACommentView where qnaNo = #{qnaNo} order by qnaCommentNo desc
+			) q
+		)
+		where no between #{start} and #{end}
+	</select>
+
+	<!-- 게시글의 총 댓글의 갯수 -->
+	<select id="qnac_row_total" parameterType="int" resultType="int">
+		select nvl(count(*),0) from QnACommentView where qnaNo = #{qnaNo}
+	</select>
+
+	<!-- 답글 작성 -->
+	<insert id="qnac_insert" parameterType="qnac">
+		insert into QnAComment values
+		(
+			qnac_no_seq.nextval,
+			#{qnaNo},
+			#{userNo},
+			#{commentContent},
+			default
+		)
+	</insert>
+
+	<!-- 답글 삭제 -->
+	<delete id="qnac_delete" parameterType="int">
+		delete from QnAComment where qnaCommentNo = #{qnaCommentNo}
+	</delete>
+
+	<!-- 답글 수정 -->
+	<update id="qnac_update" parameterType="qnac">
+		update QnAComment set
+			commentContent = #{commentContent}
+		where qnaCommentNo = #{qnaCommentNo}
+	</update>
+
+
+	<!-- 특정 답글 조회 -->
+	<select id="selectOneQCN" parameterType="int" resultType="qnac">
+		select * from QnAComment where qnaCommentNo=#{qnaCommentNo}
+	</select>
+
 </mapper>
 
 

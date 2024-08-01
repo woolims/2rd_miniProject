@@ -42,6 +42,11 @@
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
 
+	<!-- QnACommentDao 생성 -->
+	<bean id="qnac_dao" class="dao.QnACommentDao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
 	<!-- CommentDao 생성 -->
 	<bean id="comment_dao"  class="dao.CommentDaoImpl">
 		<property name="sqlSession" ref="sqlSession" />
@@ -49,6 +54,11 @@
 
 	<!-- CommentLikesDao 생성 -->
 	<bean id="commentLikesDao" class="dao.CommentLikesDaoImpl">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<!-- SBDao 생성 -->
+	<bean id="sb_dao" class="dao.SBDao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
 	

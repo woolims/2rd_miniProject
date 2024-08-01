@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sb">
+
+<!-- 끝난 경매 전체조회 -->
+<select id="success_all_bid" resultType="sb">
+	select * from Sb
+</select> 
+
+<!-- 끝난 경매 상세조회 select one-->
+<select id="success_one_bid" parameterType="sb" resultType="sb">
+	select * from Sb where userNo=#{userNo} and bidNo=#{bidNo}
+</select>
+
+<!-- 낙찰자 정보 저장 -->
+<insert id="insert_user_sb" parameterType="bid">
+	insert into Sb values(sb_no_seq.nextVal,
+						  #{userNo},
+						  #{bidNo})	
+</insert>
+
+<update id="end_at_update" parameterType="int">
+ 	update Aboard set endAt = 'Y' where pNo = #{pNo}
+</update>
+
+
+</mapper>

@@ -210,8 +210,13 @@
 						</div>
 
 						<div class="form-group">
-							<label>입찰에 참여중인 인원 수</label> <input type="text" class="form-control"
-								id="bid_person" name="bid_person" value="추가예정" readonly="readonly">
+							<label>입찰에 참여중인 인원 수</label> 
+							<c:if test="${empty bid_count}">
+								<input type="text" class="form-control" id="bid_count" name="bid_person" value="0" readonly="readonly">
+							</c:if>
+							<c:if test="${not empty bid_count}">
+								<input type="text" class="form-control" id="bid_count" name="bid_person" value="${bid_count}" readonly="readonly">
+							</c:if>
 						</div>
 						<div class="form-group" style="text-align: right;font-size: 20px;">
 						<label>현재 입찰가 : </label>
@@ -221,6 +226,7 @@
 						<c:if test="${vo.startPrice lt vo.entryBidPrice}">
 							<fmt:formatNumber type="number" maxFractionDigits="3" value="${vo.entryBidPrice}"/>원
 						</c:if>
+						
 						</div>
 
 						<div class="form-group" style="text-align: right; font-size: 20px;">
