@@ -269,8 +269,6 @@ footer {
 <body style="background-color: #303030; color: #f1f1f1;">
 
 	<%@ include file="../menubar/menubar.jsp"%>
-	<%@include file="../menubar/mypageModal.jsp" %>
-	<%@include file="../menubar/loginModal.jsp" %>
 
 	<div style="position: relative; z-index: 1;"
 		class="container-fluid text-center">

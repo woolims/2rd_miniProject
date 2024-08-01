@@ -136,8 +136,6 @@ body, html {
 <body>
 
 	<%@ include file="../menubar/menubar.jsp"%>
-	<%@include file="../menubar/mypageModal.jsp" %>
-	<%@include file="../menubar/loginModal.jsp" %>
 
 	<div class="container div-size" style="min-height: 1000px;">
 		<div class="row">

@@ -104,6 +104,7 @@
 		margin-top: 50px;
 	}
 }
+
 </style>
 
 <script type="text/javascript">
@@ -165,7 +166,7 @@ function modify(f){
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="signup-container">
-					<h2>마이페이지</h2>
+					<h2>프로필 수정</h2>
 					<form class="mypage-form">
 						<input type="hidden" name="userNo" value="${ user.userNo }" />
 						
@@ -210,12 +211,12 @@ function modify(f){
 						<div style="text-align: center; margin-top: 20px;">
 							<input class="btn btn-success" type="button" value="수정하기"
 					    			onclick="modify(this.form);" >
-					    	<input  class="btn btn-primary" type="button" value="회원탈퇴"
-					    	 onclick="redirectToDeletePage()">
+					    	 <input  class="btn btn-primary" type="button" value="마이옥션"
+					    	 onclick="location.href='myauction.do'">
 						</div>
-					    	
-					    
-					    			
+						<div style="text-align: right;">
+							<a href="${ pageContext.request.contextPath }/delete_form.do">회원탈퇴</a>	
+					    </div> 		
 						 </form>
 						</div>
 				</div>
