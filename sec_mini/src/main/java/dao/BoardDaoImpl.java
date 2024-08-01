@@ -66,4 +66,9 @@ public class BoardDaoImpl implements BoardDao {
         params.put("isPinned", isPinned);
         return sqlSession.update("board.updatePinStatus", params);
     }
+    
+    @Override
+    public List<BoardVo> selectTopThreeRecentPosts() {
+        return sqlSession.selectList("board.selectTopThreeRecentPosts");
+    }
 }

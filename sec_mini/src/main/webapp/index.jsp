@@ -11,7 +11,6 @@
 			//main page로 이동시킨다
 			location.href = "home.do";
 			
-			
 		</script>
 		
 	</head>
