@@ -50,9 +50,9 @@
 </select>
 
 <!-- 유저 번호만 조회 -->
-<!-- <select id="selectOne_userNo" resultType="int">
- 	select userNo from bid
-</select> -->
+<select id="p_no_select_one" resultType="int">
+ 	select pNo from bid where bidNo=#{bidNo}
+</select>
 
 
 <!-- 아무도 입찰을 안 했을 때 경매최저가 -->
@@ -65,7 +65,7 @@
 	select max(entryBidPrice) from bid  where bidNo=#{bidNo}
 </select>
 
-<!-- 경매에 참여한 개인이 입력한 최고값 개인열람용-->
+<!-- 경매에 참여한 개인이 입력한 최고값-->
 <update id="entry_bid_person_update" parameterType="bid">
 	update bid set entryBidPrice=#{entryBidPrice} where bidNo=#{bidNo} and userNo=#{userNo}
 </update>
@@ -77,7 +77,7 @@
 
 <!-- 해당 경매에 처음으로 입찰 성공시 유저의 정보 등록 -->
 <insert id="bid_success1" parameterType="bid">
-	insert into BidPlayer values(#{bidPNo},
+	insert into BidPlayer values(bidP_no_seq.nextVal,
 							 	 #{bidNo},
 								 #{userNo},
 								 #{playPrice})
@@ -105,9 +105,26 @@
 <select id="p_name_select" parameterType="int" resultType="String">
 	select pName from Product where pNo=#{pNo}
 </select>
-
+<!-- 현재 입찰 가능한 가격을 알려준다 -->
 <select id="now_bid_select" parameterType="int" resultType="int">
 	select max(nowBid) from Bid where bidNo=#{bidNo}
 </select>
+
+<!-- 해당 경매에 입찰에 참여한 사람들의 수 작동안됨-->
+<select id="bid_count_select" resultType="int">
+	select count(userNo) from BidPlayer
+</select>
+
+<!-- 낙찰된 금액을 검색 -->
+<select id="user_playPrice" parameterType="int" resultType="int">
+	select max(playPrice) from BidPlayer where bidNo=#{bidNo}
+</select>
+
+<select id="user_sb" parameterType="int" resultType="bid">
+	select userNo from BidPlayer where playPrice=#{playPrice}
+</select>
+
+
+
 
 </mapper>

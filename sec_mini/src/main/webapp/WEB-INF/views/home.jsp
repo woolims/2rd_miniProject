@@ -112,6 +112,7 @@ body {
     font-size: 2rem; /* 아이콘 크기 조정 */
 }
 </style>
+
 </head>
 <body>
 

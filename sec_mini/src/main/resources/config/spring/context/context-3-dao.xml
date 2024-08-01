@@ -52,5 +52,10 @@
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
 	
+	<!-- SBDao 생성 -->
+	<bean id="sb_dao" class="dao.SBDao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
 	
 </beans>

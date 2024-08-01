@@ -134,6 +134,27 @@ public class BidDao {
 		return sqlSession.selectOne("bid.now_bid_select",bidNo);
 	}
 
+	public int bid_count_select() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bid.bid_count_select");
+	}
+
+	public int user_playPrice(int bidNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bid.user_playPrice",bidNo);
+	}
+	
+	public BidVo user_sb(int user_playPrice) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bid.user_sb",user_playPrice);
+	}
+
+	public int p_no_select_one(int bidNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bid.p_no_select_one",bidNo);
+	}
+
+	
 
 
 	

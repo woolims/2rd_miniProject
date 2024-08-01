@@ -492,9 +492,8 @@ FROM Bid b
 INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
 INNER JOIN Users u ON bp.userNo = u.userNo
 INNER JOIN product p ON b.pNo = p.pNo;
-
-
-
+select*from BidPlayer
+select count(userNo) from BidPlayer
 
 ========================================================================================================================================================================
 
@@ -508,6 +507,7 @@ select * from Aboard
 select * from Users
 -- 입찰자 조회
 select * from BidPlayer
+select * from Sb
 
 select * from category
 

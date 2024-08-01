@@ -105,7 +105,27 @@
 			return;
 		}
 		
-		location.href='bid_start.do?bidNo=${vo.bidNo}&userNo=${user.userNo}&pNo=${vo.pNo}'
+		location.href='bid_start.do?bidNo=${vo.bidNo}&userNo=${user.userNo}&pNo=${vo.pNo}';
+		
+	}
+	
+	function sb_off() {
+		
+		if("${ empty user }" == "true"){
+			
+			if(confirm("로그인이 필요합니다.")==false) return;
+			
+			//로그인폼으로 이동
+			location.href="login_form.do";
+			
+			return;
+		}
+		
+		if(confirm('조기종료 하시겠습니까?')==true){
+			location.href='sb_off.do?bidNo=${vo.bidNo}&userNo=${user.userNo}&pNo=${vo.pNo}';
+		}
+		
+		
 		
 	}
 </script>
@@ -186,7 +206,7 @@
                         <input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;" onclick="bid_check();">
                     </c:if>
                     <c:if test="${ user.userNo eq vo.userNo }">
-                        <input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px;">
+                        <input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px;" onclick="sb_off();">
                     </c:if>
                 </form>
             </div>
