@@ -2,7 +2,9 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,7 @@ import vo.AboardVo;
 import vo.BoardVo;
 import vo.CategoryVo;
 import vo.DetailCategoryVo;
+import vo.ScrapVo;
 import vo.UserVo;
 
 @Controller
@@ -113,11 +116,25 @@ public class AuctionController {
 			session.setAttribute("show", true);
 
 		}
-
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		UserVo user = (UserVo) session.getAttribute("user");
+		if(user != null) {
+		    map.put("auctionBoardNo", auctionBoardNo);
+		    map.put("userNo", user.getUserNo());
+		}
+		
 		AboardVo vo = aboard_dao.selectOne(auctionBoardNo);
-
+		String canc = "N";
+		ScrapVo sc = aboard_dao.selectOne(map);
+		if(sc != null) {
+			canc = sc.getCancelAt();
+		}
+		
 		model.addAttribute("vo", vo);
-
+		model.addAttribute("canc", canc);
+		
 		return "main/a_board";
 	}
 
@@ -227,6 +244,44 @@ public class AuctionController {
 		return "board/freetalk";
 	}
 
+	@RequestMapping("/scrap.do")
+	public String scrap(ScrapVo vo) {
+	    if (vo == null) {
+	        throw new IllegalArgumentException("ScrapVo 객체는 null일 수 없습니다.");
+	    }
+
+	    int res = 0;
+	    String cancelAt = vo.getCancelAt();  // 초기 값 저장
+	    
+	    // 초기 map 구성
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("auctionBoardNo", vo.getAuctionBoardNo());
+	    map.put("userNo", vo.getUserNo());
+	    
+	    System.out.println(vo.getAuctionBoardNo());
+	    System.out.println(vo.getUserNo());
+	    System.out.println(vo.getCancelAt());
+	    
+	    // 데이터베이스에서 ScrapVo 조회
+	    ScrapVo existingVo = aboard_dao.selectOne(vo);
+	    
+	    if (existingVo == null) {
+	        // ScrapVo가 존재하지 않으면 삽입
+	        res = aboard_dao.insertScrap(map);
+	        // 새로 삽입한 후에 다시 조회
+	        existingVo = aboard_dao.selectOne(vo);
+	        if (existingVo == null) {
+	            // 삽입 후에도 ScrapVo가 조회되지 않으면 예외 처리
+	            throw new IllegalStateException("ScrapVo를 삽입 후 다시 조회했으나 여전히 null입니다.");
+	        }
+	    }
+
+	    // 기존 ScrapVo가 존재할 경우
+	    existingVo.setCancelAt(cancelAt);
+	    res = aboard_dao.update_cancelAt(existingVo);
+	    
+	    return "redirect:a_board.do?auctionBoardNo=" + existingVo.getAuctionBoardNo();
+	}
 	// 문의 페이지 이동
 //	@RequestMapping("/qna.do")
 //	public String qna() {

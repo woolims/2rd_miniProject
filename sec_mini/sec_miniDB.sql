@@ -194,6 +194,7 @@ CREATE TABLE Scrap (
 	scrapNo NUMBER PRIMARY KEY,
 	auctionBoardNo NUMBER NOT NULL,
 	userNo NUMBER NOT NULL,
+	cancelAt char(1) DEFAULT 'N' CHECK(cancelAt IN ('Y','N')),
 	CONSTRAINT fk_scrap_userNo FOREIGN KEY (userNo)
 	REFERENCES Users(userNo) ON DELETE CASCADE,
 	CONSTRAINT fk_scrap_auctionBoardNo FOREIGN KEY (auctionBoardNo)
@@ -455,6 +456,37 @@ INNER JOIN Bid b ON p.pNo = b.pNo
 INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
 
+-- 마이옥션 입찰 조회
+CREATE OR REPLACE VIEW MyAuctionBidView AS
+SELECT DISTINCT
+    a.auctionBoardNo,
+    a.pNo,
+    p.pName,
+	p.pImage,
+	b.bidNo,
+    b.entryBidPrice,
+	b.endDate,
+	bp.userNo
+FROM Aboard a
+INNER JOIN Product p ON a.pNo = p.pNo
+INNER JOIN Bid b ON p.pNo = b.pNo
+INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo;
+
+-- 마이옥션 낙찰 조회
+CREATE OR REPLACE VIEW MyAuctionSbView AS
+SELECT DISTINCT
+    a.auctionBoardNo,
+    a.pNo,
+    p.pName,
+	p.pImage,
+	b.bidNo,
+    b.entryBidPrice,
+	b.endDate,
+	sb.userNo
+FROM Aboard a
+INNER JOIN Product p ON a.pNo = p.pNo
+INNER JOIN Bid b ON p.pNo = b.pNo
+INNER JOIN Sb sb ON b.bidNo = sb.bidNo;
 
 -- QnA 전체 조회
 CREATE OR REPLACE VIEW QnAView AS

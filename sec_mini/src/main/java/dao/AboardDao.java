@@ -1,12 +1,14 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import vo.AboardVo;
 import vo.BidVo;
+import vo.ScrapVo;
 
 public class AboardDao {
 
@@ -50,6 +52,40 @@ public class AboardDao {
 
 	public List<AboardVo> selectCate(int categoryNo) {
 		return sqlSession.selectList("aboard.select_categoryNo", categoryNo);
+	}
+
+	public List<AboardVo> selectListMyBid(int userNo) {
+		return sqlSession.selectList("aboard.select_my_bid", userNo);
+	}
+
+	public List<AboardVo> selectListMySb(int userNo) {
+		return sqlSession.selectList("aboard.select_my_sb", userNo);
+	}
+
+	public List<AboardVo> selectListMyAuc(int userNo) {
+		return sqlSession.selectList("aboard.select_my_auc", userNo);
+	}
+
+	public List<AboardVo> selectListMySc(int userNo) {
+		return sqlSession.selectList("aboard.select_my_sc", userNo);
+	}
+	
+	//즐겨찾기 결과 불러오기
+	public ScrapVo selectOne(Map<String, Object> map) {
+		return sqlSession.selectOne("aboard.select_scrap", map);
+	}
+
+	public int update_cancelAt(ScrapVo vo) {
+		return sqlSession.update("aboard.updateCancelAt", vo);
+	}
+	
+	//즐겨찾기 추가
+	public int insertScrap(Map<String, Object> map) {
+		return sqlSession.insert("aboard.insertScrap", map);
+	}
+
+	public ScrapVo selectOne(ScrapVo vo) {
+		return sqlSession.selectOne("aboard.select_scrapvo", vo);
 	}
 
 

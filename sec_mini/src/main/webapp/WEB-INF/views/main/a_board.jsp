@@ -86,6 +86,40 @@
 </style>
 
 <script type="text/javascript">
+
+	//기존 스크립트 유지
+	<c:set var="scrapState" value="${canc}"/>
+	var scrapState = '${scrapState}'; // 문자열로 변환되어 전달됨
+
+    function auc_scrap(f) {
+        var button = document.getElementById('ScrapButton');
+        var auctionBoardNo = f.auctionBoardNo.value;
+        var userNo = f.userNo.value;
+        
+        if (scrapState === 'N') { // scrapState가 'N'이면
+            button.value = '즐겨찾기';
+        } else {
+            button.value = '즐겨찾기 취소';
+        }
+
+        // AJAX 요청을 위한 scrap 변수 정의
+        var scrap = scrapState === 'N' ? 'Y' : 'N'; // scrapState의 반대 값으로 설정
+
+        $.ajax({
+            url: 'a_board_insert_form.do',
+            type: 'POST',
+            data: { scrap: scrap },
+            success: function(response) {
+                console.log('Server updated successfully.');
+                location.href="scrap.do?auctionBoardNo="+auctionBoardNo+"&userNo="+userNo+"&cancelAt="+scrap;
+            },
+            error: function(err) {
+                console.log('Sorry. This Error.');
+                // 오류 처리 로직 필요 시 여기에 작성
+            }
+        });
+    }
+
     function delete_product(f) {
         if (confirm("정말 삭제 하시겠습니까?") == false) return;
         f.action = "aboard_delete.do";
@@ -195,19 +229,21 @@
                 <form>
                     <input type="hidden" id="auctionBoardNo" name="auctionBoardNo" value="${ vo.auctionBoardNo }">
                     <input type="hidden" id="pNo" name="pNo" value="${ vo.pNo }">
+                    <input type="hidden" id="userNo" name="userNo" value="${ user.userNo }">
                     <div class="col-sm-6 text-right">
                         <div style="margin-right: 100px;">
                             <c:if test="${ user.userNo == 1 }">
-                                <input class="btn btn-danger button-fixed-size" type="button" value="삭제하기" onclick="delete_product(this.form)">
+                                <input class="btn btn-danger button-fixed-size" type="button" value="삭제하기" style="margin-left: 1025px !important;" onclick="delete_product(this.form)">
                             </c:if>
                         </div>
                     </div>
                     <c:if test="${ user.userNo ne vo.userNo }">
-                        <input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;" onclick="bid_check();">
+                        <input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px; margin-bottom: 20px;" onclick="bid_check();">
                     </c:if>
                     <c:if test="${ user.userNo eq vo.userNo }">
-                        <input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px;" onclick="sb_off();">
+                        <input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px; margin-bottom: 20px;" onclick="sb_off();">
                     </c:if>
+                    <input class="btn btn-primary" id="ScrapButton" type="button" value="즐겨찾기" style="width:100%; height: 100px; margin-top: 20px; margin-bottom: 20px; background: #cfcf00 !important; color: #0000ff !important;" onclick="auc_scrap(this.form);">
                 </form>
             </div>
             <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,6 +103,16 @@ footer {
 	text-align: center; /* 중앙 정렬 */
 }
 
+.active>a{
+	color: black !important;
+	font-weight: bold !important;
+}
+
+.disactive>a{
+	color: white;
+	font-weight: bold !important;
+}
+
 /* 커스텀 끝 */
 </style>
 </head>
@@ -121,48 +134,142 @@ footer {
 
 				<div>
 					<ul class="nav nav-tabs">
-						<li class="active"><a data-toggle="tab" href="#menu1">입찰내역</a>
+						<li class="disactive active"><a data-toggle="tab" href="#menu1">입찰내역</a>
 
 						</li>
-						<li><a data-toggle="tab" href="#menu2">낙찰내역</a></li>
-						<li><a data-toggle="tab" href="#menu3">즐겨찾기</a></li>
+						<li class="disactive"><a data-toggle="tab" href="#menu2">낙찰내역</a></li>
+						<li class="disactive"><a data-toggle="tab" href="#menu3">내가 올린 경매</a></li>
+						<li class="disactive"><a data-toggle="tab" href="#menu4">즐겨찾기</a></li>
 					</ul>
 
 					<div class="tab-content">
 						<div id="menu1" class="tab-pane fade in active">
 						
 							<div class="auction_div">
-								<c:forEach var="vo" items="${ list }">
-									<div class="col-sm-2 product_auc">
-										<div
-											style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
-											onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
-											<img alt="사진" src=""><br> <br>
-										</div>
-										<br>
-										<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
-										<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p>
-										<br>
-										<p style="text-align: left; margin: 0;">남은일자 :</p>
-										<fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-
-									</div>
-								</c:forEach>
+								<c:choose>
+								    <c:when test="${empty list}">
+								        <!-- list2가 null이거나 비어있을 때 표시할 내용 -->
+								        <h1>내역이 없습니다.</h1>
+								    </c:when>
+								    <c:otherwise>
+								        <!-- list2가 null이 아니고 비어있지 않을 때 반복하여 출력 -->
+								        <c:forEach var="vo" items="${list}">
+								            <div class="col-sm-2 product_auc">
+								                <div
+								                    style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
+								                    onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
+								                    <img alt="사진" src=""><br> <br>
+								                </div>
+								                <br>
+								                <p style="text-align: left; margin: 0">상품명 : ${vo.pName}</p>
+								                <p style="text-align: left; margin: 0">현재 입찰가 : ${vo.entryBidPrice}원</p>
+								                <br>
+								                <p style="text-align: left; margin: 0;">남은일자 :</p>
+								                <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+								            </div>
+								        </c:forEach>
+								    </c:otherwise>
+								</c:choose>
 							</div>
 							
 						</div>
 						
 						<div id="menu2" class="tab-pane fade">
-							<h3>Menu 2</h3>
-							<p>222222222222222222222222222222222</p>
+						
+							<div class="auction_div">
+								<c:choose>
+								    <c:when test="${empty list2}">
+								        <!-- list2가 null이거나 비어있을 때 표시할 내용 -->
+								        <h1>내역이 없습니다.</h1>
+								    </c:when>
+								    <c:otherwise>
+								        <!-- list2가 null이 아니고 비어있지 않을 때 반복하여 출력 -->
+								        <c:forEach var="vo" items="${list2}">
+								            <div class="col-sm-2 product_auc">
+								                <div
+								                    style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
+								                    onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
+								                    <img alt="사진" src=""><br> <br>
+								                </div>
+								                <br>
+								                <p style="text-align: left; margin: 0">상품명 : ${vo.pName}</p>
+								                <p style="text-align: left; margin: 0">현재 입찰가 : ${vo.entryBidPrice}원</p>
+								                <br>
+								                <p style="text-align: left; margin: 0;">남은일자 :</p>
+								                <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+								            </div>
+								        </c:forEach>
+								    </c:otherwise>
+								</c:choose>
+							</div>
+							
 						</div>
 						
 						<div id="menu3" class="tab-pane fade">
-							<h3>Menu 3</h3>
-							<p>33333333333333333333333333333333333</p>
+							
+							<div class="auction_div">
+								<c:choose>
+								    <c:when test="${empty list3}">
+								        <!-- list2가 null이거나 비어있을 때 표시할 내용 -->
+								        <h1>내역이 없습니다.</h1>
+								    </c:when>
+								    <c:otherwise>
+								        <!-- list2가 null이 아니고 비어있지 않을 때 반복하여 출력 -->
+								        <c:forEach var="vo" items="${list3}">
+								            <div class="col-sm-2 product_auc">
+								                <div
+								                    style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
+								                    onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
+								                    <img alt="사진" src=""><br> <br>
+								                </div>
+								                <br>
+								                <p style="text-align: left; margin: 0">상품명 : ${vo.pName}</p>
+								                <p style="text-align: left; margin: 0">현재 입찰가 : ${vo.entryBidPrice}원</p>
+								                <br>
+								                <p style="text-align: left; margin: 0;">남은일자 :</p>
+								                <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+								            </div>
+								        </c:forEach>
+								    </c:otherwise>
+								</c:choose>
+							</div>
+							
+						</div>
+
+						<div id="menu4" class="tab-pane fade">
+							
+							<div class="auction_div">
+								<c:choose>
+								    <c:when test="${empty list4}">
+								        <!-- list2가 null이거나 비어있을 때 표시할 내용 -->
+								        <h1>내역이 없습니다.</h1>
+								    </c:when>
+								    <c:otherwise>
+								        <!-- list2가 null이 아니고 비어있지 않을 때 반복하여 출력 -->
+								        <c:forEach var="vo" items="${list4}">
+								            <div class="col-sm-2 product_auc">
+								                <div
+								                    style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
+								                    onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
+								                    <img alt="사진" src=""><br> <br>
+								                </div>
+								                <br>
+								                <p style="text-align: left; margin: 0">상품명 : ${vo.pName}</p>
+								                <p style="text-align: left; margin: 0">현재 입찰가 : ${vo.entryBidPrice}원</p>
+								                <br>
+								                <p style="text-align: left; margin: 0;">남은일자 :</p>
+								                <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
+								            </div>
+								        </c:forEach>
+								    </c:otherwise>
+								</c:choose>
+							</div>
+							
 						</div>
 
 					</div>
+					
+					
 
 				</div>
 

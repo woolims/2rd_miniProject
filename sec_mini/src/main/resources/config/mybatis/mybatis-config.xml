@@ -18,6 +18,7 @@
 		<typeAlias type="vo.BidVo" alias="bid"/>
 		<typeAlias type="vo.SBVo" alias="sb"/>
 		<typeAlias type="vo.AboardVo" alias="aboard"/>
+		<typeAlias type="vo.ScrapVo" alias="scrap"/>
 		<typeAlias type="vo.BoardVo" alias="board"/>
 		<typeAlias type="vo.CategoryVo" alias="category"/>
 		<typeAlias type="vo.DetailCategoryVo" alias="d_category"/>

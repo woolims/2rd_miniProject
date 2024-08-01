@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dao.AboardDao;
 import dao.UserDao;
 import vo.AboardVo;
+import vo.ScrapVo;
 import vo.UserVo;
 
 @Controller
@@ -216,12 +217,9 @@ public class UserController {
 	@RequestMapping("/myauction.do")
 	public String myauction(Model model) {
 		
-//		게시물 불러오기
-		List<AboardVo> list = aboard_dao.selectList();
-		model.addAttribute("list", list);
-		
-		
 		UserVo user = (UserVo) session.getAttribute("user");
+		
+
 		
 		if(user == null) {
 			session.setAttribute("alertMsg", "로그인한 사용자만 접근 가능");
@@ -230,6 +228,19 @@ public class UserController {
 			return "redirect:home.do";
 		}else {
 			
+			//입찰 게시물 불러오기
+			List<AboardVo> list = aboard_dao.selectListMyBid(user.getUserNo());
+			//낙찰 게시물 불러오기
+			List<AboardVo> list2 = aboard_dao.selectListMySb(user.getUserNo());
+			//내가 올린 게시물 불러오기
+			List<AboardVo> list3 = aboard_dao.selectListMyAuc(user.getUserNo());
+			//즐겨찾기 게시물 불러오기
+			List<AboardVo> list4 = aboard_dao.selectListMySc(user.getUserNo());
+			
+			model.addAttribute("list", list);
+			model.addAttribute("list2", list2);
+			model.addAttribute("list3", list3);
+			model.addAttribute("list4", list4);
 		
 			return "main/myauction";
 		}
