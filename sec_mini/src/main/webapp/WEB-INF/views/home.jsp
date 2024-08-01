@@ -113,7 +113,11 @@ body {
 </head>
 <body style="background-color: #303030; color: #f1f1f1;">
 
+	<!-- Modal Start --> 
 	<%@ include file="menubar/menubar.jsp"%>
+	<%@include file="menubar/mypageModal.jsp" %>
+	<%@include file="menubar/loginModal.jsp" %>
+	<!-- Modal End -->
 
 	<div class="container-fluid text-center">
 		<div class="row content">

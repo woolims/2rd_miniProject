@@ -20,15 +20,10 @@
 <!-- 부트스트랩 JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	
-<!-- 주소검색 api -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
@@ -267,7 +262,7 @@
 						
 						<div class="form-group">
 							<label>전화번호</label>
-							<input type="text" class="form-control" id="phone" name="phone" value="${ user.phone }">
+							<input type="text" class="form-control" id="phone" name="phone" value="${ user.phone }" readonly="readonly">
 						</div>
 						
 						<div class="form-group">

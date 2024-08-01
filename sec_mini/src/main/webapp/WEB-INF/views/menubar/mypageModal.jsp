@@ -64,9 +64,9 @@
 
 				<div style="text-align: center; margin-top: 20px;">
 					<input class="btn btn-success" type="button" value="홈으로"
-						onclick="location.href='home.do'"> <input
+						onclick="location.href='${ pageContext.request.contextPath }/home.do'"> <input
 						class="btn btn-primary" type="button" value="마이페이지"
-						onclick="location.href='mypage.do'">
+						onclick="location.href='${ pageContext.request.contextPath }/mypage.do'">
 				</div>
 			</form>
 

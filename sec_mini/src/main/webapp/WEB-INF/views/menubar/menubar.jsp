@@ -58,12 +58,6 @@
 </head>
 <body>
 
-<!-- Modal Start --> 
-<%@include file="mypageModal.jsp" %>
-<%@include file="loginModal.jsp" %>
-<!-- Modal End -->
-
-
 <!-- 알러창 띄워주기 -->
 <c:if test="${ not empty alertMsg }">
 	<script>

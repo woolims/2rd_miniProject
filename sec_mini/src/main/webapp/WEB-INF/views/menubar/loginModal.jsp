@@ -78,10 +78,6 @@ body {
 </head>
 <body>
 	
-	<!-- Modal Start --> 
-	<%@include file="registerModal.jsp" %>
-	<!-- Modal End -->
-	
 	<!-- Modal -->
 	<div class="modal fade" id="loginModal" role="dialog"
 		style="width: 100%; height: 100%;">
@@ -106,16 +102,16 @@ body {
 							<input type="password" class="form-control" id="userPwd"
 								name="userPwd" placeholder="비밀번호" required>
 						</div>
-						<button type="button" onclick="send(this.form)"
+						<button type="button" onclick="login(this.form)"
 							class="btn btn-primary btn-block">로그인</button>
 
 
 						<div style="text-align: center; margin-top: 20px;">
 							<input class="btn btn-success" type="button" value="홈으로"
-								onclick="location.href='home.do'"> <!-- <input
+								onclick="location.href='${ pageContext.request.contextPath }/home.do'"> <input
 								class="btn btn-primary" type="button" value="회원가입"
-								onclick="location.href='register_form.do'"> -->
-								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">회원가입</button>
+								onclick="location.href='${ pageContext.request.contextPath }/register_form.do'">
+<!-- 								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">회원가입</button> -->
 						</div>
 					</form>
 
@@ -125,18 +121,20 @@ body {
 
 		</div>
 	</div>
+	
 	<script>
-		function send(f) {
+		function login(f) {
 			// 아이디 비밀번호 
 			let userId = document.getElementById('userId');
 			let userPwd = document.getElementById('userPwd');
 			f.method = "post";
-			f.action="login.do";
+			f.action="${ pageContext.request.contextPath }/login.do";
 			f.submit();
 		}
 		
-		
-	
 	</script>
+	
+	
+	
 </body>
 </html>
