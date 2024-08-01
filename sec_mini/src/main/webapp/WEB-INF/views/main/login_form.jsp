@@ -83,7 +83,7 @@ body {
 							<input type="password" class="form-control" id="userPwd"
 								name="userPwd" placeholder="비밀번호" required>
 						</div>
-						<button type="button" onclick="send(this.form)" class="btn btn-primary btn-block">로그인</button>
+						<button type="button" onclick="login(this.form)" class="btn btn-primary btn-block">로그인</button>
 					</form>
 					<p class="text-center">
 						아직 회원이 아니세요? <a href="${ pageContext.request.contextPath }/register_form.do">회원가입</a>
@@ -93,7 +93,7 @@ body {
 		</div>
 	</div>
 		<script>
-		function send(f) {
+		function login(f) {
 			// 아이디 비밀번호 
 			let userId = document.getElementById('userId');
 			let userPwd = document.getElementById('userPwd');

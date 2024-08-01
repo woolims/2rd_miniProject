@@ -187,8 +187,6 @@
 <body>
 
 <%@ include file="../menubar/menubar.jsp"%>
-<%@include file="../menubar/mypageModal.jsp" %>
-<%@include file="../menubar/loginModal.jsp" %>
 
 <div class="wrapper">
   <div class="header">

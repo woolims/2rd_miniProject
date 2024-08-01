@@ -118,13 +118,7 @@ body {
 
 	<!-- Modal Start --> 
 	<%@ include file="menubar/menubar.jsp"%>
-	<%@include file="menubar/mypageModal.jsp" %>
-	<%@include file="menubar/loginModal.jsp" %>
 	<!-- Modal End -->
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 
     <div class="container-fluid text-center">
         <div class="row content">

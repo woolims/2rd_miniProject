@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.UserDao;
@@ -48,7 +49,6 @@ public class UserController {
 		
 		//로그인 처리
 		session.setAttribute("user", user);
-		session.setAttribute("userNo", user.getUserNo());
 		
 		return "redirect:home.do";
 	}
@@ -66,7 +66,13 @@ public class UserController {
 	}
 	
 	@RequestMapping("/register.do")
-	public String register(UserVo vo) {
+	public String register(UserVo vo,
+			@RequestParam(name="page", defaultValue = "all") String userId,
+            @RequestParam(name="userPwdReg", defaultValue = "all") String userPwd) {
+		
+		UserVo vo1 = new UserVo();
+	    vo1.setUserId(userId);
+	    vo1.setUserPwd(userPwd);
 		
 		int res = user_dao.insert(vo);
 		
