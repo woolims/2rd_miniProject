@@ -115,15 +115,11 @@ body {
 </head>
 <body>
 
-<<<<<<< HEAD
-    <%@ include file="menubar/menubar.jsp"%>
-=======
 	<!-- Modal Start --> 
 	<%@ include file="menubar/menubar.jsp"%>
 	<%@include file="menubar/mypageModal.jsp" %>
 	<%@include file="menubar/loginModal.jsp" %>
 	<!-- Modal End -->
->>>>>>> 김원진Branch
 
     <div class="container-fluid text-center">
         <div class="row content">
