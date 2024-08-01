@@ -216,9 +216,10 @@ public class UserController {
 	@RequestMapping("/myauction.do")
 	public String myauction(Model model) {
 		
+//		게시물 불러오기
 		List<AboardVo> list = aboard_dao.selectList();
-
 		model.addAttribute("list", list);
+		
 		
 		UserVo user = (UserVo) session.getAttribute("user");
 		

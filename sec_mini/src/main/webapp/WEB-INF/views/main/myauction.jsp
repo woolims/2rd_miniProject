@@ -118,22 +118,19 @@ footer {
 			<div class="col-sm-8 text-left"
 				style="background-color: #303030; color: #f1f1f1;">
 				<h2 class="title_auction" style="color: #FFD700;">마이옥션</h2>
-				<div style="text-align: right;">
+
+				<div>
 					<ul class="nav nav-tabs">
-						<li class="active">
-							<a data-toggle="tab" href="#menu1">입찰내역</a>
-							
+						<li class="active"><a data-toggle="tab" href="#menu1">입찰내역</a>
+
 						</li>
-						<li>
-							<a data-toggle="tab" href="#menu2">낙찰내역</a>
-						</li>
-						<li>
-							<a data-toggle="tab" href="#menu3">즐겨찾기</a>
-						</li>
+						<li><a data-toggle="tab" href="#menu2">낙찰내역</a></li>
+						<li><a data-toggle="tab" href="#menu3">즐겨찾기</a></li>
 					</ul>
 
 					<div class="tab-content">
 						<div id="menu1" class="tab-pane fade in active">
+						
 							<div class="auction_div">
 								<c:forEach var="vo" items="${ list }">
 									<div class="col-sm-2 product_auc">
@@ -147,21 +144,22 @@ footer {
 										<p style="text-align: left; margin: 0">현재 입찰가 : ${ vo.entryBidPrice }원</p>
 										<br>
 										<p style="text-align: left; margin: 0;">남은일자 :</p>
-										<fmt:formatDate value="${vo.endDate}"
-											pattern="yyyy-MM-dd HH:mm:ss" />
+										<fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
 
 									</div>
 								</c:forEach>
 							</div>
+							
 						</div>
+						
 						<div id="menu2" class="tab-pane fade">
 							<h3>Menu 2</h3>
-							<p>테에에에에ㅔ에에에스으으으으으으트틍으으으으으으</p>
+							<p>222222222222222222222222222222222</p>
 						</div>
+						
 						<div id="menu3" class="tab-pane fade">
 							<h3>Menu 3</h3>
-							<p>Sed ut perspiciatis unde omnis iste natus error sit
-								voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+							<p>33333333333333333333333333333333333</p>
 						</div>
 
 					</div>
