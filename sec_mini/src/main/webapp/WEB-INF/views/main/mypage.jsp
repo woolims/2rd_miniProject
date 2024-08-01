@@ -122,7 +122,7 @@
 
 <script type="text/javascript">
 
-function send(f){
+function modify(f){
 	//사용자가 입력한 값을 변수 userName에 저장! 사용자가 입력한 값을 서버로 보내기위해 변수에 저장!
 	let userName = f.userName.value.trim();
     let userPwd  = f.userPwd.value.trim();
@@ -149,7 +149,7 @@ function send(f){
 	   
 	   
 	   
-  }//end:send()
+  }//end:modify()
   
   function  redirectToDeletePage(){
 	  window.location.href = "delete_form.do";
@@ -209,7 +209,7 @@ function send(f){
 						
 						<div style="text-align: center; margin-top: 20px;">
 							<input class="btn btn-success" type="button" value="수정하기"
-					    			onclick="send(this.form);" >
+					    			onclick="modify(this.form);" >
 					    	<input  class="btn btn-primary" type="button" value="회원탈퇴"
 					    	 onclick="redirectToDeletePage()">
 						</div>

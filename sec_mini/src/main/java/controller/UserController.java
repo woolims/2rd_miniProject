@@ -38,12 +38,12 @@ public class UserController {
 		//아이디가 틀린 경우
 		if(user == null) {
 			session.setAttribute("alertMsg", "로그인 실패");
-			return "redirect:login_form.do";
+			return "redirect:home.do";
 		}
 		//비밀번호가 틀린 경우
 		if(user.getUserPwd().equals(userPwd)==false) {
 			session.setAttribute("alertMsg", "비밀번호가 틀렸습니다.");
-			return "redirect:login_form.do";
+			return "redirect:home.do";
 		}
 		
 		//로그인 처리

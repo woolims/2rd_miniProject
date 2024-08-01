@@ -1,12 +1,15 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>2차 미니 프로젝트 로그인화면</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- 커스텀 CSS -->
 <style>
+
 body {
 	background-color: #f8f9fa;
 }
@@ -63,47 +66,75 @@ body {
 		margin-top: 50px;
 	}
 }
+
+#loginModal {
+    position: fixed;
+    left: 81%; 
+    top: 52%; 
+    transform: translate(-50%, -50%);
+}
+
 </style>
 </head>
 <body>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="loginModal" role="dialog"
+		style="width: 100%; height: 100%;">
+		<div class="modal-dialog modal-sm">
 
-	<%@ include file="../menubar/menubar.jsp"%>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="pop_mem_name">로그인</h4>
+				</div>
 
-	<div class="container" style="min-height: 900px;">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div class="login-container">
-					<h2>로그인</h2>
+				<!-- 본문 -->
+				<div class="modal-body">
+
 					<form class="login-form">
 						<div class="form-group">
-							<input type="text" class="form-control" id="userId"
-								name="userId" placeholder="아이디" required>
+							<input type="text" class="form-control" id="userId" name="userId"
+								placeholder="아이디" required>
 						</div>
 						<div class="form-group">
 							<input type="password" class="form-control" id="userPwd"
 								name="userPwd" placeholder="비밀번호" required>
 						</div>
-						<button type="button" onclick="send(this.form)" class="btn btn-primary btn-block">로그인</button>
+						<button type="button" onclick="login(this.form)"
+							class="btn btn-primary btn-block">로그인</button>
+
+
+						<div style="text-align: center; margin-top: 20px;">
+							<input class="btn btn-success" type="button" value="홈으로"
+								onclick="location.href='${ pageContext.request.contextPath }/home.do'"> <input
+								class="btn btn-primary" type="button" value="회원가입"
+								onclick="location.href='${ pageContext.request.contextPath }/register_form.do'">
+<!-- 								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#registerModal">회원가입</button> -->
+						</div>
 					</form>
-					<p class="text-center">
-						아직 회원이 아니세요? <a href="${ pageContext.request.contextPath }/register_form.do">회원가입</a>
-					</p>
+
 				</div>
+
 			</div>
+
 		</div>
 	</div>
-		<script>
-		function send(f) {
+	
+	<script>
+		function login(f) {
 			// 아이디 비밀번호 
 			let userId = document.getElementById('userId');
 			let userPwd = document.getElementById('userPwd');
 			f.method = "post";
-			f.action="login.do";
+			f.action="${ pageContext.request.contextPath }/login.do";
 			f.submit();
 		}
-	
+		
 	</script>
-
-	<%@ include file="../menubar/footer.jsp"%>
+	
+	
+	
 </body>
 </html>
