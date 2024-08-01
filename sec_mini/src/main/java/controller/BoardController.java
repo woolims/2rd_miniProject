@@ -114,10 +114,20 @@ public class BoardController {
 
     // 게시글 상세 조회
     @RequestMapping("view.do")
-    public String view(@RequestParam("boardNo") int boardNo, Model model) {
+    public String view(@RequestParam("boardNo") int boardNo, int b_idx, Model model) {
         // boardNo에 해당되는 게시물 1건 얻어오기
         BoardVo vo = board_dao.selectOne(boardNo);
         
+        BoardVo vo2 = board_dao.selectOne(b_idx);
+        
+        if(session.getAttribute("show")==null) {
+    		
+			//조회수 증가
+			int res = board_dao.update_readhit(b_idx);
+			
+			session.setAttribute("show", true);
+		
+		}
         // 디버그 출력
         if (vo == null) {
             System.out.println("BoardVo is null for boardNo: " + boardNo);
@@ -128,6 +138,8 @@ public class BoardController {
         
         // 결과적으로 request binding
         model.addAttribute("vo", vo);
+        model.addAttribute("vo2", vo2);
+        
         return "board/board_view";
     }
 

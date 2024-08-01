@@ -43,6 +43,11 @@ public class BoardDaoImpl implements BoardDao {
     public int update_readhit(int boardNo) {
         return sqlSession.update("board.board_update_readhit", boardNo);
     }
+    
+    public int update_readhit2(int b_idx) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("board.board_update_readhit", b_idx);
+	}
 
     @Override
     public int update(BoardVo vo) {
