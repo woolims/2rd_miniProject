@@ -27,11 +27,7 @@
 	<repositories>
 		<repository>
 			<id>jitpack.io</id>
-<<<<<<< HEAD
 				<url>https://jitpack.io</url>
-=======
-			<url>https://jitpack.io</url>
->>>>>>> 손호영Branch
 		</repository>
 	</repositories>
 
