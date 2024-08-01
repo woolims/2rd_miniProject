@@ -31,6 +31,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="aboard_delete" parameterType="int">
 		update aboard set deleteAt='Y' where auctionBoardNo=#{auctionBoardNo}
 	</update>
+	
+	<!--  조회수 증가  -->
+	<update id="aboard_update_readhit" parameterType="int"> 
+		update aboard set viewCount = viewCount + 1 where auctionBoardNo=#{ auctionBoardNo } 
+	</update>
+	
 </mapper>
 
 

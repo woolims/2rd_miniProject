@@ -42,6 +42,8 @@ public class BoardController {
         @RequestParam(name = "page", defaultValue = "1") int nowPage,
         Model model) {
 
+    	session.removeAttribute("show");
+    	
         Map<String, Object> map = new HashMap<String, Object>();
 
         // 검색 조건 처리
@@ -118,6 +120,15 @@ public class BoardController {
         // boardNo에 해당되는 게시물 1건 얻어오기
         BoardVo vo = board_dao.selectOne(boardNo);
         
+        if(session.getAttribute("show")==null) {
+    		
+			//조회수 증가
+			int res = board_dao.update_readhit(boardNo);
+			
+			session.setAttribute("show", true);
+		
+		}
+        
         // 디버그 출력
         if (vo == null) {
             System.out.println("BoardVo is null for boardNo: " + boardNo);
@@ -128,6 +139,7 @@ public class BoardController {
         
         // 결과적으로 request binding
         model.addAttribute("vo", vo);
+        
         return "board/board_view";
     }
 
