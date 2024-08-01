@@ -112,6 +112,7 @@ body {
     font-size: 2rem; /* 아이콘 크기 조정 */
 }
 </style>
+
 </head>
 <body>
 
@@ -120,7 +121,10 @@ body {
 	<%@include file="menubar/mypageModal.jsp" %>
 	<%@include file="menubar/loginModal.jsp" %>
 	<!-- Modal End -->
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 
     <div class="container-fluid text-center">
         <div class="row content">

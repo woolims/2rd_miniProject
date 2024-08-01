@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-여긴 충전페이지야
+<div></div>
+
 </body>
 </html>
