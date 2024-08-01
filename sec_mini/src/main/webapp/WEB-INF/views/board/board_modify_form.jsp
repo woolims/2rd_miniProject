@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -16,6 +17,7 @@
     body, html {
       height: 100%;
       margin: 0;
+      font-family: 'Noto Sans KR', sans-serif !important;
     }
     .container {
       display: flex;
@@ -28,9 +30,6 @@
       justify-content: flex-start;
       align-items: center;
       margin-bottom: 20px;
-    }
-    .header h2 {
-      margin-left: 10px;
     }
     .content {
       flex: 1;
@@ -46,6 +45,24 @@
       height: 50vh; /* 화면의 50% 높이로 설정 */
       overflow-y: auto;
     }
+    
+    .btn-black {
+	color: white !important;
+	border-color: black !important;
+	background-color: black !important;
+	}
+	
+	.btn-white {
+	color: black !important;
+	border-color: black !important;
+	background-color: white !important;
+	}
+    
+    
+    
+    
+    
+    
   </style>
 </head>
 <body>
@@ -57,7 +74,7 @@
     <button class="btn btn-default" onclick="goBack()">
       <i class="fas fa-arrow-left"></i>
     </button>
-    <h2>글을 수정하는 공간입니다.</h2>
+    <h3 style="font-weight: bold; margin-left: 5px">글을 수정하는 공간입니다.</h3>
   </div>
   
   <form id="modifyForm" action="${pageContext.request.contextPath}/board/modify.do" method="post" enctype="multipart/form-data" class="content">
@@ -77,8 +94,8 @@
 
     <!-- 글 수정 버튼 -->
     <div style="margin-top: 10px;">
-      <input class="btn btn-info" type="button" value="목록보기" onclick="location.href='freetalk.do'">
-      <input class="btn btn-primary" type="button" value="글수정" onclick="send(this.form);">
+      <input class="btn btn-info btn-black" type="button" value="목록보기" onclick="location.href='freetalk.do'">
+      <input class="btn btn-primary btn-white " type="button" value="글수정" onclick="send(this.form);">
     </div>
   </form>
 </div>

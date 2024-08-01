@@ -19,6 +19,7 @@ public interface BoardDao {
     
     // 게시글 핀 상태 업데이트
     int updatePinStatus(int boardNo, int isPinned);
+	int getCommentCount(int boardNo);
     
     
     

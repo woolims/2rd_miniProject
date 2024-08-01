@@ -110,6 +110,7 @@ SELECT * FROM Board ORDER BY boardNo DESC
 */
 
 
+
 /*
 
 drop table Comments

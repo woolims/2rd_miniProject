@@ -14,6 +14,7 @@ public class BoardVo {
     private Timestamp updateAt;
     //추가
     private int isPinned;
+    private int commentCount;  
 
     // getters and setters
     public int getBoardNo() {
@@ -88,6 +89,16 @@ public class BoardVo {
     public void setIsPinned(int isPinned) {
         this.isPinned = isPinned;
     }
+
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+    
+    
     
     
     

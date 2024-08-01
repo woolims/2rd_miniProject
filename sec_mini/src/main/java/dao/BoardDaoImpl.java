@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import vo.BoardVo;
 
 @Repository("board_dao")
@@ -65,5 +66,12 @@ public class BoardDaoImpl implements BoardDao {
         params.put("boardNo", boardNo);
         params.put("isPinned", isPinned);
         return sqlSession.update("board.updatePinStatus", params);
+    }
+    
+    private static final String namespace = "board.";
+    
+    @Override
+    public int getCommentCount(int boardNo) {
+    	 return sqlSession.selectOne("board.getCommentCount", boardNo);
     }
 }

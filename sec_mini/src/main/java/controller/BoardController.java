@@ -34,7 +34,6 @@ public class BoardController {
     @Autowired
     BoardDao board_dao;
 
-    // 전체 목록 조회 및 검색, 페이징 처리
     @RequestMapping("freetalk.do")
     public String list(
         @RequestParam(name="search", defaultValue = "all") String search,
@@ -71,6 +70,12 @@ public class BoardController {
 
         // 게시물 리스트 가져오기
         List<BoardVo> list = board_dao.selectList(map);
+
+        // 각 게시물의 댓글 수 가져오기
+        for (BoardVo vo : list) {
+            int commentCount = board_dao.getCommentCount(vo.getBoardNo());
+            vo.setCommentCount(commentCount);
+        }
 
         // 모델에 데이터 설정
         model.addAttribute("list", list);
