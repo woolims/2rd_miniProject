@@ -18,13 +18,12 @@
 		<typeAlias type="vo.BidVo" alias="bid"/>
 		<typeAlias type="vo.AboardVo" alias="aboard"/>
 		<typeAlias type="vo.BoardVo" alias="board"/>
-		<typeAlias type="vo.SBVo" alias="sb"/>
 		<typeAlias type="vo.CategoryVo" alias="category"/>
 		<typeAlias type="vo.DetailCategoryVo" alias="d_category"/>
 		<typeAlias type="vo.QnAVo" alias="qna"/>
+		<typeAlias type="vo.QnACommentVo" alias="qnac"/>
 		<typeAlias type="vo.CommentVo" alias="comment"/>
 		<typeAlias type="vo.CommentLikesVo" alias="commentlikes"/>
-		
 	</typeAliases>
 	
 	<mappers>
@@ -33,9 +32,9 @@
 		<mapper resource="config/mybatis/mapper/bid.xml" />
 		<mapper resource="config/mybatis/mapper/aboard.xml" />
 		<mapper resource="config/mybatis/mapper/board.xml" />
-		<mapper resource="config/mybatis/mapper/sb.xml" />
 		<mapper resource="config/mybatis/mapper/category.xml"/>
 		<mapper resource="config/mybatis/mapper/qna.xml"/>
+		<mapper resource="config/mybatis/mapper/qnac.xml"/>
 		<mapper resource="config/mybatis/mapper/comment.xml"/>
 		<mapper resource="config/mybatis/mapper/commentlikes.xml"/>
 	</mappers>

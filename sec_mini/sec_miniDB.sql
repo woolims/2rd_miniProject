@@ -462,7 +462,6 @@ SELECT DISTINCT
 	qc.userNo,
 	qc.commentContent,
 	qc.CreateAt,
-	qc.userNo,
 	u.userName
 FROM QnAComment qc
 INNER JOIN Users u ON qc.userNo = u.userNo;
@@ -492,8 +491,9 @@ FROM Bid b
 INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
 INNER JOIN Users u ON bp.userNo = u.userNo
 INNER JOIN product p ON b.pNo = p.pNo;
-select*from BidPlayer
-select count(userNo) from BidPlayer
+
+
+
 
 ========================================================================================================================================================================
 
@@ -507,7 +507,6 @@ select * from Aboard
 select * from Users
 -- 입찰자 조회
 select * from BidPlayer
-select * from Sb
 
 select * from category
 
@@ -595,15 +594,19 @@ insert into aboard values(
 			default
 		)
 
-SELECT * FROM (
-    SELECT * FROM Board
-    ORDER BY createAt DESC
-) WHERE ROWNUM <= 3;
+		select * from
+		(
+			select
+				rownum as no,
+				q.*
+			from
+			(
+				select * from QnACommentView where qnaNo = 5 order by qnaCommentNo desc
+			) q
+		)
+		where no between 1 and 5
 
-
-Select board_no_seq.NEXTVAL from dual
-
-select * from board
+		select nvl(count(*),0) from QnACommentView where qnaNo = 5
 
 */
 
