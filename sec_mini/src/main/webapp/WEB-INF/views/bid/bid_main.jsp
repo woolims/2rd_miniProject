@@ -114,7 +114,8 @@
 }
 </style>
 <script type="text/javascript">
-
+console.log(${now_check});
+console.log(${end_check});
 	function bid(f) {
 		
 		//로그인 여부 체크
@@ -217,6 +218,9 @@
 							<c:if test="${not empty bid_count}">
 								<input type="text" class="form-control" id="bid_count" name="bid_person" value="${bid_count}" readonly="readonly">
 							</c:if>
+						</div>
+						<div>
+							<fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd HH:mm:ss" />
 						</div>
 						<div class="form-group" style="text-align: right;font-size: 20px;">
 						<label>현재 입찰가 : </label>

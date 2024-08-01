@@ -1,5 +1,13 @@
 package controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -28,16 +36,29 @@ public class BidController {
 	@Autowired
 	SBDao sb_dao;
 	
+	
+	
 
 	@RequestMapping("bid_start.do") // 입찰페이지로 가는 버튼클릭시 실행
-	public String bid_start(BidVo vo, Model model) {
+	public String bid_start(BidVo vo, Model model) throws Exception {
 
+		LocalDateTime now = LocalDateTime.now();
 		int startPrice = bid_dao.new_bid_price_select(vo.getpNo());
 		int entryBidPrice = bid_dao.entry_bid_select(vo.getBidNo());
 		int myCash = bid_dao.cashCheck(vo.getUserNo());
 		String pName = bid_dao.p_name_select(vo.getpNo());
 		int nowBid = bid_dao.now_bid_select(vo.getBidNo());
 		int bid_count = bid_dao.bid_count_select();
+		
+		String end_date = bid_dao.end_date_check(vo.getBidNo());
+		String now_time = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
+		
+		Date end_date_check = new SimpleDateFormat("yyyy/MM/dd/hh/mm/ss").parse(end_date);
+		Date now_time_check = new SimpleDateFormat("yyyy/MM/dd/hh/mm/ss").parse(now_time);
+		
+		long end_check = end_date_check.getTime();	//종료시간
+		long now_check = now_time_check.getTime();	//현재시간
+		
 		vo.setNowBid(nowBid);
 		vo.setEntryBidPrice(entryBidPrice);
 		vo.setStartPrice(startPrice);
@@ -45,9 +66,12 @@ public class BidController {
 
 		if (startPrice < myCash) {
 			// 유저가 가진 금액이 상품등록 금액보다 많을 경우 통과
-			if (entryBidPrice == 0) {
+			if (entryBidPrice == 0) { //입찰자가 없다면 통과
 				model.addAttribute(bid_count);
 				model.addAttribute("vo", vo);
+				model.addAttribute(end_check);
+				model.addAttribute(now_check);
+				
 				System.out.println(bid_count);
 				return "bid/bid_main"; // 진짜 입찰페이지로 이동
 			} else {

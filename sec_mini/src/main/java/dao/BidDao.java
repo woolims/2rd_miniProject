@@ -154,6 +154,13 @@ public class BidDao {
 		return sqlSession.selectOne("bid.p_no_select_one",bidNo);
 	}
 
+	public String end_date_check(int bidNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bid.end_date_check",bidNo);
+	}
+
+
+
 	
 
 

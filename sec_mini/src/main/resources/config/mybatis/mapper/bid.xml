@@ -124,6 +124,9 @@
 	select userNo from BidPlayer where playPrice=#{playPrice}
 </select>
 
+<select id="end_date_check" parameterType="int" resultType="String">
+	select end_date from Aboard where bidNo=#{bidNo}
+</select>
 
 
 
