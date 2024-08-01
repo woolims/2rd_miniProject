@@ -37,6 +37,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update aboard set viewCount = viewCount + 1 where auctionBoardNo=#{ auctionBoardNo } 
 	</update>
 	
+	<!-- d_categoryNo으로 조회 -->
+	<select id="select_d_categoryNo" parameterType="int" resultType="aboard">
+		select * from AuctionView where deleteAt='N' and endAt='N' and d_categoryNo=#{d_categoryNo} order by auctionBoardNo
+	</select>
+	
+	<!-- categoryNo으로 조회 -->
+	<select id="select_categoryNo" parameterType="int" resultType="aboard">
+		select * from AuctionView where deleteAt='N' and endAt='N' and categoryNo=#{categoryNo} order by auctionBoardNo
+	</select>
+	
 </mapper>
 
 

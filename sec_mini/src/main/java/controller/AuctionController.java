@@ -76,14 +76,24 @@ public class AuctionController {
 	// 경매 게시판 이동
 	// /auction.do?category=computer
 	@RequestMapping("/auction.do")
-	public String auction(Model model) {
+	public String auction(@RequestParam(name = "categoryNo", defaultValue = "0") int categoryNo, @RequestParam(name = "d_categoryNo", defaultValue = "0") int d_categoryNo, Model model) {
 
 		session.removeAttribute("show");
-
+		
 		List<CategoryVo> category_list = category_dao.selectList();
 		List<DetailCategoryVo> d_category_list = d_category_dao.selectList();
-		List<AboardVo> list = aboard_dao.selectList();
-
+		
+		List<AboardVo> list = null;
+		System.out.println("categoryNo = " + categoryNo + "/ d_categoryNo = " + d_categoryNo);
+		
+		if(categoryNo != 0) {
+				list = aboard_dao.selectCate(categoryNo);
+		}else if(d_categoryNo != 0) {
+			list = aboard_dao.selectDCate(d_categoryNo);
+		}else {
+				list = aboard_dao.selectList();
+		}
+		
 		model.addAttribute("category_list", category_list);
 		model.addAttribute("d_category_list", d_category_list);
 		model.addAttribute("list", list);

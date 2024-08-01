@@ -82,4 +82,7 @@
     set is_deleted = 1 
     where cmt_idx = #{cmt_idx}
   </update>
+  
+  
+  
 </mapper>

@@ -44,5 +44,13 @@ public class AboardDao {
 		return sqlSession.update("aboard.aboard_update_filename", vo);
 	}//end:update() 
 
+	public List<AboardVo> selectDCate(int d_categoryNo) {
+		return sqlSession.selectList("aboard.select_d_categoryNo", d_categoryNo);
+	}
+
+	public List<AboardVo> selectCate(int categoryNo) {
+		return sqlSession.selectList("aboard.select_categoryNo", categoryNo);
+	}
+
 
 }

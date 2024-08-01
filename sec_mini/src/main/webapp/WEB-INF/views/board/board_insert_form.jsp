@@ -6,6 +6,7 @@
   <title>글 작성</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -15,6 +16,7 @@
     body, html {
       height: 100%;
       margin: 0;
+	  font-family: 'Noto Sans KR', sans-serif !important;
     }
     .container {
       display: flex;
@@ -28,6 +30,7 @@
     }
     .form-group {
       margin-bottom: 15px;
+      margin-top: 10px;
     }
     .btn {
       margin-top: 10px;
@@ -36,6 +39,23 @@
       height: 50vh; /* 화면의 50% 높이로 설정 */
       overflow-y: auto;
     }
+    label {
+      font-size: 1.2em; /* 레이블 폰트 크기 키움 */
+    }
+    
+    .btn-black {
+	color: white !important;
+	border-color: black !important;
+	background-color: black !important;
+	}
+	
+	.btn-white {
+	color: black !important;
+	border-color: black !important;
+	background-color: white !important;
+	}
+    
+    
   </style>
   
   <script type="text/javascript">
@@ -69,33 +89,26 @@
 <%@ include file="../menubar/menubar.jsp"%>
 
 <div class="container">
-  <h2>글을 작성하는 공간입니다.</h2>
+  <h3 style="font-weight: bold;">글을 쓰는 공간입니다.</h3>
   
   <form id="insertForm" action="${pageContext.request.contextPath}/board/insert.do" method="post" enctype="multipart/form-data" class="content">
     <!-- 제목 -->
     <div class="form-group">
-      <label for="title">제목:</label>
+      <label for="title">Title:</label>
       <input type="text" class="form-control" id="title" name="title" required>
     </div>
 
     <!-- 내용 -->
     <div class="form-group">
-      <label for="content">내용:</label>
+      <label for="content">Content:</label>
       <div id="editor-container"></div>
       <textarea name="boardContent" id="boardContent" style="display:none;"></textarea>
     </div>
 
-    <!-- 파일 업로드 -->
-    <!-- 아직 미구현.. 디벨롭 필요 -->
-    <div class="form-group">
-      <label for="file">파일 업로드:</label>
-      <input type="file" class="form-control-file" id="file" name="uploadFile">
-    </div>
-
     <!-- 글 작성/목록 버튼 -->
     <div style="margin-top: 10px;">
-      <input class="btn btn-info" type="button" value="목록보기" onclick="location.href='freetalk.do'">
-      <input class="btn btn-primary" type="button" value="글올리기" onclick="send(this.form);">
+      <input class="btn btn-info btn-white" type="button" value="목록보기" onclick="location.href='freetalk.do'">
+      <input class="btn btn-primary btn-black" type="button" value="글 작성" onclick="send(this.form);">
     </div>
   </form>
 </div>
@@ -117,4 +130,3 @@
 
 </body>
 </html>
-

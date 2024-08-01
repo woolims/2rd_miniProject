@@ -17,9 +17,9 @@
 
 <style>
 body {
-    background-color: #2c2c2c; /* 어두운 회색 배경 */
-    color: #f1f1f1; /* 밝은 텍스트 색상 */
-    font-family: 'Arial', sans-serif; /* 일반적인 글꼴 */
+    background-color: #2c2c2c !important; /* 어두운 회색 배경 */
+    color: #f1f1f1 !important; /* 밝은 텍스트 색상 */
+    font-family: 'Arial', sans-serif !important; /* 일반적인 글꼴 */
 }
 
 .banner {

@@ -34,7 +34,6 @@ public class BoardController {
     @Autowired
     BoardDao board_dao;
 
-    // 전체 목록 조회 및 검색, 페이징 처리
     @RequestMapping("freetalk.do")
     public String list(
         @RequestParam(name="search", defaultValue = "all") String search,
@@ -42,8 +41,6 @@ public class BoardController {
         @RequestParam(name = "page", defaultValue = "1") int nowPage,
         Model model) {
 
-    	session.removeAttribute("show");
-    	
         Map<String, Object> map = new HashMap<String, Object>();
 
         // 검색 조건 처리
@@ -73,7 +70,13 @@ public class BoardController {
 
         // 게시물 리스트 가져오기
         List<BoardVo> list = board_dao.selectList(map);
-        
+
+        // 각 게시물의 댓글 수 가져오기
+        for (BoardVo vo : list) {
+            int commentCount = board_dao.getCommentCount(vo.getBoardNo());
+            vo.setCommentCount(commentCount);
+        }
+
         // 모델에 데이터 설정
         model.addAttribute("list", list);
         model.addAttribute("pageMenu", pageMenu);
@@ -117,17 +120,18 @@ public class BoardController {
     // 게시글 상세 조회
     @RequestMapping("view.do")
     public String view(@RequestParam("boardNo") int boardNo, Model model) {
-        // boardNo에 해당되는 게시물 1건 얻어오기
-        BoardVo vo = board_dao.selectOne(boardNo);
         
-        if(session.getAttribute("show")==null) {
-    		
-			//조회수 증가
-			int res = board_dao.update_readhit(boardNo);
-			
-			session.setAttribute("show", true);
-		
-		}
+    	 if(session.getAttribute("show")==null) {
+     		
+ 			//조회수 증가
+ 			int res = board_dao.update_readhit(boardNo);
+ 			
+ 			session.setAttribute("show", true);
+ 		
+ 		}
+    	
+    	// boardNo에 해당되는 게시물 1건 얻어오기
+        BoardVo vo = board_dao.selectOne(boardNo);
         
         // 디버그 출력
         if (vo == null) {
@@ -139,7 +143,6 @@ public class BoardController {
         
         // 결과적으로 request binding
         model.addAttribute("vo", vo);
-        
         return "board/board_view";
     }
 
@@ -233,5 +236,13 @@ public class BoardController {
 
         return "redirect:freetalk.do";
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
