@@ -9,6 +9,7 @@ public class QnACommentVo {
 	int userNo;
 	String commentContent;
 	Timestamp createAt;
+	String userName;
 	
 	
 	public int getQnaCommentNo() {
@@ -40,6 +41,12 @@ public class QnACommentVo {
 	}
 	public void setCreateAt(Timestamp createAt) {
 		this.createAt = createAt;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 }

@@ -462,7 +462,6 @@ SELECT DISTINCT
 	qc.userNo,
 	qc.commentContent,
 	qc.CreateAt,
-	qc.userNo,
 	u.userName
 FROM QnAComment qc
 INNER JOIN Users u ON qc.userNo = u.userNo;
@@ -594,6 +593,20 @@ insert into aboard values(
 			default,
 			default
 		)
+
+		select * from
+		(
+			select
+				rownum as no,
+				q.*
+			from
+			(
+				select * from QnACommentView where qnaNo = 5 order by qnaCommentNo desc
+			) q
+		)
+		where no between 1 and 5
+
+		select nvl(count(*),0) from QnACommentView where qnaNo = 5
 
 */
 
