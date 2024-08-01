@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.AboardDao;
 import dao.BidDao;
-import dao.BoardDao;
 import dao.CategoryDao;
 import dao.DetailCategoryDao;
 import dao.ProductDao;
 import vo.AboardVo;
-import vo.BoardVo;
 import vo.CategoryVo;
 import vo.DetailCategoryVo;
 import vo.UserVo;
@@ -40,8 +38,6 @@ public class AuctionController {
 	BidDao bid_dao;
 	@Autowired
 	ProductDao product_dao;
-	@Autowired
-	BoardDao board_dao;
 
 	@Autowired
 	CategoryDao category_dao;
@@ -55,12 +51,7 @@ public class AuctionController {
 
 	// main 페이지 이동
 	@RequestMapping("/home.do")
-	public String home(Model model) {
-		
-        // 상위 3개의 최신 게시글 가져오기
-        List<BoardVo> topThreePosts = board_dao.selectTopThreeRecentPosts();
-        request.setAttribute("topThreePosts", topThreePosts);
-		
+	public String home() {
 		return "home";
 	}
 

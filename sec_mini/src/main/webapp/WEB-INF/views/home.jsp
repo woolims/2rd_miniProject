@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +12,9 @@
 
 <style>
 body {
-    background-color: #2c2c2c; /* 어두운 회색 배경 */
-    color: #f1f1f1; /* 밝은 텍스트 색상 */
-    font-family: 'Arial', sans-serif; /* 일반적인 글꼴 */
+	background-color: #2c2c2c; /* 어두운 회색 배경 */
+	color: #f1f1f1; /* 밝은 텍스트 색상 */
+	font-family: 'Arial', sans-serif; /* 일반적인 글꼴 */
 }
 
 .banner {
@@ -46,13 +41,13 @@ body {
 }
 
 .auction-item {
-    border: 1px solid #444; /* 더 어두운 테두리 */
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    text-align: center;
-    background-color: #333; /* 어두운 배경 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+	border: 1px solid #444; /* 더 어두운 테두리 */
+	padding: 15px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	text-align: center;
+	background-color: #333; /* 어두운 배경 */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
 }
 
 .auction-item img {
@@ -64,179 +59,194 @@ body {
 }
 
 .forum-post {
-    border: 1px solid #555; /* 더 어두운 테두리 */
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    background-color: #444; /* 어두운 배경 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+	border: 1px solid #555; /* 더 어두운 테두리 */
+	padding: 15px;
+	margin-bottom: 15px;
+	border-radius: 5px;
+	background-color: #444; /* 어두운 배경 */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
 }
 
 .forum-post h5 {
-    margin: 0 0 10px;
+	margin: 0 0 10px;
 }
 
 .sidenav {
-    background-color: #2c2c2c; /* 어두운 회색 배경 */
-    color: #f1f1f1; /* 밝은 텍스트 색상 */
+	background-color: #2c2c2c; /* 어두운 회색 배경 */
+	color: #f1f1f1; /* 밝은 텍스트 색상 */
 }
 
 .sidenav a {
-    color: #f1f1f1; /* 사이드바 링크 색상 */
+	color: #f1f1f1; /* 사이드바 링크 색상 */
 }
 
 .sidenav a:hover {
-    color: #ff9800; /* 사이드바 링크 호버 색상 */
+	color: #ff9800; /* 사이드바 링크 호버 색상 */
 }
 
 .btn-custom {
-    background-color: #ff5722; /* 버튼 배경색 */
-    color: #fff; /* 버튼 텍스트 색상 */
-    border: none; /* 버튼 테두리 제거 */
+	background-color: #ff5722; /* 버튼 배경색 */
+	color: #fff; /* 버튼 텍스트 색상 */
+	border: none; /* 버튼 테두리 제거 */
 }
 
 .btn-custom:hover {
-    background-color: #e64a19; /* 버튼 호버 색상 */
+	background-color: #e64a19; /* 버튼 호버 색상 */
 }
 
 .carousel-control {
     width: 5%; /* 버튼 너비 조정 */
 }
 .carousel-indicators {
-    margin-bottom: 0px !important;
+	margin-bottom: 0px !important;
 }
+
+
 
 .carousel-control .glyphicon-chevron-left,
 .carousel-control .glyphicon-chevron-right {
     color: #ffffff; /* 아이콘 색상 변경 */
     font-size: 2rem; /* 아이콘 크기 조정 */
 }
+
 </style>
 </head>
-<body>
+<body style="background-color: #303030; color: #f1f1f1;">
 
-    <%@ include file="menubar/menubar.jsp"%>
+	<%@ include file="menubar/menubar.jsp"%>
 
-    <div class="container-fluid text-center">
-        <div class="row content">
-            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
-                <!-- 좌측 사이드바 내용 -->
-                <h4>카테고리</h4>
-                <ul class="list-unstyled">
-                    <li><a href="#">집에 가고 싶다</a></li>
-                    <li><a href="#">집에 가고 싶다</a></li>
-                    <li><a href="#">집에 가고 싶다</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-8 text-left">
-                <h1>암시장 메인 페이지</h1>
+	<div class="container-fluid text-center">
+		<div class="row content">
+			<div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
+				<!-- 좌측 사이드바 내용 -->
+				<h4>카테고리</h4>
+				<ul class="list-unstyled">
+					<li><a href="#">집에 가고 싶다</a></li>
+					<li><a href="#">집에 가고 싶다</a></li>
+					<li><a href="#">집에 가고 싶다</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-8 text-left">
+				<h1>암시장 메인 페이지</h1>
 
-                <!-- 배너 섹션 -->
-                <div class="banner">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="resources/images/따봉도치.jpg" alt="First slide">
-                                <div class="carousel-caption">
-                                    <p>홍보 내용 1</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="resources/images/따봉도치.jpg" alt="Second slide">
-                                <div class="carousel-caption">
-                                    <p>홍보 내용 2</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <img src="resources/images/따봉도치.jpg" alt="Third slide">
-                                <div class="carousel-caption">
-                                    <p>홍보 내용 3</p>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> 
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
-                            <span class="sr-only">Previous</span>
-                        </a> 
-                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
+				<!-- 배너 섹션 -->
+				<div class="banner">
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner">
+							<div class="item active">
+								<img src="resources/images/따봉도치.jpg" alt="First slide">
+								<div class="carousel-caption">
+									<p>홍보 내용 1</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="resources/images/따봉도치.jpg" alt="Second slide">
+								<div class="carousel-caption">
+									<p>홍보 내용 2</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="resources/images/따봉도치.jpg" alt="Third slide">
+								<div class="carousel-caption">
+									<p>홍보 내용 3</p>
+								</div>
+							</div>
+						</div>
+						<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> 
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
+							<span class="sr-only">Previous</span>
+						</a> 
+						<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
 
-                <!-- 인기 경매 물품 박스 -->
-                <h2>인기 있는 경매 물품</h2>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="auction-item">
-                            <img src="resources/images/따봉도치.jpg" alt="Item 1">
-                            <h4>경매 물품 1</h4>
-                            <p>설명: 경매 물품 1의 설명</p>
-                            <button class="btn btn-custom">입찰하기</button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="auction-item">
-                            <img src="resources/images/따봉도치.jpg" alt="Item 2">
-                            <h4>경매 물품 2</h4>
-                            <p>설명: 경매 물품 2의 설명</p>
-                            <button class="btn btn-custom">입찰하기</button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="auction-item">
-                            <img src="resources/images/따봉도치.jpg" alt="Item 3">
-                            <h4>경매 물품 3</h4>
-                            <p>설명: 경매 물품 3의 설명</p>
-                            <button class="btn btn-custom">입찰하기</button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="auction-item">
-                            <img src="resources/images/따봉도치.jpg" alt="Item 4">
-                            <h4>경매 물품 4</h4>
-                            <p>설명: 경매 물품 4의 설명</p>
-                            <button class="btn btn-custom">입찰하기</button>
-                        </div>
-                    </div>
-                </div>
+				<!-- 인기 경매 물품 박스 -->
+				<h2>인기 있는 경매 물품</h2>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="auction-item">
+							<img src="resources/images/따봉도치.jpg" alt="Item 1">
+							<h4>경매 물품 1</h4>
+							<p>설명: 경매 물품 1의 설명</p>
+							<button class="btn btn-custom">입찰하기</button>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="auction-item">
+							<img src="resources/images/따봉도치.jpg" alt="Item 2">
+							<h4>경매 물품 2</h4>
+							<p>설명: 경매 물품 2의 설명</p>
+							<button class="btn btn-custom">입찰하기</button>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="auction-item">
+							<img src="resources/images/따봉도치.jpg" alt="Item 3">
+							<h4>경매 물품 3</h4>
+							<p>설명: 경매 물품 3의 설명</p>
+							<button class="btn btn-custom">입찰하기</button>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="auction-item">
+							<img src="resources/images/따봉도치.jpg" alt="Item 4">
+							<h4>경매 물품 4</h4>
+							<p>설명: 경매 물품 4의 설명</p>
+							<button class="btn btn-custom">입찰하기</button>
+						</div>
+					</div>
+				</div>
 
 				<!-- 자유게시판 최신글 목록 -->
 				<h2>자유게시판 최신 글</h2>
-				<c:forEach var="post" items="${topThreePosts}">
-				    <div class="forum-post">
-				        <h5>
-				            <a href="board/view.do?boardNo=${post.boardNo}">${post.title}</a>
-				        </h5>
-				        <p>내용 요약: ${fn:substring(post.boardContent, 0, 100)}...</p> <!-- 내용 요약 -->
-				        <small>작성일: <fmt:formatDate value="${post.createAt}" pattern="yyyy-MM-dd HH:mm:ss"/></small> <!-- 포맷팅된 날짜 -->
-				    </div>
-				</c:forEach>
-            </div>
-            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
-                <!-- 우측 사이드바 내용 -->
-                <h4>인기 품목</h4>
-                <ul class="list-unstyled">
-                    <li><a href="#">집에 가고 싶다</a></li>
-                    <li><a href="#">집에 가고 싶다</a></li>
-                    <li><a href="#">집에 가고 싶다</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+				<div class="forum-post">
+					<h5>
+						<a href="#">자유게시판 글 제목 1</a>
+					</h5>
+					<p>내용 요약: 글 내용의 요약...</p>
+					<small>작성일: 2024-07-29</small>
+				</div>
+				<div class="forum-post">
+					<h5>
+						<a href="#">자유게시판 글 제목 2</a>
+					</h5>
+					<p>내용 요약: 글 내용의 요약...</p>
+					<small>작성일: 2024-07-28</small>
+				</div>
+				<div class="forum-post">
+					<h5>
+						<a href="#">자유게시판 글 제목 3</a>
+					</h5>
+					<p>내용 요약: 글 내용의 요약...</p>
+					<small>작성일: 2024-07-27</small>
+				</div>
+			</div>
+			<div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
+				<!-- 우측 사이드바 내용 -->
+				<h4>인기 품목</h4>
+				<ul class="list-unstyled">
+					<li><a href="#">집에 가고 싶다</a></li>
+					<li><a href="#">집에 가고 싶다</a></li>
+					<li><a href="#">집에 가고 싶다</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-    <%@ include file="menubar/footer.jsp"%>
+	<%@ include file="menubar/footer.jsp"%>
 
-    <script>
-        $(function() {
-            $('#home').addClass('active');
-        });
-    </script>
+	<script>
+		$(function() {
+			$('#home').addClass('active');
+		});
+	</script>
 </body>
 </html>

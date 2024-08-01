@@ -76,12 +76,6 @@
 	margin-bottom: 0px !important;
 }
 
-.button-fixed-size {
-	width: 150px !important;  /* 원하는 너비로 설정 */
-	height: 50px;  /* 원하는 높이로 설정 */
-	margin-left: 1055px !important;
-}
-
 
 </style>
 
@@ -178,7 +172,7 @@
                     <div class="col-sm-6 text-right">
                         <div style="margin-right: 100px;">
                             <c:if test="${ user.userNo == 1 }">
-                                <input class="btn btn-danger button-fixed-size" type="button" value="삭제하기" onclick="delete_product(this.form)">
+                                <input class="btn btn-danger" type="button" value="삭제하기" onclick="delete_product(this.form)">
                             </c:if>
                         </div>
                     </div>

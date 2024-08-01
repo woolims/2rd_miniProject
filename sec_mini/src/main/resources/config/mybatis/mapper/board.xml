@@ -78,13 +78,5 @@
     SET isPinned = #{isPinned}
     WHERE boardNo = #{boardNo}
   </update>
-  
-  <!-- 게시글 최신 Top3 가져오기 -->
-  <select id="selectTopThreeRecentPosts" resultType="board">
-		SELECT * FROM (
-		    SELECT * FROM Board
-		    ORDER BY createAt DESC
-		) WHERE ROWNUM &lt;= 3
-  </select>
 
 </mapper>

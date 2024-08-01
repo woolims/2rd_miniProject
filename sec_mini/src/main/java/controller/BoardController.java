@@ -71,7 +71,7 @@ public class BoardController {
 
         // 게시물 리스트 가져오기
         List<BoardVo> list = board_dao.selectList(map);
-        
+
         // 모델에 데이터 설정
         model.addAttribute("list", list);
         model.addAttribute("pageMenu", pageMenu);
@@ -221,5 +221,13 @@ public class BoardController {
 
         return "redirect:freetalk.do";
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

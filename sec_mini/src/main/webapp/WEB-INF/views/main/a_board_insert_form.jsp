@@ -82,17 +82,6 @@
 .carousel-indicators {
 	margin-bottom: 0px !important;
 }
-.button-fixed-size {
-	width: 200px !important;  /* 원하는 너비로 설정 */
-	height: 50px;  /* 원하는 높이로 설정 */
-	margin-left: 290px !important;
-		
-}
-
-.bm {
-	margin-top: 330px !important;
-}
-
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -104,10 +93,10 @@
         var button = document.getElementById('autoButton');
         if (autoState) {
             button.value = '자동연장 ON';
-            button.className = 'btn btn-primary button-fixed-size bm';
+            button.className = 'btn btn-primary';
         } else {
             button.value = '자동연장 OFF';
-            button.className = 'btn btn-danger button-fixed-size bm';
+            button.className = 'btn btn-danger';
         }
         $.ajax({
             url: 'a_board_insert_form.do',
@@ -295,18 +284,19 @@
                         </table>
                     </div>
                     <div class="col-sm-6" style="font-weight:bold; height: 100%; margin-top: 20px;">
-                       <table class="p_info">
-							<tr>
-						        <td>
-						            <input class="btn btn-danger button-fixed-size bm" id="autoButton"type="button" value="자동연장 OFF" onclick="turnAuto();">
-						        </td>
-						    </tr>
-						    <tr>
-						        <td>
-						            <input class="btn btn-info button-fixed-size" type="button" value="경매등록" onclick="send(this.form);">
-						        </td>
-						    </tr>
-						</table>
+                        <table class="p_info">
+                            <!-- 기존 버튼 부분 유지 -->
+                            <tr>
+                                <td>
+                                    <input id="autoButton" class="btn btn-danger" type="button" value="자동연장 OFF" onclick="turnAuto();">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="btn btn-info" type="button" value="경매등록" onclick="send(this.form);">
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </form>
             </div>
