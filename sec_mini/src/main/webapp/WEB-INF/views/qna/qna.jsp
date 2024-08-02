@@ -22,6 +22,8 @@
 body, html {
       height: 100%;
       margin: 0;
+      background-color: #303030 !important; 
+      color: #f1f1f1 !important;
     }
 
 .navbar {
@@ -133,11 +135,11 @@ body, html {
 
 </script>
 </head>
-<body>
+<body style="background-color: #303030; color: #f1f1f1;">
 
 	<%@ include file="../menubar/menubar.jsp"%>
 
-	<div class="container div-size" style="min-height: 1000px;">
+	<div class="container div-size" style="min-height: 1000px; ">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="row">
@@ -166,7 +168,8 @@ body, html {
 			    </div> --%>
 
 				<table class="table table-striped"
-					style="margin-top: 20px; table-layout: fixed;">
+					style="margin-top: 20px; table-layout: fixed;
+					">
 					<thead>
 						<tr>
 							<th style="text-align: center;">번호</th>
@@ -184,12 +187,12 @@ body, html {
 						<c:if test="${not empty user}">
 						    <c:forEach var="vo" items="${list}">
 						        <tr onclick="check_user('${vo.qnaNo}', '${vo.userNo}');">
-						            <td style="text-align: center;">${vo.qnaNo}</td>
-						            <td style="width: 45%; text-align: left;">${vo.qnaTitle}</td>
-						            <td style="width: 25%; text-align: center;">
+						            <td style="text-align: center; background-color: #303030; color: #f1f1f1;">${vo.qnaNo}</td>
+						            <td style="width: 45%; text-align: left; background-color: #303030; color: #f1f1f1;">${vo.qnaTitle}</td>
+						            <td style="width: 25%; text-align: center; background-color: #303030; color: #f1f1f1;">
 						                <fmt:formatDate value="${vo.qnaCreateAt}" pattern="yyyy-MM-dd HH:mm:ss" />
 						            </td>
-						            <td style="width: 20%; text-align: center;">
+						            <td style="width: 20%; text-align: center; background-color: #303030; color: #f1f1f1;">
 						                <c:choose>
 						                    <c:when test="${answerMap[vo.qnaNo] eq true}">답변 완료</c:when>
 						                    <c:otherwise>답변 미완료</c:otherwise>

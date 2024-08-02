@@ -159,7 +159,7 @@ footer {
 								                <div
 								                    style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
 								                    onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
-								                    <img alt="사진" src=""><br> <br>
+								                    <img style="width: 170px !important; height: 146px !important; " alt="사진" src="${pageContext.request.contextPath}/resources/images/${vo.pImage}"><br> <br>
 								                </div>
 								                <br>
 								                <p style="text-align: left; margin: 0">상품명 : ${vo.pName}</p>
@@ -190,7 +190,7 @@ footer {
 								                <div
 								                    style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
 								                    onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
-								                    <img alt="사진" src=""><br> <br>
+								                    <img style="width: 170px !important; height: 146px !important; "  alt="사진" src="${pageContext.request.contextPath}/resources/images/${vo.pImage}"><br> <br>
 								                </div>
 								                <br>
 								                <p style="text-align: left; margin: 0">상품명 : ${vo.pName}</p>
@@ -221,7 +221,7 @@ footer {
 								                <div
 								                    style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
 								                    onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
-								                    <img alt="사진" src=""><br> <br>
+								                    <img style="width: 170px !important; height: 146px !important; "  alt="사진" src="${pageContext.request.contextPath}/resources/images/${vo.pImage}"><br> <br>
 								                </div>
 								                <br>
 								                <p style="text-align: left; margin: 0">상품명 : ${vo.pName}</p>

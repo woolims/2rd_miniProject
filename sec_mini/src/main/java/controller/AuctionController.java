@@ -152,8 +152,10 @@ public class AuctionController {
 	public String a_board_insert_form(Model model) {
 
 		List<CategoryVo> category_list = category_dao.selectList();
+		List<AboardVo> mostViewList = aboard_dao.MostView();
 
 		model.addAttribute("category_list", category_list);
+		model.addAttribute("mostViewList", mostViewList);
 
 		return "main/a_board_insert_form";
 	}

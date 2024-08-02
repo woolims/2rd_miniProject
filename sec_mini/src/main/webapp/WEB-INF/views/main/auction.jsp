@@ -317,7 +317,7 @@ footer {
 					<c:forEach var="vo" items="${ list }">
 						<div class="col-sm-2 product_auc">
 							<div style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;" onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
-								<img style="width: 100 !important; height: 100 !important; " alt="사진" src="${pageContext.request.contextPath}/resources/images/${vo.pImage}"><br><br>
+								<img style="width: 170px !important; height: 146px !important; " alt="사진" src="${pageContext.request.contextPath}/resources/images/${vo.pImage}"><br><br>
 							</div>
 							<br>
 							<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
@@ -336,10 +336,12 @@ footer {
 				    <div class="product_auc" style="width: 100%; margin-bottom: 20px;">
 				        <div style="width: 100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
 				             onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
-				            <img src="resources/images/${item.pImage}" alt="사진" style="width: 100%; height: auto;">
+				            <img src="resources/images/${item.pImage}" alt="사진" style="width: 130px; height: 130px;">
 				        </div>
 				        <p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
 				        <p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
+				        <p style="text-align: left; margin: 0;">남은일자 : <fmt:formatDate value="${item.endDate}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+							
 				    </div>
 				</c:forEach>
 			</div>
