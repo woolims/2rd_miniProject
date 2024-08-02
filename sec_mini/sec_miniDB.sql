@@ -30,7 +30,7 @@ DROP SEQUENCE d_category_no_seq;
 DROP SEQUENCE qna_no_seq;
 DROP SEQUENCE qnac_no_seq;
 DROP SEQUENCE seq_Comments_idx;
-DROP SEQUENCE seq_Comment_Likes_c_likeNo
+DROP SEQUENCE seq_Comment_Likes_c_likeNo;
 
 -- 테이블 삭제
 DROP TABLE QnAComment;
@@ -659,6 +659,8 @@ update Product set pImage='야스오.jsp' where pNo=1;
 update Product set pImage='드레이븐11.jsp' where pNo=2;
 update Product set pImage='따봉도치.jsp' where pNo=3;
 update Product set pImage='징크스.jsp' where pNo=4;
+
+select * from Product
 
 */
 

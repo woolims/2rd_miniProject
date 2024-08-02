@@ -87,6 +87,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into Scrap values(scrap_no_seq.nextVal, #{auctionBoardNo}, #{userNo}, default)
 	</insert>
 	
+	<select id="aboard_mostView" resultType="aboard">
+    	SELECT * FROM (
+		    SELECT * FROM aboard ORDER BY viewCount DESC
+		) WHERE ROWNUM &lt;= 5
+	</select>
+	
 </mapper>
 
 

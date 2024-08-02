@@ -186,9 +186,10 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
-								<img src="resources/images/따봉도치.jpg" alt="First slide">
-								<div class="carousel-caption">
-									<h5>상품 사진</h5>
+								<img src="resources/images/${ vo.pImage }" alt="First slide">
+									<div class="carousel-caption">
+										<h5>${ vo.pName }</h5>
+									</div>
 								</div>
 							</div>
 							<div class="item">
