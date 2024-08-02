@@ -211,8 +211,17 @@ function modify(f){
 						<div style="text-align: center; margin-top: 20px;">
 							<input class="btn btn-success" type="button" value="수정하기"
 					    			onclick="modify(this.form);" >
-					    	 <input  class="btn btn-primary" type="button" value="마이옥션"
-					    	 onclick="location.href='myauction.do'">
+						<c:choose>
+						    <c:when test="${user.userName eq '관리자'}">
+						        <input class="btn btn-primary" type="button" value="관리자 페이지"
+						               onclick="location.href='${pageContext.request.contextPath}/member_list.do'">
+						    </c:when>
+						    <c:otherwise>
+						        <input class="btn btn-primary" type="button" value="마이옥션"
+						               onclick="location.href='${pageContext.request.contextPath}/myauction.do'">
+						    </c:otherwise>
+						</c:choose>
+				
 						</div>
 						<div style="text-align: right;">
 							<a href="${ pageContext.request.contextPath }/delete_form.do">회원탈퇴</a>	

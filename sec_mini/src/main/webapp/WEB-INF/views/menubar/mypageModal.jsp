@@ -67,8 +67,16 @@
 						onclick="location.href='${ pageContext.request.contextPath }/home.do'"> 
 					<input class="btn btn-success" type="button" value="프로필 수정"
 					onclick="location.href='${ pageContext.request.contextPath }/mypage.do'">
-					<input class="btn btn-primary" type="button" value="마이옥션"
-					onclick="location.href='${ pageContext.request.contextPath }/myauction.do'">
+				<c:choose>
+				    <c:when test="${user.userId eq 'admin'}">
+				        <input class="btn btn-primary" type="button" value="관리자 페이지"
+				               onclick="location.href='${pageContext.request.contextPath}/member_list.do'">
+				    </c:when>
+				    <c:otherwise>
+				        <input class="btn btn-primary" type="button" value="마이옥션"
+				               onclick="location.href='${pageContext.request.contextPath}/myauction.do'">
+				    </c:otherwise>
+				</c:choose>
 				</div>
 			</form>
 
