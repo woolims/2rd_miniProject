@@ -167,7 +167,7 @@
         });
     </script>
 </head>
-<body>
+<body style="background-color: #303030; color: #f1f1f1;">
 
     <%@ include file="../menubar/menubar.jsp" %>
 
@@ -184,7 +184,7 @@
                     </div>
                 </div>
                 <br>
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="background-color: #303030; color: #f1f1f1;">
                     <div class="panel-body" style="min-height: 500px;">
                         <p><strong>작성자:</strong> ${ vo.userName }</p>
                         <p><strong>작성일:</strong> ${ vo.qnaCreateAt }</p>
@@ -192,11 +192,11 @@
                         <p>${ vo.qnaContent }</p>
                     </div>
                 </div>
-                <button type="button" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/qna/qna.do'">목록으로 돌아가기</button>
+                <button style="background-color: #303030; color: #f1f1f1;" type="button" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/qna/qna.do'">목록으로 돌아가기</button>
             </div>
         </div>
         <!-- 댓글 섹션 -->
-        <div class="comment-section">
+        <div class="comment-section" style="background-color: #303030; color: #f1f1f1;">
             <div class="comment-section-header">
                 <h5 style="font-weight: bold; margin-bottom: 10px;">댓글</h5>
                 <ul class="pagination">
@@ -207,13 +207,13 @@
             </div>
 
             <!-- 댓글 작성 폼 -->
-            <div class="comment-form">
-                <textarea class="form-control" id="commentContent" placeholder="댓글을 작성하세요"></textarea>
+            <div class="comment-form" style="background-color: #303030; color: #f1f1f1;">
+                <textarea style="background-color: #303030; color: #f1f1f1;" class="form-control" id="commentContent" placeholder="댓글을 작성하세요"></textarea>
                 <button class="btn btn-primary" onclick="comment_insert();" style="align-self: flex-end;">등록</button>
             </div>
 
             <!-- 댓글 목록 -->
-            <div id="comment_display"></div>
+            <div id="comment_display" style="background-color: #303030; color: #f1f1f1;"></div>
         </div>
     </div>
 
