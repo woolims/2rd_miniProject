@@ -42,7 +42,12 @@ public class AboardDao {
 	public int update_filename(AboardVo vo) {
 
 		return sqlSession.update("aboard.aboard_update_filename", vo);
-	}//end:update() 
+	}
+	
+	//인기 경매 품목 조회
+	public List<AboardVo> MostView() {
+        return sqlSession.selectList("aboard.aboard_mostView");
+    }
 
 
 }

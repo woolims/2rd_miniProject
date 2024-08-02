@@ -121,7 +121,7 @@ body {
 	<!-- Modal End -->
 
     <div class="container-fluid text-center">
-        <div class="row content">
+        <div class="row content" style="background-color: #303030; color: #f1f1f1;">
             <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
                 <!-- 좌측 사이드바 내용 -->
                 <h4>카테고리</h4>
@@ -222,15 +222,19 @@ body {
 				    </div>
 				</c:forEach>
             </div>
-            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
-                <!-- 우측 사이드바 내용 -->
-                <h4>인기 품목</h4>
-                <ul class="list-unstyled">
-                    <li><a href="#">집에 가고 싶다</a></li>
-                    <li><a href="#">집에 가고 싶다</a></li>
-                    <li><a href="#">집에 가고 싶다</a></li>
-                </ul>
-            </div>
+           <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
+				<h3>인기 경매 품목</h3>
+				<c:forEach var="item" items="${mostViewList}">
+				    <div class="product_auc" style="width: 100%; margin-bottom: 20px;">
+				        <div style="width: 100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
+				             onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
+				            <img src="resources/images/${item.pImage}" alt="사진" style="width: 100%; height: auto;">
+				        </div>
+				        <p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
+				        <p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
+				    </div>
+				</c:forEach>
+			</div>
         </div>
     </div>
 

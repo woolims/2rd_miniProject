@@ -608,6 +608,10 @@ insert into aboard values(
 
 		select nvl(count(*),0) from QnACommentView where qnaNo = 5
 
+    	SELECT * FROM (
+		    SELECT * FROM aboard ORDER BY viewCount DESC
+		) WHERE ROWNUM &lt;= 5
+
 */
 
 

@@ -68,8 +68,13 @@ public class AuctionController {
 
 		// 상위 3개의 최신 게시글 가져오기
 		List<BoardVo> topThreePosts = board_dao.selectTopThreeRecentPosts();
+		
+		List<AboardVo> mostViewList = aboard_dao.MostView();
+		
 		request.setAttribute("topThreePosts", topThreePosts);
-
+		
+		model.addAttribute("mostViewList", mostViewList);
+		
 		return "home";
 	}
 

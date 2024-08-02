@@ -37,6 +37,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update aboard set viewCount = viewCount + 1 where auctionBoardNo=#{ auctionBoardNo } 
 	</update>
 	
+	<select id="aboard_mostView" resultType="aboard">
+    	SELECT * FROM (
+		    SELECT * FROM aboard ORDER BY viewCount DESC
+		) WHERE ROWNUM &lt;= 5
+	</select>
+	
 </mapper>
 
 
