@@ -160,19 +160,16 @@ body {
                             <div class="item active">
                                 <img src="resources/images/어나니.jpg" alt="First slide">
                                 <div class="carousel-caption">
-                                    <p>홍보 내용 1</p>
                                 </div>
                             </div>
                             <div class="item">
                                 <img src="resources/images/홀덤.jpg" alt="Second slide">
                                 <div class="carousel-caption">
-                                    <p>홍보 내용 2</p>
                                 </div>
                             </div>
                             <div class="item">
                                 <img src="resources/images/경매봉.jpg" alt="Third slide">
                                 <div class="carousel-caption">
-                                    <p>홍보 내용 3</p>
                                 </div>
                             </div>
                         </div>
@@ -192,33 +189,33 @@ body {
                 <div class="row">
                     <div class="col-md-3">
                         <div class="auction-item">
-                            <img src="resources/images/따봉도치.jpg" alt="Item 1">
-                            <h4>경매 물품 1</h4>
-                            <p>설명: 경매 물품 1의 설명</p>
+                            <img style="width: 130px; height: 130px;" src="resources/images/주먹.png" alt="Item 1">
+                            <h4>밥</h4>
+                            <p>설명: 밥에 대한 설명</p>
                             <button class="btn btn-custom">입찰하기</button>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="auction-item">
-                            <img src="resources/images/따봉도치.jpg" alt="Item 2">
-                            <h4>경매 물품 2</h4>
-                            <p>설명: 경매 물품 2의 설명</p>
+							<img style="width: 130px; height: 130px;" src="resources/images/주먹.png" alt="Item 2">
+                            <h4>주먹밥</h4>
+                            <p>설명: 주먹밥에 대한 설명</p>
                             <button class="btn btn-custom">입찰하기</button>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="auction-item">
-                            <img src="resources/images/따봉도치.jpg" alt="Item 3">
-                            <h4>경매 물품 3</h4>
-                            <p>설명: 경매 물품 3의 설명</p>
+                            <img style="width: 130px; height: 130px;" src="resources/images/경매봉.jpg" alt="Item 3">
+                            <h4>경매봉 같은 흉기</h4>
+                            <p>설명: 경매봉입니다^^</p>
                             <button class="btn btn-custom">입찰하기</button>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="auction-item">
-                            <img src="resources/images/따봉도치.jpg" alt="Item 4">
-                            <h4>경매 물품 4</h4>
-                            <p>설명: 경매 물품 4의 설명</p>
+                            <img style="width: 130px; height: 130px;" src="resources/images/경매봉.jpg" alt="Item 4">
+                            <h4>옆이랑 다른 진짜 경매봉</h4>
+                            <p>설명: 100% 경매봉</p>
                             <button class="btn btn-custom">입찰하기</button>
                         </div>
                     </div>

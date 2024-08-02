@@ -122,7 +122,7 @@
 </head>
 <body>
 	<c:forEach var="vo" items="${list}">
-		<div class="qna_comment">
+		<div class="qna_comment" style="background-color: #303030; color: #f1f1f1;">
 			<div class="userName">${vo.userName}</div>
 			<div class="createAt">${vo.createAt}</div>
 			<div class="commentContent" id="commentContent-${vo.qnaCommentNo}">${vo.commentContent}</div>
