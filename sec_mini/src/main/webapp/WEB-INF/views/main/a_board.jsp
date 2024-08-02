@@ -128,7 +128,7 @@
 	function bid_check() {
 		
 		//로그인 여부 체크
-		if("${ empty user }" == "true"){
+		if("${ empty user }"=="true"){
 			
 			if(confirm("입찰은 로그인후 가능합니다\n로그인 하시겠습니까?")==false) return;
 			
@@ -143,8 +143,7 @@
 	}
 	
 	function sb_off() {
-		
-		if("${ empty user }" == "true"){
+		if("${ empty user }"=="true"){
 			
 			if(confirm("로그인이 필요합니다.")==false) return;
 			
@@ -155,12 +154,79 @@
 		}
 		
 		if(confirm('조기종료 하시겠습니까?')==true){
+			alert('경매가 조기종료되었습니다');
 			location.href='sb_off.do?bidNo=${vo.bidNo}&userNo=${user.userNo}&pNo=${vo.pNo}';
 		}
+	}	
 		
+</script>
+
+<script type="text/javascript">
+
 		
+		function updateRemainingTime() {
+			console.log("123");
+			//종료일자
+			
+		    var eventTimestamp = new Date("${vo.endDate}"); // 서버에서 제공한 타임스탬프
+		    var now = new Date();
+								//종료일자		//현재시간
+		    var remainingTime = eventTimestamp - now;
+				//남은 시간이 0보다 클때
+		    if (remainingTime > 0) {
+		        var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		        var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+		        var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 		
-	}
+		        document.getElementById("remaining_time").innerHTML = hours + "시간 " + minutes + "분 " + seconds + "초";
+		    } else {	
+		    	document.getElementById("remaining_time").innerHTML = "이미 종료된 경매입니다.";
+		    	if("${vo.endAt}"=="N" && "${vo.userNo}"=="${user.userNo}"){
+		    		
+		    		location.href="sb_off.do?bidNo=${vo.bidNo}&pNo=${vo.pNo}";
+		    	}
+		    }
+		}
+		
+		setInterval(updateRemainingTime, 1000); // 매초 업데이트
+
+
+
+</script>
+
+<script type="text/javascript">
+
+		
+		function updateRemainingTime() {
+			console.log("123");
+			//종료일자
+			
+		    var eventTimestamp = new Date("${vo.endDate}"); // 서버에서 제공한 타임스탬프
+		    var now = new Date();
+								//종료일자		//현재시간
+		    var remainingTime = eventTimestamp - now;
+				//남은 시간이 0보다 클때
+		    if (remainingTime > 0) {
+		        var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		        var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+		        var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+		
+		        document.getElementById("remaining_time").innerHTML = hours + "시간 " + minutes + "분 " + seconds + "초";
+		        return;
+		    } else {	
+		    	
+		    	if("${vo.endAt}"=="N" && "${vo.userNo}"=="${user.userNo}"){
+		    		document.getElementById("remaining_time").innerHTML = "이미 종료된 경매입니다.";
+		    		location.href="sb_off.do?bidNo=${vo.bidNo}&pNo=${vo.pNo}";
+		    		return;
+		    	}
+		    }
+		}
+		
+		setInterval(updateRemainingTime, 1000); // 매초 업데이트
+
+
+
 </script>
 </head>
 <body>
@@ -219,7 +285,7 @@
                     <p class="p_info">사용 정도 : ${ vo.useAt }점(5점 만점)</p>
                     <p class="p_info">입찰 시작가 : ${ vo.startPrice }</p>
                     <p class="p_info">현재 입찰가 : ${ vo.entryBidPrice }</p>
-                    <p class="p_info">종료 일자 : <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+                    <p class="p_info" style="display: inline-block;">남은 시간 :&nbsp;</p><p id="remaining_time" style="display: inline-block;"></p>
                     <p class="p_info">조회수 : ${ vo.viewCount }</p>
                 </div>
                 <form>

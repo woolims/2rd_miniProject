@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CommentLikesDao;
 import vo.CommentLikesVo;
+import vo.UserVo;
 
 @Controller
 @RequestMapping("/comment/likes/")
@@ -29,10 +30,11 @@ public class CommentLikesController {
     @RequestMapping(value = "toggle.do", produces = "application/json; charset=utf-8;")
     @ResponseBody
     public String toggle(@RequestParam("cmt_idx") int cmt_idx) {
-        Integer userNo = (Integer) request.getSession().getAttribute("userNo"); // 세션에서 userNo 가져오기
-
+        //Integer userNo = (Integer) request.getSession().getAttribute("userNo"); // 세션에서 userNo 가져오기
+        UserVo user = (UserVo) request.getSession().getAttribute("user");
+        
         JSONObject json = new JSONObject();
-        if (userNo == null) {
+        if (user == null) {
             json.put("result", "failure");
             json.put("message", "로그인이 필요합니다.");
             return json.toString();
@@ -40,9 +42,9 @@ public class CommentLikesController {
 
         CommentLikesVo vo = new CommentLikesVo();
         vo.setCmt_idx(cmt_idx);
-        vo.setUserNo(userNo);
+        vo.setUserNo(user.getUserNo());
 
-        boolean isLiked = commentLikesDao.isLikedByUser(cmt_idx, userNo);
+        boolean isLiked = commentLikesDao.isLikedByUser(cmt_idx, user.getUserNo());
         int res;
 
         if (isLiked) {
