@@ -112,7 +112,7 @@ body {
   			}
   		</script>
 </head>
-<body>
+<body style="background-color: #303030; color: #f1f1f1;">
 
 	<%@ include file="../menubar/menubar.jsp"%>
 
@@ -125,8 +125,8 @@ body {
                         <label for="title">제목</label>
                         <input type="text" class="form-control" id="qnaTitle" name="qnaTitle" required>
                     </div>
-                    <div class="form-group">
-                        <label for="content">내용</label>
+                    <div class="form-group" style="color: black;">
+                        <label for="content" style="color: white !important;">내용</label>
                         <div id="editor">
                         	<textarea name="qnaContent"></textarea>
                         </div>
