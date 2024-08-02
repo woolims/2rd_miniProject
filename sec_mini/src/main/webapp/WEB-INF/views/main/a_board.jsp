@@ -202,22 +202,9 @@
 					<div id="carousel-example-generic" class="carousel " data-ride="carousel">
 						<div class="carousel-inner">
 							<div class="item active">
-<<<<<<< HEAD
-<<<<<<< HEAD
-								<img src="resources/images/${ vo.pImage }" alt="First slide">
-									<div class="carousel-caption">
-										<h5>${ vo.pName }</h5>
-									</div>
-=======
-								<img src="resources/images/계단.jpg" alt="First slide">
-								<div class="carousel-caption">
-									<h5>상품 사진</h5>
->>>>>>> main
-=======
 								<img src="resources/images/${ vo.pImage }">
 								<div class="carousel-caption">
 									<h5>경매품목</h5>
->>>>>>> main
 								</div>
 							</div>
 						</div>
