@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -144,15 +145,33 @@ public class BidDao {
 		return sqlSession.selectOne("bid.user_playPrice",bidNo);
 	}
 	
-	public BidVo user_sb(int user_playPrice) {
+	public BidVo user_sb(BidVo bid_vo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("bid.user_sb",user_playPrice);
+		return sqlSession.selectOne("bid.user_sb",bid_vo);
 	}
 
 	public int p_no_select_one(int bidNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("bid.p_no_select_one",bidNo);
 	}
+
+	public String bid_end_at(int pNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bid.bid_end_at",pNo);
+	}
+
+	public Timestamp bid_end_date(int bidNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("bid.bid_end_date",bidNo);
+	}
+	
+
+//	public Timestamp end_date_check(int bidNo) {
+//		// TODO Auto-generated method stub
+//		return sqlSession.selectOne("bid.end_date_check",bidNo);
+//	}
+
+
 
 	
 
