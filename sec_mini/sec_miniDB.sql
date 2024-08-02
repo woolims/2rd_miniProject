@@ -93,6 +93,8 @@ CREATE TABLE Users (
 	myCash NUMBER DEFAULT 100
 );
 
+
+
 -- Charge 테이블 생성
 CREATE TABLE Charge (
 	chargeNo NUMBER PRIMARY KEY,
@@ -422,6 +424,7 @@ INSERT INTO QnA (qnaNo, userNo, qnaTitle, qnaContent, qnaCreateAt)
 VALUES (qna_no_seq.nextVal, 2, '포인트 충전이 안 되네요.', '충전을 시도했는데 충전이 안 된다고 떠요.', default);
 
 
+
 -- 전체 조회
 CREATE OR REPLACE VIEW AuctionView AS
 SELECT DISTINCT
@@ -538,7 +541,7 @@ INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
 INNER JOIN Users u ON bp.userNo = u.userNo
 INNER JOIN product p ON b.pNo = p.pNo;
 
-
+update users set mycash=9900 where userNo=2
 
 
 ========================================================================================================================================================================
