@@ -90,6 +90,7 @@ public class AuctionController {
 		
 		List<CategoryVo> category_list = category_dao.selectList();
 		List<DetailCategoryVo> d_category_list = d_category_dao.selectList();
+		List<AboardVo> mostViewList = aboard_dao.MostView();
 		
 		List<AboardVo> list = null;
 		System.out.println("categoryNo = " + categoryNo + "/ d_categoryNo = " + d_categoryNo);
@@ -105,6 +106,7 @@ public class AuctionController {
 		model.addAttribute("category_list", category_list);
 		model.addAttribute("d_category_list", d_category_list);
 		model.addAttribute("list", list);
+		model.addAttribute("mostViewList", mostViewList);
 
 		return "main/auction";
 	}

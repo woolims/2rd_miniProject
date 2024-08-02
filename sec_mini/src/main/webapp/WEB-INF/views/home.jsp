@@ -124,12 +124,26 @@ body {
         <div class="row content" style="background-color: #303030; color: #f1f1f1;">
             <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
                 <!-- 좌측 사이드바 내용 -->
-                <h4>카테고리</h4>
-                <ul class="list-unstyled">
-                    <li><a href="#">집에 가고 싶다</a></li>
-                    <li><a href="#">집에 가고 싶다</a></li>
-                    <li><a href="#">집에 가고 싶다</a></li>
-                </ul>
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
             </div>
             <div class="col-sm-8 text-left">
                 <h1>암시장 메인 페이지</h1>
@@ -144,19 +158,19 @@ body {
                         </ol>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <img src="resources/images/따봉도치.jpg" alt="First slide">
+                                <img src="resources/images/어나니.jpg" alt="First slide">
                                 <div class="carousel-caption">
                                     <p>홍보 내용 1</p>
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="resources/images/따봉도치.jpg" alt="Second slide">
+                                <img src="resources/images/홀덤.jpg" alt="Second slide">
                                 <div class="carousel-caption">
                                     <p>홍보 내용 2</p>
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="resources/images/따봉도치.jpg" alt="Third slide">
+                                <img src="resources/images/경매봉.jpg" alt="Third slide">
                                 <div class="carousel-caption">
                                     <p>홍보 내용 3</p>
                                 </div>
@@ -223,17 +237,27 @@ body {
 				</c:forEach>
             </div>
            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
-				<h3>인기 경매 품목</h3>
-				<c:forEach var="item" items="${mostViewList}">
-				    <div class="product_auc" style="width: 100%; margin-bottom: 20px;">
-				        <div style="width: 100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
-				             onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
-				            <img src="resources/images/${item.pImage}" alt="사진" style="width: 100%; height: auto;">
-				        </div>
-				        <p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
-				        <p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
-				    </div>
-				</c:forEach>
+				<!-- 좌측 사이드바 내용 -->
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
 			</div>
         </div>
     </div>
