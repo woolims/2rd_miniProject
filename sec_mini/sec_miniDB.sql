@@ -547,6 +547,7 @@ INNER JOIN product p ON b.pNo = p.pNo;
 select * from Product
 -- 입찰 조회
 select * from Bid
+select * from Sb
 -- 경매 조회
 select * from Aboard
 -- 경매 조회

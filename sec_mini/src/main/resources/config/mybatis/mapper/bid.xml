@@ -60,15 +60,17 @@
 	select startPrice from Product where pNo=#{pNo}
 </select>
 
+<!-- 경매에 참여한 개인이 입력한 최고값-->
+<update id="entry_bid_person_update" parameterType="bid">
+	update bid set entryBidPrice=#{entryBidPrice} where bidNo=#{bidNo} and userNo=#{userNo}
+</update>
+
 <!-- 경매페이지에 띄울 최고입찰금액 -->
 <select  id="entry_bid_select" parameterType="int" resultType="int">
 	select max(entryBidPrice) from bid  where bidNo=#{bidNo}
 </select>
 
-<!-- 경매에 참여한 개인이 입력한 최고값-->
-<update id="entry_bid_person_update" parameterType="bid">
-	update bid set entryBidPrice=#{entryBidPrice} where bidNo=#{bidNo} and userNo=#{userNo}
-</update>
+
 
 <!-- 입장시 유저의 캐시보유량 체크 -->
 <select id="cashCheck" resultType="int" parameterType="int">
@@ -128,7 +130,7 @@
 	select endAt from Aboard where pNo=#{pNo}
 </select>
 <!-- endDate얻어오기 -->
-<select id="bid_end_date" parameterType="int" resultType="String">
+<select id="bid_end_date" parameterType="int" resultType="java.sql.Timestamp">
 	select endDate from Bid where bidNo=#{bidNo}
 </select>
 

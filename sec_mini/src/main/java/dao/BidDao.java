@@ -1,6 +1,6 @@
 package dao;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -160,10 +160,11 @@ public class BidDao {
 		return sqlSession.selectOne("bid.bid_end_at",pNo);
 	}
 
-	public String bid_end_date(int bidNo) {
+	public Timestamp bid_end_date(int bidNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("bid.bid_end_date",bidNo);
 	}
+	
 
 //	public Timestamp end_date_check(int bidNo) {
 //		// TODO Auto-generated method stub

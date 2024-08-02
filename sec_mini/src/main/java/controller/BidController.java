@@ -1,6 +1,6 @@
 package controller;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,22 +46,17 @@ public class BidController {
 		int nowBid = bid_dao.now_bid_select(vo.getBidNo());
 		int bid_count = bid_dao.bid_count_select();
 		String endAt = bid_dao.bid_end_at(vo.getpNo());
-		String endDate = bid_dao.bid_end_date(vo.getpNo());
+		Timestamp endDate = bid_dao.bid_end_date(vo.getBidNo());
 		
-//		Timestamp end_date = bid_dao.end_date_check(vo.getBidNo());
-//		String now_time = now.format(DateTimeFormatter.ofPattern("yyyy/MM/dd/HH/mm/ss"));
 		
-//		Date end_date_check = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss").parse(end_date);
-//		Date now_time_check = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss").parse(now_time);
 		
-//		long now_check = now_time_check.getTime();	//현재시간
-		
-		vo.setEndAt(endAt);
 		vo.setNowBid(nowBid);
 		vo.setEntryBidPrice(entryBidPrice);
 		vo.setStartPrice(startPrice);
 		vo.setpName(pName);
 		vo.setEndDate(endDate);
+		vo.setEndAt(endAt);
+		
 
 		System.out.println(vo.getEndAt());
 		if (startPrice < myCash) {
@@ -78,24 +73,7 @@ public class BidController {
 				System.out.println("여긴 입찰자가 있는 스타트.do야");
 				if (entryBidPrice < myCash) {
 					// 유저가 가진 금액이 현재 최고가보다 높을 경우 통과
-					//낙찰된 유저검색
-					int bidNo = vo.getBidNo();
 					
-					//입찰된 최고금액을 검색
-					int user_playPrice = bid_dao.user_playPrice(bidNo);
-					vo.setPlayPrice(user_playPrice);
-					vo.setBidNo(bidNo);
-					
-					//최고금액을 이용해 낙찰자 특정하기
-					BidVo user_sb = bid_dao.user_sb(vo);
-					
-					//낙찰된 유저정보를 낙찰DB에 저장
-					SBVo sb_vo = new SBVo();
-					
-					sb_vo.setUserNo(user_sb.getUserNo());
-					sb_vo.setBidNo(vo.getBidNo());
-					
-					model.addAttribute(sb_vo);
 					model.addAttribute("vo", vo);
 					model.addAttribute(bid_count);
 					return "bid/bid_main"; // 진짜 입찰페이지로 이동
@@ -116,12 +94,16 @@ public class BidController {
 //	유저가 입찰성공시 작동할 메소드
 	@RequestMapping("bid_success.do")
 	public String bid_success(BidVo vo, Model model) {
-
+		
+		String endAt = bid_dao.bid_end_at(vo.getpNo());
+		Timestamp endDate = bid_dao.bid_end_date(vo.getBidNo());
 		int bid_count = bid_dao.bid_count_select();
 		BidVo userNoCheck = bid_dao.re_user_check(vo);
 
 		vo.setEntryBidPrice(vo.getPlayPrice());
 		vo.setNowBid(vo.getPlayPrice());
+		vo.setEndDate(endDate);
+		vo.setEndAt(endAt);
 
 		bid_dao.now_bid_update(vo);
 		bid_dao.entry_bid_update(vo);
@@ -153,9 +135,12 @@ public class BidController {
 		}
 
 		model.addAttribute(bid_count);
+		model.addAttribute("vo",vo);
 
 		return "bid/bid_main";
 	}
+	
+	
 
 	@RequestMapping("sb_off.do")	//시간이 끝나거나 조기종료버튼을 눌렀을때 작동
 	public String sb_off(BidVo bid_vo,Model model) {

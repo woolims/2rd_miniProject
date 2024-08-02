@@ -1,6 +1,6 @@
 package vo;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class BidVo {
 	
@@ -10,7 +10,7 @@ public class BidVo {
 	String autoExtension;
 	String earlyTermination;
 	int minBidUnit;
-	String endDate;
+	Timestamp endDate;
 	int bidPNo;
 	int userNo;
 	int bidNo;
@@ -80,10 +80,10 @@ public class BidVo {
 	public void setMinBidUnit(int minBidUnit) {
 		this.minBidUnit = minBidUnit;
 	}
-	public String getEndDate() {
+	public Timestamp getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(String endDate) {
+	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
 	}
 	public int getUserNo() {

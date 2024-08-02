@@ -155,6 +155,7 @@
 		}
 		
 		if(confirm('조기종료 하시겠습니까?')==true){
+			alert('경매가 조기종료되었습니다');
 			location.href='sb_off.do?bidNo=${vo.bidNo}&userNo=${user.userNo}&pNo=${vo.pNo}';
 		}
 	}	
@@ -184,6 +185,41 @@
 		    	if("${vo.endAt}"=="N" && "${vo.userNo}"=="${user.userNo}"){
 		    		
 		    		location.href="sb_off.do?bidNo=${vo.bidNo}&pNo=${vo.pNo}";
+		    	}
+		    }
+		}
+		
+		setInterval(updateRemainingTime, 1000); // 매초 업데이트
+
+
+
+</script>
+
+<script type="text/javascript">
+
+		
+		function updateRemainingTime() {
+			console.log("123");
+			//종료일자
+			
+		    var eventTimestamp = new Date("${vo.endDate}"); // 서버에서 제공한 타임스탬프
+		    var now = new Date();
+								//종료일자		//현재시간
+		    var remainingTime = eventTimestamp - now;
+				//남은 시간이 0보다 클때
+		    if (remainingTime > 0) {
+		        var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		        var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+		        var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+		
+		        document.getElementById("remaining_time").innerHTML = hours + "시간 " + minutes + "분 " + seconds + "초";
+		        return;
+		    } else {	
+		    	
+		    	if("${vo.endAt}"=="N" && "${vo.userNo}"=="${user.userNo}"){
+		    		document.getElementById("remaining_time").innerHTML = "이미 종료된 경매입니다.";
+		    		location.href="sb_off.do?bidNo=${vo.bidNo}&pNo=${vo.pNo}";
+		    		return;
 		    	}
 		    }
 		}
@@ -271,7 +307,7 @@
                     </div>
                     <c:if test="${ user.userNo ne vo.userNo}">
                         <input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;" onclick="bid_check();">
-=======
+======				</c:if>
                             <c:if test="${ user.userNo == 1 }">
                                 <input class="btn btn-danger button-fixed-size" type="button" value="삭제하기" style="margin-left: 1025px !important;" onclick="delete_product(this.form)">
                             </c:if>
