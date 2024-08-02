@@ -266,7 +266,7 @@
 						<div class="form-group" style="text-align: right;font-size: 20px;">
 						<label>현재 입찰가 : </label>
 						<c:if test="${vo.startPrice gt vo.entryBidPrice}">
-							<p>${vo.startPrice} 원</p>
+							<p style="display: inline-block;">${vo.startPrice} 원</p>
 						</c:if>
 						<c:if test="${vo.startPrice lt vo.entryBidPrice}">
 							<p id="entryBidPrice" style="display: inline-block;">${vo.entryBidPrice}</p><p style="display: inline-block;">원</p>
