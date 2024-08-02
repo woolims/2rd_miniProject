@@ -89,7 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="aboard_mostView" resultType="aboard">
     	SELECT * FROM (
-		    SELECT * FROM aboard ORDER BY viewCount DESC
+		    SELECT * FROM AuctionView where deleteAt='N' and endAt='N' ORDER BY viewCount DESC
 		) WHERE ROWNUM &lt;= 5
 	</select>
 	

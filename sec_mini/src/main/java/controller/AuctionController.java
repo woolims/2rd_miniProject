@@ -90,6 +90,7 @@ public class AuctionController {
 		
 		List<CategoryVo> category_list = category_dao.selectList();
 		List<DetailCategoryVo> d_category_list = d_category_dao.selectList();
+		List<AboardVo> mostViewList = aboard_dao.MostView();
 		
 		List<AboardVo> list = null;
 		System.out.println("categoryNo = " + categoryNo + "/ d_categoryNo = " + d_categoryNo);
@@ -105,6 +106,7 @@ public class AuctionController {
 		model.addAttribute("category_list", category_list);
 		model.addAttribute("d_category_list", d_category_list);
 		model.addAttribute("list", list);
+		model.addAttribute("mostViewList", mostViewList);
 
 		return "main/auction";
 	}
@@ -113,6 +115,8 @@ public class AuctionController {
 	@RequestMapping("/a_board.do")
 	public String auction_board(int auctionBoardNo, Model model) {
 
+		List<AboardVo> mostViewList = aboard_dao.MostView();
+		
 		if (session.getAttribute("show") == null) {
 
 			// 조회수 증가
@@ -137,6 +141,7 @@ public class AuctionController {
 		 */
 		
 		model.addAttribute("vo", vo);
+		model.addAttribute("mostViewList", mostViewList);
 		/* model.addAttribute("canc", canc); */
 		
 		return "main/a_board";

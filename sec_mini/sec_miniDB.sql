@@ -662,6 +662,14 @@ update Product set pImage='징크스.jsp' where pNo=4;
 
 select * from Product
 
+    	SELECT * FROM (
+		    SELECT * FROM AuctionView ORDER BY viewCount DESC
+		) WHERE ROWNUM <= 5
+
+    	SELECT * FROM (
+		    SELECT * FROM AuctionView where deleteAt='N' and endAt='N' ORDER BY viewCount DESC
+		) WHERE ROWNUM <= 5
+
 */
 
 
