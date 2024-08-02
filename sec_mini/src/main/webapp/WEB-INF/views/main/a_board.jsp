@@ -192,18 +192,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="item">
-								<img src="resources/images/따봉도치.jpg" alt="Second slide">
-								<div class="carousel-caption">
-									<h5>상품 사진</h5>
-								</div>
-							</div>
-							<div class="item">
-								<img src="resources/images/따봉도치.jpg" alt="Third slide">
-								<div class="carousel-caption">
-									<h5>상품 사진</h5>
-								</div>
-							</div>
 						</div>
 						<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> 
 							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
