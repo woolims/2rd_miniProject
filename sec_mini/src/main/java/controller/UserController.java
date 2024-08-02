@@ -1,4 +1,4 @@
-package controller;
+	package controller;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.AboardDao;
 import dao.UserDao;
@@ -21,6 +22,9 @@ public class UserController {
 	
 	@Autowired
 	HttpSession session;
+	
+	@Autowired
+	AboardDao aboard_dao;
 	
 	@Autowired
 	UserDao user_dao;
@@ -207,10 +211,6 @@ public class UserController {
 		}
 	 
 	 }
-	 
-	 
-	@Autowired
-	AboardDao aboard_dao;
 
 	// 마이옥션 이동
 	@RequestMapping("/myauction.do")
@@ -235,7 +235,40 @@ public class UserController {
 		}
 			
 	}
-	 
+	
+	@Autowired
+	UserDao userDao; // DAO 객체 주입
+	
+	// 관리자페이지 이동
+	@RequestMapping("/member_list.do")
+	public String memberList(Model model, HttpSession session) {
+		
+		 // 로그인 사용자 정보 확인
+        UserVo user = (UserVo) session.getAttribute("user");
+
+        if (user == null) {
+            // 로그인하지 않은 경우
+            session.setAttribute("alertMsg", "로그인한 사용자만 접근 가능합니다.");
+            return "redirect:home.do";
+        }
+
+        // 관리자 여부 확인
+        if ( !"admin".equals(user.getUserId()) ) {
+            // 관리자가 아닌 경우
+            session.setAttribute("alertMsg", "관리자만 접근 가능합니다.");
+            return "redirect:home.do";
+        }
+
+        // 회원 목록 가져오기
+        List<UserVo> list = userDao.selectList();
+        model.addAttribute("list", list);
+
+        return "main/member_list";
+    }
+	
+	
+	
+	
 }
 	
 	
