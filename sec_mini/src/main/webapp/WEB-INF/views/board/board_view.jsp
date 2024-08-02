@@ -222,7 +222,7 @@
     function comment_insert() {
     	
     	
-      if ("${empty sessionScope.user}" == "true") {
+      if ("${empty sessionScope.user}" === "true") {
       /*   if (confirm("로그인 후 댓글쓰기가 가능합니다. 로그인 하시겠습니까?") == false) return;
         location.href = "${pageContext.request.contextPath}/main/login_form.do?url=" + encodeURIComponent(location.href); */
         alert("로그인 후 좋아요를 누를 수 있습니다.");
@@ -281,7 +281,7 @@
     }
 
     function toggleLike(cmt_idx, btn) {
-      if ("${empty sessionScope.user}" == "true") {
+      if ("${empty sessionScope.user}" === "true") {
         alert("로그인 후 좋아요를 누를 수 있습니다.");
         return;
       }

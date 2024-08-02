@@ -294,15 +294,6 @@
                     <input type="hidden" id="userNo" name="userNo" value="${ user.userNo }">
                     <div class="col-sm-6 text-right">
                         <div style="margin-right: 100px;">
-<<<<<<< HEAD
-                            <c:if test="${ user.userNo eq 1 }">
-                                <input class="btn btn-danger button-fixed-size" type="button" value="삭제하기" onclick="delete_product(this.form)">
-                            </c:if>
-                        </div>
-                    </div>
-                    <c:if test="${ user.userNo ne vo.userNo}">
-                        <input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px;" onclick="bid_check();">
-======				</c:if>
                             <c:if test="${ user.userNo == 1 }">
                                 <input class="btn btn-danger button-fixed-size" type="button" value="삭제하기" style="margin-left: 1025px !important;" onclick="delete_product(this.form)">
                             </c:if>
@@ -310,7 +301,6 @@
                     </div>
                     <c:if test="${ user.userNo ne vo.userNo }">
                         <input class="btn btn-primary" type="button" value="입찰하기" style="width:100%; height: 100px; margin-top: 20px; margin-bottom: 20px;" onclick="bid_check();">
->>>>>>> main
                     </c:if>
                     <c:if test="${ user.userNo eq vo.userNo }">
                         <input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px; margin-bottom: 20px;" onclick="sb_off();">
