@@ -31,6 +31,68 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="aboard_delete" parameterType="int">
 		update aboard set deleteAt='Y' where auctionBoardNo=#{auctionBoardNo}
 	</update>
+	
+	<!--  조회수 증가  -->
+	<update id="aboard_update_readhit" parameterType="int"> 
+		update aboard set viewCount = viewCount + 1 where auctionBoardNo=#{ auctionBoardNo } 
+	</update>
+	
+	<!-- d_categoryNo으로 조회 -->
+	<select id="select_d_categoryNo" parameterType="int" resultType="aboard">
+		select * from AuctionView where deleteAt='N' and endAt='N' and d_categoryNo=#{d_categoryNo} order by auctionBoardNo
+	</select>
+	
+	<!-- categoryNo으로 조회 -->
+	<select id="select_categoryNo" parameterType="int" resultType="aboard">
+		select * from AuctionView where deleteAt='N' and endAt='N' and categoryNo=#{categoryNo} order by auctionBoardNo
+	</select>
+	
+	<!-- 본인이 입찰한 게시물 조회 -->
+	<select id="select_my_bid" parameterType="int" resultType="aboard">
+		select * from MyAuctionBidView where userNo=#{userNo}
+	</select>
+	
+	<!-- 본인이 낙찰한 게시물 조회 -->
+	<select id="select_my_sb" parameterType="int" resultType="aboard">
+		select * from MyAuctionSbView where userNo=#{userNo}
+	</select>
+	
+	<!-- 본인이 올린 게시물 조회 -->
+	<select id="select_my_auc" parameterType="int" resultType="aboard">
+		select * from AuctionView where userNo=#{userNo}
+	</select>
+	
+	<!-- 아직 미구현 -->
+	<!-- 본인이 즐겨찾기한 게시물 조회 -->
+	<select id="select_my_sc" parameterType="int" resultType="aboard">
+		select * from AuctionView where userNo=#{userNo}
+	</select>
+	
+	<!-- 해당 게시물을 즐겨찾기 했는지 조회 -->
+	<select id="select_scrap" parameterType="map" resultType="scrap">
+		select * from Scrap where auctionBoardNo=#{auctionBoardNo} and userNo=#{userNo}
+	</select>
+	<!-- 해당 게시물을 즐겨찾기 했는지 조회 -->
+	<select id="select_scrapvo" parameterType="scrap" resultType="scrap">
+		select * from Scrap where auctionBoardNo=#{auctionBoardNo} and userNo=#{userNo}
+	</select>
+	
+	<!-- Scrap의 calcelAt 수정 -->
+	<update id="updateCancelAt" parameterType="scrap">
+		update Scrap set cancelAt=#{cancelAt} where auctionBoardNo=#{auctionBoardNo} and userNo={userNo}
+	</update>
+	
+	<!-- Scrap 추가 -->
+	<insert id="insertScrap" parameterType="map">
+		insert into Scrap values(scrap_no_seq.nextVal, #{auctionBoardNo}, #{userNo}, default)
+	</insert>
+	
+	<select id="aboard_mostView" resultType="aboard">
+    	SELECT * FROM (
+		    SELECT * FROM aboard ORDER BY viewCount DESC
+		) WHERE ROWNUM &lt;= 5
+	</select>
+	
 </mapper>
 
 

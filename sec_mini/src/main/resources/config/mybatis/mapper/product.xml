@@ -17,9 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into product values(
 			p_no_seq.NEXTVAL,
 			#{pName},
-			1,
-			1,
-			default,
+			#{categoryNo},
+			#{d_categoryNo},
+			#{pImage},
 			#{pDesc},
 			#{useAt},
 			#{startPrice},

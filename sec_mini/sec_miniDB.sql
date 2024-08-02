@@ -29,6 +29,8 @@ DROP SEQUENCE category_no_seq;
 DROP SEQUENCE d_category_no_seq;
 DROP SEQUENCE qna_no_seq;
 DROP SEQUENCE qnac_no_seq;
+DROP SEQUENCE seq_Comments_idx;
+DROP SEQUENCE seq_Comment_Likes_c_likeNo;
 
 -- 테이블 삭제
 DROP TABLE QnAComment;
@@ -66,6 +68,18 @@ CREATE SEQUENCE d_category_no_seq;
 CREATE SEQUENCE qna_no_seq;
 CREATE SEQUENCE qnac_no_seq;
 
+-- 댓글 일련번호
+CREATE SEQUENCE seq_Comments_idx
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+-- 댓글 좋아요 시퀀스 생성
+CREATE SEQUENCE seq_Comment_Likes_c_likeNo
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
 -- Users 테이블 생성
 CREATE TABLE Users (
 	userNo NUMBER PRIMARY KEY,
@@ -79,9 +93,6 @@ CREATE TABLE Users (
 	myCash NUMBER DEFAULT 100
 );
 
-select * from users
-update users set myCash=0 where userNo=2
-
 -- Charge 테이블 생성
 CREATE TABLE Charge (
 	chargeNo NUMBER PRIMARY KEY,
@@ -91,9 +102,6 @@ CREATE TABLE Charge (
 	CONSTRAINT fk_charge_userNo FOREIGN KEY (userNo)
 	REFERENCES Users(userNo) ON DELETE CASCADE
 );
-
-	-- API 구현 못했을 때
-	yesCh char(1) default 'N' check(yesCh IN ('Y','N')),
 	
 -- Category 테이블 생성
 CREATE TABLE Category (
@@ -139,7 +147,6 @@ CREATE TABLE Bid (
 	minBidUnit NUMBER DEFAULT 1,
 	endDate TIMESTAMP  DEFAULT CURRENT_TIMESTAMP + INTERVAL '1' DAY,
 	nowBid NUMBER NOT NULL,
-	
 	CONSTRAINT fk_bid_pNo FOREIGN KEY (pNo)
 	REFERENCES Product(pNo) ON DELETE CASCADE
 );
@@ -187,6 +194,7 @@ CREATE TABLE Scrap (
 	scrapNo NUMBER PRIMARY KEY,
 	auctionBoardNo NUMBER NOT NULL,
 	userNo NUMBER NOT NULL,
+	cancelAt char(1) DEFAULT 'N' CHECK(cancelAt IN ('Y','N')),
 	CONSTRAINT fk_scrap_userNo FOREIGN KEY (userNo)
 	REFERENCES Users(userNo) ON DELETE CASCADE,
 	CONSTRAINT fk_scrap_auctionBoardNo FOREIGN KEY (auctionBoardNo)
@@ -208,43 +216,50 @@ CREATE TABLE Cash (
 
 -- Board 테이블 생성
 CREATE TABLE Board (
-    boardNo NUMBER PRIMARY KEY, -- 게시글 번호
-    nickName  VARCHAR2(200) NOT NULL, -- 회원의 닉네임
-    userNo NUMBER NOT NULL, -- 회원 번호
-    title VARCHAR2(200) NOT NULL, -- 제목
-    boardContent VARCHAR2(2000) NOT NULL, -- 내용
-    createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 작성일
-    b_readhit INT DEFAULT 0, -- 조회수
-    updateAt TIMESTAMP, -- 수정일
-    CONSTRAINT fk_board_userNo FOREIGN KEY (userNo)
-        REFERENCES Users(userNo) ON DELETE CASCADE,
-    CONSTRAINT fk_board_nickName FOREIGN KEY (nickName)
-        REFERENCES Users(nickName) ON DELETE CASCADE
+	boardNo NUMBER PRIMARY KEY,
+	nickName  VARCHAR2(200) NOT NULL UNIQUE,
+	userNo NUMBER NOT NULL,
+	title VARCHAR2(200) NOT NULL,
+	boardContent VARCHAR2(2000) NOT NULL,
+	createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	b_readhit	number(38),
+	updateAt TIMESTAMP,
+	isPinned NUMBER(1) DEFAULT 0,
+	CONSTRAINT fk_board_userNo FOREIGN KEY (userNo)
+	REFERENCES Users(userNo) ON DELETE CASCADE,
+	CONSTRAINT fk_board_nickName FOREIGN KEY (nickName)
+	REFERENCES Users(nickName) ON DELETE CASCADE
 );
 
 -- Comments 테이블 생성
 CREATE TABLE Comments (
-	commentNo NUMBER PRIMARY KEY,
-	boardNo NUMBER NOT NULL,
-	userNo NUMBER NOT NULL,
-	commentContent VARCHAR2(2000) NOT NULL,
-	createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	updateAt TIMESTAMP,
-	CONSTRAINT fk_comments_userNo FOREIGN KEY (userNo)
-	REFERENCES Users(userNo) ON DELETE CASCADE,
-	CONSTRAINT fk_comments_boardNo FOREIGN KEY (boardNo)
-	REFERENCES Board(boardNo) ON DELETE CASCADE
+    cmt_idx      int PRIMARY KEY,        -- 일련번호
+    cmt_content  VARCHAR2(2000),         -- 내용
+    cmt_ip       VARCHAR2(200),          -- 아이피
+    cmt_regdate  TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 등록일자
+    cmt_update   TIMESTAMP,              -- 수정일자
+    boardNo      int,                    -- 게시물번호
+    userNo       int,                    -- 회원번호
+    nickName     VARCHAR2(200),          -- 회원 닉네임
+    is_deleted 	 NUMBER(1)	DEFAULT 0,
+    CONSTRAINT fk_comments_boardNo FOREIGN KEY (boardNo)
+    REFERENCES Board(boardNo) ON DELETE CASCADE,
+    CONSTRAINT fk_comments_userNo FOREIGN KEY (userNo)
+    REFERENCES Users(userNo) ON DELETE CASCADE,
+    CONSTRAINT fk_comments_nickName FOREIGN KEY (nickName)
+    REFERENCES Users(nickName) ON DELETE CASCADE
 );
 
--- Comment_Likes 테이블 생성
+-- 댓글 좋아요 테이블 생성
 CREATE TABLE Comment_Likes (
-	c_likeNo NUMBER PRIMARY KEY,
-	commentNo NUMBER NOT NULL,
-	userNo NUMBER NOT NULL,
-	CONSTRAINT fk_commentlike_userNo FOREIGN KEY (userNo)
-	REFERENCES Users(userNo) ON DELETE CASCADE,
-	CONSTRAINT fk_commentlike_commentNo FOREIGN KEY (commentNo)
-	REFERENCES Comments(commentNo) ON DELETE CASCADE
+   c_likeNo      int PRIMARY KEY,        -- 일련번호
+   cmt_idx       int UNIQUE,             -- 댓글 일련번호 (foreign key)
+   userNo        int UNIQUE,             -- 회원번호 (foreign key)
+   like_date     TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 좋아요 등록일자
+   CONSTRAINT fk_comment_likes_cmt_idx FOREIGN KEY (cmt_idx)
+   REFERENCES Comments(cmt_idx) ON DELETE CASCADE,
+   CONSTRAINT fk_comment_likes_userNo FOREIGN KEY (userNo)
+   REFERENCES Users(userNo) ON DELETE CASCADE
 );
 
 -- QnA 테이블 생성
@@ -441,6 +456,37 @@ INNER JOIN Bid b ON p.pNo = b.pNo
 INNER JOIN Category c ON p.categoryNo = c.categoryNo
 INNER JOIN D_Category dc ON p.d_categoryNo = dc.d_categoryNo;
 
+-- 마이옥션 입찰 조회
+CREATE OR REPLACE VIEW MyAuctionBidView AS
+SELECT DISTINCT
+    a.auctionBoardNo,
+    a.pNo,
+    p.pName,
+	p.pImage,
+	b.bidNo,
+    b.entryBidPrice,
+	b.endDate,
+	bp.userNo
+FROM Aboard a
+INNER JOIN Product p ON a.pNo = p.pNo
+INNER JOIN Bid b ON p.pNo = b.pNo
+INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo;
+
+-- 마이옥션 낙찰 조회
+CREATE OR REPLACE VIEW MyAuctionSbView AS
+SELECT DISTINCT
+    a.auctionBoardNo,
+    a.pNo,
+    p.pName,
+	p.pImage,
+	b.bidNo,
+    b.entryBidPrice,
+	b.endDate,
+	sb.userNo
+FROM Aboard a
+INNER JOIN Product p ON a.pNo = p.pNo
+INNER JOIN Bid b ON p.pNo = b.pNo
+INNER JOIN Sb sb ON b.bidNo = sb.bidNo;
 
 -- QnA 전체 조회
 CREATE OR REPLACE VIEW QnAView AS
@@ -476,6 +522,7 @@ select
 	b.earlyTermination,
 	b.minBidUnit,
 	b.endDate,
+	b.pNo,
 	b.nowBid,
 	bp.bidNo,
 	bp.bidPNo,
@@ -485,15 +532,13 @@ select
 	p.pName,
 	p.pDesc,
 	p.useAt,
-	p.startPrice,
-	a.endAt
+	p.startPrice
 FROM Bid b
 INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
 INNER JOIN Users u ON bp.userNo = u.userNo
-INNER JOIN product p ON b.pNo = p.pNo
-INNER JOIN Aboard a ON b.pNo = a.pNo 
+INNER JOIN product p ON b.pNo = p.pNo;
 
-select 
+
 
 
 ========================================================================================================================================================================
@@ -502,17 +547,16 @@ select
 select * from Product
 -- 입찰 조회
 select * from Bid
-select * from Sb
 -- 경매 조회
 select * from Aboard
 -- 경매 조회
 select * from Users
 -- 입찰자 조회
-select * from BidPlayer where userNo=3
-select userNo from BidPlayer where playPrice=2000000 and bidNo=3
+select * from BidPlayer
+-- 경매 게시판 뷰 조회
+select * from AuctionView
 select * from category
-select SUBSTR(endDate,1,19) from bid
- 
+
 select * from Aboard a, Product p, Bid b, Category c where a.pNo = p.pNo and p.pNo = b.pNo and p.categoryNo = c.categoryNo and c.ca
 
 --입찰 정보 조회
@@ -610,6 +654,13 @@ insert into aboard values(
 		where no between 1 and 5
 
 		select nvl(count(*),0) from QnACommentView where qnaNo = 5
+
+update Product set pImage='야스오.jsp' where pNo=1;
+update Product set pImage='드레이븐11.jsp' where pNo=2;
+update Product set pImage='따봉도치.jsp' where pNo=3;
+update Product set pImage='징크스.jsp' where pNo=4;
+
+select * from Product
 
 */
 

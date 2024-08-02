@@ -1,13 +1,20 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import dao.AboardDao;
 import dao.UserDao;
+import vo.AboardVo;
+import vo.ScrapVo;
 import vo.UserVo;
 
 @Controller
@@ -48,7 +55,6 @@ public class UserController {
 		
 		//로그인 처리
 		session.setAttribute("user", user);
-		session.setAttribute("userNo", user.getUserNo());
 		
 		return "redirect:home.do";
 	}
@@ -66,7 +72,13 @@ public class UserController {
 	}
 	
 	@RequestMapping("/register.do")
-	public String register(UserVo vo) {
+	public String register(UserVo vo,
+			@RequestParam(name="page", defaultValue = "all") String userId,
+            @RequestParam(name="userPwdReg", defaultValue = "all") String userPwd) {
+		
+		UserVo vo1 = new UserVo();
+	    vo1.setUserId(userId);
+	    vo1.setUserPwd(userPwd);
 		
 		int res = user_dao.insert(vo);
 		
@@ -98,7 +110,7 @@ public class UserController {
 		
 		if(user == null) {
 			session.setAttribute("alertMsg", "로그인한 사용자만 접근 가능");
-			return "home.do";
+			return "redirect:home.do";
 		}else {
 			
 			
@@ -198,6 +210,42 @@ public class UserController {
 	 }
 	 
 	 
+	@Autowired
+	AboardDao aboard_dao;
+
+	// 마이옥션 이동
+	@RequestMapping("/myauction.do")
+	public String myauction(Model model) {
+		
+		UserVo user = (UserVo) session.getAttribute("user");
+		
+
+		
+		if(user == null) {
+			session.setAttribute("alertMsg", "로그인한 사용자만 접근 가능");
+			
+
+			return "redirect:home.do";
+		}else {
+			
+			//입찰 게시물 불러오기
+			List<AboardVo> list = aboard_dao.selectListMyBid(user.getUserNo());
+			//낙찰 게시물 불러오기
+			List<AboardVo> list2 = aboard_dao.selectListMySb(user.getUserNo());
+			//내가 올린 게시물 불러오기
+			List<AboardVo> list3 = aboard_dao.selectListMyAuc(user.getUserNo());
+			//즐겨찾기 게시물 불러오기
+			List<AboardVo> list4 = aboard_dao.selectListMySc(user.getUserNo());
+			
+			model.addAttribute("list", list);
+			model.addAttribute("list2", list2);
+			model.addAttribute("list3", list3);
+			model.addAttribute("list4", list4);
+		
+			return "main/myauction";
+		}
+			
+	}
 	 
 }
 	

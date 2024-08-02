@@ -269,8 +269,6 @@ footer {
 <body style="background-color: #303030; color: #f1f1f1;">
 
 	<%@ include file="../menubar/menubar.jsp"%>
-	<%@include file="../menubar/mypageModal.jsp" %>
-	<%@include file="../menubar/loginModal.jsp" %>
 
 	<div style="position: relative; z-index: 1;"
 		class="container-fluid text-center">
@@ -289,12 +287,12 @@ footer {
 					</section>
 					<ul>
 						<c:forEach var="category" items="${ category_list }">
-							<li><a href="?categoryno=${ category.categoryNo }">${ category.categoryName }</a>
+							<li><a href="?categoryNo=${ category.categoryNo }">${ category.categoryName }</a>
 
 								<ul>
 									<c:forEach var="d_category" items="${ d_category_list }">
 										<c:if test="${ category.categoryNo == d_category.categoryNo }">
-											<li><a href="?d_categoryno=${ d_category.d_categoryNo }">${ d_category.d_categoryName }</a></li>
+											<li><a href="?d_categoryNo=${ d_category.d_categoryNo }">${ d_category.d_categoryName }</a></li>
 										</c:if>
 									</c:forEach>
 								</ul></li>
@@ -302,17 +300,6 @@ footer {
 						</c:forEach>
 					</ul>
 				</aside>
-
-
-				<%-- <div class="w3-sidebar w3-light-grey w3-bar-block" style="width: 80%; text-align: left;">
-					<h3 class="w3-bar-item" style="margin-left: 20px; margin-bottom: 30px;">Menu</h3>
-					<ul>
-						<c:forEach var="category" items="${ category_list }">
-							<li><a href="?categoryno=${ category.categoryNo }">${ category.categoryName }</a></li><br>
-						</c:forEach>
-					</ul>
-				</div> --%>
-
 			</div>
 			<div class="col-sm-8 text-left"
 				style="background-color: #303030; color: #f1f1f1;">
@@ -322,37 +309,15 @@ footer {
 						<input class="btn btn-primary" type="button" value="경매 올리기"
 							onclick="location.href='a_board_insert_form.do'">
 					</c:if>
-					<%--     <ul>
-				      <c:forEach var="category" items="${ category_list }">
-				          <li><a href="?categoryno=${ category.categoryNo }">${ category.categoryName }</a></li>
-				      </c:forEach> 
-				    </ul> --%>
 
-					<!-- <table class="cate">
-						<tr>
-							<td class="cate_si"><a href="?category=computer">컴퓨터</a></td>
-							<td class="cate_si"><a href="?category=electronic">가전제품</a></td>
-							<td class="cate_si"><a href="?category=music">음악</a></td>
-							<td class="cate_si"><a href="?category=movie">영화</a></td>
-						</tr>
-						<tr>
-							<td class="cate_si"><a href="#">음식</a></td>
-							<td class="cate_si"><a href="#">이용권</a></td>
-							<td class="cate_si"><a href="#">여행</a></td>
-							<td class="cate_si"><a href="#">기타</a></td>
-						</tr>
-					</table> -->
 				</div>
 
 
 				<div class="auction_div">
 					<c:forEach var="vo" items="${ list }">
 						<div class="col-sm-2 product_auc">
-							<div
-								style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;"
-								onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
-								<img alt="사진" src=""><br>
-								<br>
+							<div style="width: 100%; height: 50%; border: 1px solid black; margin: auto; margin-top: 10px;" onclick="location.href='a_board.do?auctionBoardNo=${vo.auctionBoardNo}'">
+								<img style="width: 100 !important; height: 100 !important; " alt="사진" src="${pageContext.request.contextPath}/resources/images/${vo.pImage}"><br><br>
 							</div>
 							<br>
 							<p style="text-align: left; margin: 0">상품명 : ${ vo.pName }</p>
@@ -367,7 +332,7 @@ footer {
 			</div>
 			<div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
 				<h3>인기 경매 품목</h3>
-				<img src="resources/images/따봉도치.jpg" alt="사진" style="width: 300px; height: 300px;">
+				<img src="resources/images/주먹.png" alt="사진" style="width: 300px; height: 300px;">
 				<c:forEach var="item" items="${ mostViewedList }">
 					<div class="product_auc" style="width: 100%; margin-bottom: 20px;">
 						<div style="width: 100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"

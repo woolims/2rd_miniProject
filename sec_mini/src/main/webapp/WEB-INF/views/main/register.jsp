@@ -76,15 +76,15 @@ function check_id(){
  	 // <input id="btn_register" type="button" ...  disabled="disabled">
 	  $("#btn_register").prop("disabled", true);
 	  
-	  let userId = $("#userId").val();
+	  let userIdReg = $("#userIdReg").val();
 	  
-	  if(userId.length==0){
+	  if(userIdReg.length==0){
 	   		
 	   		$("#id_msg").html("");
 	   		return;
 	   	}
 	  
-	  if(userId.length<3){
+	  if(userIdReg.length<3){
 	    	
 	    	$("#id_msg").html("id는 3자리 이상 입력하세요").css("color","red");
 	    	return;
@@ -92,7 +92,7 @@ function check_id(){
 	  
 	  $.ajax({
 	    	url		:	"check_id.do",     //MemberCheckIdAction
-	    	data	:	{"userId":userId}, //parameter   => check_id.do?mem_id=one
+	    	data	:	{"userId":userIdReg}, //parameter   => check_id.do?mem_id=one
 	    	dataType:	"json",
 	    	success	:	function(res_data){
 	    		// res_data = {"result": true}  or {"result": false}
@@ -135,17 +135,17 @@ function find_addr(){
 		}
 		
 		
-		let userPwd = document.getElementById('userPwd');
+		let userPwdReg = document.getElementById('userPwdReg');
 		let checkPwd = document.getElementById('confirm-password');
 		
-		if( userPwd.value != checkPwd.value ){
-			alert('비밀번호를 확인해주세요'+userPwd.value+"/"+checkPwd.value);
+		if( userPwdReg.value != checkPwd.value ){
+			alert('비밀번호를 확인해주세요'+userPwdReg.value+"/"+checkPwd.value);
 			checkPwd.value='';
 			checkPwd.focus();
 			return;
 		}
 		
-		if( userPwd.value == checkPwd.value) {
+		if( userPwdReg.value == checkPwd.value) {
 			 f.method="post";
 			 f.action="register.do";
 			 f.submit();
@@ -172,13 +172,13 @@ function find_addr(){
 								placeholder="이름" required>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="userId"
+							<input type="text" class="form-control" id="userIdReg"
 								name="userId" placeholder="아이디" required
 									  onkeyup="check_id()">
 									  <span id="id_msg"></span>	
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" id="userPwd"
+							<input type="password" class="form-control" id="userPwdReg"
 								name="userPwd" placeholder="비밀번호" required>
 						</div>
 						<div class="form-group">
@@ -200,7 +200,7 @@ function find_addr(){
 								placeholder="닉네임" required>
 						</div>
 						<input id="btn_register" type="button" onclick="register(this.form);" 
-						class="btn btn-primary btn-block"  value="가입하기">
+						class="btn btn-primary btn-block" disabled="disabled"  value="가입하기">
 					</form>
 <!-- 					<p class="text-center"> -->
 <!-- 						이미 회원이세요? <a href="login_form.do">로그인</a> -->
