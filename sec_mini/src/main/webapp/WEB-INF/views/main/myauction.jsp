@@ -139,7 +139,8 @@ footer {
 						</li>
 						<li class="disactive"><a data-toggle="tab" href="#menu2">낙찰내역</a></li>
 						<li class="disactive"><a data-toggle="tab" href="#menu3">내가 올린 경매</a></li>
-						<li class="disactive"><a data-toggle="tab" href="#menu4">즐겨찾기</a></li>
+						<!-- 즐겨찾기 -->
+						<!-- <li class="disactive"><a data-toggle="tab" href="#menu4">즐겨찾기</a></li> -->
 					</ul>
 
 					<div class="tab-content">
@@ -236,7 +237,8 @@ footer {
 							
 						</div>
 
-						<div id="menu4" class="tab-pane fade">
+						<!-- 즐겨찾기 -->
+						<%-- <div id="menu4" class="tab-pane fade">
 							
 							<div class="auction_div">
 								<c:choose>
@@ -265,7 +267,7 @@ footer {
 								</c:choose>
 							</div>
 							
-						</div>
+						</div> --%>
 
 					</div>
 					

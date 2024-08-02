@@ -243,7 +243,8 @@
                     <c:if test="${ user.userNo eq vo.userNo }">
                         <input class="btn btn-danger" type="button" value="조기종료" style="width:100%; height: 100px; margin-top: 20px; margin-bottom: 20px;" onclick="sb_off();">
                     </c:if>
-                    <input class="btn btn-primary" id="ScrapButton" type="button" value="즐겨찾기" style="width:100%; height: 100px; margin-top: 20px; margin-bottom: 20px; background: #cfcf00 !important; color: #0000ff !important;" onclick="auc_scrap(this.form);">
+                    <!-- 즐겨찾기 -->
+                    <!-- <input class="btn btn-primary" id="ScrapButton" type="button" value="즐겨찾기" style="width:100%; height: 100px; margin-top: 20px; margin-bottom: 20px; background: #cfcf00 !important; color: #0000ff !important;" onclick="auc_scrap(this.form);"> -->
                 </form>
             </div>
             <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">

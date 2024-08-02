@@ -117,23 +117,22 @@ public class AuctionController {
 
 		}
 		
-		Map<String, Object> map = new HashMap<>();
-		
-		UserVo user = (UserVo) session.getAttribute("user");
-		if(user != null) {
-		    map.put("auctionBoardNo", auctionBoardNo);
-		    map.put("userNo", user.getUserNo());
-		}
-		
 		AboardVo vo = aboard_dao.selectOne(auctionBoardNo);
-		String canc = "N";
-		ScrapVo sc = aboard_dao.selectOne(map);
-		if(sc != null) {
-			canc = sc.getCancelAt();
-		}
+		/*
+		 * Map<String, Object> map = new HashMap<>();
+		 * 
+		 * UserVo user = (UserVo) session.getAttribute("user"); if(user != null) {
+		 * map.put("auctionBoardNo", auctionBoardNo); map.put("userNo",
+		 * user.getUserNo()); }
+		 * 
+		 *  
+		 * String canc = "N";
+		 * ScrapVo sc = aboard_dao.selectOne(map); if(sc != null) { canc =
+		 * sc.getCancelAt(); }
+		 */
 		
 		model.addAttribute("vo", vo);
-		model.addAttribute("canc", canc);
+		/* model.addAttribute("canc", canc); */
 		
 		return "main/a_board";
 	}
