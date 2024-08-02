@@ -43,7 +43,6 @@
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    background: yellow;
 }
 .p_info {
     margin-left: 100px;
@@ -170,7 +169,29 @@
 
     <div style="background-color: #303030; color: #f1f1f1;" class="container-fluid text-center">
         <div class="content">
-            <div style="background-color: #303030; color: #f1f1f1;" class="col-sm-2 sidenav">side</div>
+            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
+				<!-- 좌측 사이드바 내용 -->
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/네모.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/루피.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/보스.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/소닉.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+                <img src="resources/images/스벅.gif" alt="사진" style="width: 100%; height: auto; border-radius: 5px;">
+			</div>
             <div class="col-sm-8 text-left">
                 <div class="col-sm-12 text-right" style="height: 50px; margin-top: 25px; z-index: 10; position: relative;">
                     <input style="background-color: #303030; color: #f1f1f1;" type="button" value="목록으로 돌아가기" onclick="location.href='auction.do?categoryNo=${vo.categoryNo}'">
@@ -178,7 +199,7 @@
 
 				<!-- 업로드 이미지 -->
 				<div class="banner">
-					<div id="carousel-example-generic" class="carousel" data-ride="carousel">
+					<div id="carousel-example-generic" class="carousel " data-ride="carousel">
 						<div class="carousel-inner">
 							<div class="item active">
 								<img src="resources/images/계단.jpg" alt="First slide">
@@ -222,20 +243,19 @@
                     <!-- <input class="btn btn-primary" id="ScrapButton" type="button" value="즐겨찾기" style="width:100%; height: 100px; margin-top: 20px; margin-bottom: 20px; background: #cfcf00 !important; color: #0000ff !important;" onclick="auc_scrap(this.form);"> -->
                 </form>
             </div>
-            <div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
-                <h3>인기 경매 품목</h3>
-                <img src="resources/images/따봉도치.jpg" alt="사진" style="width: 300px; height: 300px;">
-                <c:forEach var="item" items="${ mostViewedList }">
-                    <div class="product_auc" style="width: 100%; margin-bottom: 20px;">
-                        <div style="width: 100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
-                             onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
-                            <img src="${item.imagePath}" alt="사진" style="width: 100%; height: auto;">
-                        </div>
-                        <p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
-                        <p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
-                    </div>
-                </c:forEach>
-            </div>
+           	<div class="col-sm-2 sidenav" style="background-color: #303030; color: #f1f1f1;">
+				<h3>인기 경매 품목</h3>
+				<c:forEach var="item" items="${mostViewList}">
+				    <div class="product_auc" style="width: 100%; margin-bottom: 20px;">
+				        <div style="width: 100%; height: 150px; overflow: hidden; margin: auto; cursor: pointer;"
+				             onclick="location.href='a_board.do?auctionBoardNo=${item.auctionBoardNo}'">
+				            <img src="resources/images/${item.pImage}" alt="사진" style="width: 100%; height: auto;">
+				        </div>
+				        <p style="text-align: left; margin: 0; color: #ffcc00;">상품명: ${item.pName}</p>
+				        <p style="text-align: left; margin: 0; color: #ffcc00;">조회수: ${item.viewCount}</p>
+				    </div>
+				</c:forEach>
+			</div>
         </div>
     </div>
 
