@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,6 +127,14 @@
 		
 			return;
 		}
+		//종료된 경매체크
+		const end = $('#remaining_time').val();
+		if(end == "이미 종료된 경매입니다."){
+			alert('종료된 경매에는 참여할 수 없습니다.');
+			location.href="auction.do";
+			
+			return;
+		}
 		
 		let playPrice   	= parseInt(f.playPrice.value);
 		let startPrice  	= parseInt(${vo.startPrice});
@@ -176,8 +184,6 @@
 				return;
 			}
 		}
-		
-		
 	}
 	
 	function back() {
@@ -189,6 +195,42 @@
 		
 	}
 	
+</script>
+
+<script type="text/javascript">
+		
+		
+		function updateRemainingTime() {
+			console.log("123");
+			//종료일자
+			
+		    var eventTimestamp = new Date("${vo.endDate}"); // 서버에서 제공한 타임스탬프
+		    var now = new Date();
+								//종료일자		//현재시간
+		    var remainingTime = eventTimestamp - now;
+				//남은 시간이 0보다 클때
+		    if (remainingTime > 0) {
+		        var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		        var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+		        var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+		
+		        document.getElementById("remaining_time").innerHTML = hours + "시간 " + minutes + "분 " + seconds + "초";
+		        return;
+		    } else {	
+		    	
+		    	if("${vo.endAt}"=="N" && "${sb_vo.userNo}"=="${user.userNo}"){
+		    		document.getElementById("remaining_time").innerHTML = "이미 종료된 경매입니다.";
+		    		location.href="sb_off.do?bidNo=${vo.bidNo}&pNo=${vo.pNo}";
+		    		return;
+		    	}else{
+		    		document.getElementById("remaining_time").innerHTML = "이미 종료된 경매입니다.";
+		    	}
+		    }
+		}
+		
+		setInterval(updateRemainingTime, 1000); // 매초 업데이트
+
+
 
 </script>
 
@@ -212,26 +254,28 @@
 						<div class="form-group">
 							<label>입찰에 참여중인 인원 수</label> 
 							<c:if test="${empty bid_count}">
-								<input type="text" class="form-control" id="bid_count" name="bid_person" value="0" readonly="readonly">
+								<input type="text" class="form-control" id="bid_count" name="bid_person" value="미구현" readonly="readonly">
 							</c:if>
 							<c:if test="${not empty bid_count}">
 								<input type="text" class="form-control" id="bid_count" name="bid_person" value="${bid_count}" readonly="readonly">
 							</c:if>
 						</div>
+						<div>
+							<p style="display: inline-block;">남은 시간 :&nbsp;</p><p id="remaining_time" style="display: inline-block;"></p>
+						</div>
 						<div class="form-group" style="text-align: right;font-size: 20px;">
 						<label>현재 입찰가 : </label>
 						<c:if test="${vo.startPrice gt vo.entryBidPrice}">
-							<fmt:formatNumber type="number" maxFractionDigits="3" value="${vo.startPrice}"/>원
+							<p style="display: inline-block;">${vo.startPrice} 원</p>
 						</c:if>
 						<c:if test="${vo.startPrice lt vo.entryBidPrice}">
-							<fmt:formatNumber type="number" maxFractionDigits="3" value="${vo.entryBidPrice}"/>원
+							<p id="entryBidPrice" style="display: inline-block;">${vo.entryBidPrice}</p><p style="display: inline-block;">원</p>
 						</c:if>
 						
 						</div>
 
 						<div class="form-group" style="text-align: right; font-size: 20px;">
-							<label>보유 포인트 : </label>
-							<fmt:formatNumber type="number" maxFractionDigits="3" value="${ user.myCash }"/>원
+							<label>보유 포인트 : </label><p style="display: inline-block;"> ${ user.myCash }원</p>
 						</div>
 					
 						<div class="form-group">

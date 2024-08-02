@@ -1,14 +1,16 @@
 package vo;
 
+import java.sql.Timestamp;
+
 public class BidVo {
 	
 	int entryBidPrice;
 	String remaningTime;
-	String registrationTime;
+	Timestamp registrationTime;
 	String autoExtension;
 	String earlyTermination;
 	int minBidUnit;
-	String endDate;
+	Timestamp endDate;
 	int bidPNo;
 	int userNo;
 	int bidNo;
@@ -20,8 +22,16 @@ public class BidVo {
 	String useAt;
 	int startPrice;
 	int nowBid;
+	String endAt;
 	
 	
+	
+	public String getEndAt() {
+		return endAt;
+	}
+	public void setEndAt(String endAt) {
+		this.endAt = endAt;
+	}
 	public int getNowBid() {
 		return nowBid;
 	}
@@ -46,10 +56,10 @@ public class BidVo {
 	public void setRemaningTime(String remaningTime) {
 		this.remaningTime = remaningTime;
 	}
-	public String getRegistrationTime() {
+	public Timestamp getRegistrationTime() {
 		return registrationTime;
 	}
-	public void setRegistrationTime(String registrationTime) {
+	public void setRegistrationTime(Timestamp registrationTime) {
 		this.registrationTime = registrationTime;
 	}
 	public String getAutoExtension() {
@@ -70,10 +80,10 @@ public class BidVo {
 	public void setMinBidUnit(int minBidUnit) {
 		this.minBidUnit = minBidUnit;
 	}
-	public String getEndDate() {
+	public Timestamp getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(String endDate) {
+	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
 	}
 	public int getUserNo() {
@@ -130,6 +140,7 @@ public class BidVo {
 	public void setStartPrice(int startPrice) {
 		this.startPrice = startPrice;
 	}
+	
 	
 	
 	
