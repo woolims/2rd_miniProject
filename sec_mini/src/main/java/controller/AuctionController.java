@@ -20,6 +20,7 @@ import dao.CategoryDao;
 import dao.DetailCategoryDao;
 import dao.ProductDao;
 import vo.AboardVo;
+import vo.BidVo;
 import vo.BoardVo;
 import vo.CategoryVo;
 import vo.DetailCategoryVo;
@@ -85,8 +86,9 @@ public class AuctionController {
 	public String auction_board(int auctionBoardNo, Model model) {
 
 		AboardVo vo = aboard_dao.selectOne(auctionBoardNo);
-
+		
 		model.addAttribute("vo", vo);
+		System.out.println("유저번호"+vo.getUserNo());
 
 		return "main/a_board";
 	}

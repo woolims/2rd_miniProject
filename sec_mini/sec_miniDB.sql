@@ -476,7 +476,6 @@ select
 	b.earlyTermination,
 	b.minBidUnit,
 	b.endDate,
-	b.pNo,
 	b.nowBid,
 	bp.bidNo,
 	bp.bidPNo,
@@ -486,13 +485,15 @@ select
 	p.pName,
 	p.pDesc,
 	p.useAt,
-	p.startPrice
+	p.startPrice,
+	a.endAt
 FROM Bid b
 INNER JOIN BidPlayer bp ON b.bidNo = bp.bidNo
 INNER JOIN Users u ON bp.userNo = u.userNo
-INNER JOIN product p ON b.pNo = p.pNo;
+INNER JOIN product p ON b.pNo = p.pNo
+INNER JOIN Aboard a ON b.pNo = a.pNo 
 
-
+select 
 
 
 ========================================================================================================================================================================
@@ -501,16 +502,17 @@ INNER JOIN product p ON b.pNo = p.pNo;
 select * from Product
 -- 입찰 조회
 select * from Bid
+select * from Sb
 -- 경매 조회
 select * from Aboard
 -- 경매 조회
 select * from Users
 -- 입찰자 조회
-select * from BidPlayer
-
+select * from BidPlayer where userNo=3
+select userNo from BidPlayer where playPrice=2000000 and bidNo=3
 select * from category
 select SUBSTR(endDate,1,19) from bid
-select SUBSTR(endDate,-1,19) from Bid where bidNo=1
+ 
 select * from Aboard a, Product p, Bid b, Category c where a.pNo = p.pNo and p.pNo = b.pNo and p.categoryNo = c.categoryNo and c.ca
 
 --입찰 정보 조회

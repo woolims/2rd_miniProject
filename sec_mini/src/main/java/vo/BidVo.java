@@ -10,7 +10,7 @@ public class BidVo {
 	String autoExtension;
 	String earlyTermination;
 	int minBidUnit;
-	Timestamp endDate;
+	String endDate;
 	int bidPNo;
 	int userNo;
 	int bidNo;
@@ -22,8 +22,16 @@ public class BidVo {
 	String useAt;
 	int startPrice;
 	int nowBid;
+	String endAt;
 	
 	
+	
+	public String getEndAt() {
+		return endAt;
+	}
+	public void setEndAt(String endAt) {
+		this.endAt = endAt;
+	}
 	public int getNowBid() {
 		return nowBid;
 	}
@@ -72,10 +80,10 @@ public class BidVo {
 	public void setMinBidUnit(int minBidUnit) {
 		this.minBidUnit = minBidUnit;
 	}
-	public Timestamp getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Timestamp endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	public int getUserNo() {
@@ -132,6 +140,7 @@ public class BidVo {
 	public void setStartPrice(int startPrice) {
 		this.startPrice = startPrice;
 	}
+	
 	
 	
 	

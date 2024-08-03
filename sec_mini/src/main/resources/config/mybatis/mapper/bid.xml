@@ -121,14 +121,15 @@
 </select>
 
 <select id="user_sb" parameterType="int" resultType="bid">
-	select userNo from BidPlayer where playPrice=#{playPrice}
+	select userNo from BidPlayer where playPrice=#{playPrice} and bidNo=#{bidNo}
 </select>
-
-<select id="end_date_check" parameterType="int" resultType="String">
-	<!-- select endDate from Bid where bidNo=#{bidNo} -->
+<!-- Aboard에서 endAt가져오기 -->
+<select id="bid_end_at" parameterType="int" resultType="String">
+	select endAt from Aboard where pNo=#{pNo}
+</select>
+<!-- endDate얻어오기 -->
+<select id="bid_end_date" parameterType="int" resultType="String">
 	select endDate from Bid where bidNo=#{bidNo}
 </select>
-
-
 
 </mapper>

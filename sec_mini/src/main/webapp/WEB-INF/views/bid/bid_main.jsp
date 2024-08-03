@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,8 +115,7 @@
 }
 </style>
 <script type="text/javascript">
-console.log(${now_check});
-console.log(${end_check});
+
 	function bid(f) {
 		
 		//로그인 여부 체크
@@ -177,8 +177,6 @@ console.log(${end_check});
 				return;
 			}
 		}
-		
-		
 	}
 	
 	function back() {
@@ -189,6 +187,33 @@ console.log(${end_check});
 		}
 		
 	}
+	
+	function updateRemainingTime() {
+		console.log("123");
+		//종료일자
+		
+	    var eventTimestamp = new Date("${vo.endDate}"); // 서버에서 제공한 타임스탬프
+	    var now = new Date();
+							//종료일자		//현재시간
+	    var remainingTime = eventTimestamp - now;
+			//남은 시간이 0보다 클때
+	    if (remainingTime > 0) {
+	        var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	        var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+	        var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+	
+	        document.getElementById("remaining_time").innerHTML = hours + "시간 " + minutes + "분 " + seconds + "초";
+	    } else {	
+	    	
+	    	if("${vo.endAt}"=="N" && "${sb_vo.userNo}"=="${user.userNo}"){
+	    		document.getElementById("remaining_time").innerHTML = "이미 종료된 경매입니다.";
+	    		location.href="sb_off.do?bidNo=${vo.bidNo}&pNo=${vo.pNo}";
+	    	}
+	    }
+	}
+	
+	setInterval(updateRemainingTime, 1000); // 매초 업데이트
+
 	
 
 </script>
@@ -220,7 +245,7 @@ console.log(${end_check});
 							</c:if>
 						</div>
 						<div>
-							<p>종료일자: <fmt:formatDate value="${vo.endDate}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+							<p style="display: inline-block;">남은 시간 :&nbsp;</p><p id="remaining_time" style="display: inline-block;"></p>
 						</div>
 						<div class="form-group" style="text-align: right;font-size: 20px;">
 						<label>현재 입찰가 : </label>

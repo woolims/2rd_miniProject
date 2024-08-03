@@ -35,7 +35,8 @@ public class BidController {
 
 	@RequestMapping("bid_start.do") // 입찰페이지로 가는 버튼클릭시 실행
 	public String bid_start(BidVo vo, Model model) throws Exception {
-
+		
+		System.out.println("입찰시작한다");
 //		LocalDateTime now = LocalDateTime.now()
 				;
 		int startPrice = bid_dao.new_bid_price_select(vo.getpNo());
@@ -44,7 +45,10 @@ public class BidController {
 		String pName = bid_dao.p_name_select(vo.getpNo());
 		int nowBid = bid_dao.now_bid_select(vo.getBidNo());
 		int bid_count = bid_dao.bid_count_select();
-		Timestamp end_date = bid_dao.end_date_check(vo.getBidNo());
+		String endAt = bid_dao.bid_end_at(vo.getpNo());
+		String endDate = bid_dao.bid_end_date(vo.getpNo());
+		
+//		Timestamp end_date = bid_dao.end_date_check(vo.getBidNo());
 //		String now_time = now.format(DateTimeFormatter.ofPattern("yyyy/MM/dd/HH/mm/ss"));
 		
 //		Date end_date_check = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss").parse(end_date);
@@ -52,48 +56,62 @@ public class BidController {
 		
 //		long now_check = now_time_check.getTime();	//현재시간
 		
+		vo.setEndAt(endAt);
 		vo.setNowBid(nowBid);
 		vo.setEntryBidPrice(entryBidPrice);
 		vo.setStartPrice(startPrice);
 		vo.setpName(pName);
-		vo.setEndDate(end_date);
+		vo.setEndDate(endDate);
 
+		System.out.println(vo.getEndAt());
 		if (startPrice < myCash) {
 			// 유저가 가진 금액이 상품등록 금액보다 많을 경우 통과
 			if (entryBidPrice == 0) { //입찰자가 없다면 통과
+				
+				System.out.println("여긴 입찰자가 없는 스타트.do야");
 				model.addAttribute(bid_count);
 				model.addAttribute("vo", vo);
-//				model.addAttribute(end_date_check);
-//				model.addAttribute(now_check);
 				
 				System.out.println(bid_count);
 				return "bid/bid_main"; // 진짜 입찰페이지로 이동
 			} else {
+				System.out.println("여긴 입찰자가 있는 스타트.do야");
 				if (entryBidPrice < myCash) {
 					// 유저가 가진 금액이 현재 최고가보다 높을 경우 통과
+					//낙찰된 유저검색
+					int bidNo = vo.getBidNo();
+					
+					//입찰된 최고금액을 검색
+					int user_playPrice = bid_dao.user_playPrice(bidNo);
+					vo.setPlayPrice(user_playPrice);
+					vo.setBidNo(bidNo);
+					
+					//최고금액을 이용해 낙찰자 특정하기
+					BidVo user_sb = bid_dao.user_sb(vo);
+					
+					//낙찰된 유저정보를 낙찰DB에 저장
+					SBVo sb_vo = new SBVo();
+					
+					sb_vo.setUserNo(user_sb.getUserNo());
+					sb_vo.setBidNo(vo.getBidNo());
+					
+					model.addAttribute(sb_vo);
 					model.addAttribute("vo", vo);
 					model.addAttribute(bid_count);
-					System.out.println(bid_count);
 					return "bid/bid_main"; // 진짜 입찰페이지로 이동
 				} else {
 					model.addAttribute("userNo", vo.getUserNo());
-					return "main/charge_form";
+					return "redirect:charge_form.do";
 					// 충전페이지로 연결시키는 JSP로 이동
 				}
 			}
 		} else {
 			model.addAttribute("userNo", vo.getUserNo());
-			return "main/charge_form";
+			return "redirect:charge_form.do";
 			// 충전페이지로 연결시키는 JSP로 이동
 		}
 	}
 
-//	테스트용 페이지
-	@RequestMapping("bid_test.do")
-	public String bid_test() {
-
-		return "bid/bid_test";
-	}
 
 //	유저가 입찰성공시 작동할 메소드
 	@RequestMapping("bid_success.do")
@@ -139,25 +157,29 @@ public class BidController {
 		return "bid/bid_main";
 	}
 
-	@RequestMapping("sb_off.do")	//조기종료버튼을 눌렀을때 작동 판매자를 위한 코드
-	public String sb_off(BidVo bid_vo) {
+	@RequestMapping("sb_off.do")	//시간이 끝나거나 조기종료버튼을 눌렀을때 작동
+	public String sb_off(BidVo bid_vo,Model model) {
 //		낙찰됐을때는 가장 큰 금액을 넣은 유저의 정보를 저장한다.
 		
 		int startPrice = bid_dao.new_bid_price_select(bid_vo.getpNo());
 		int entryBidPrice = bid_dao.entry_bid_select(bid_vo.getBidNo());
 		int pNo = bid_dao.p_no_select_one(bid_vo.getBidNo());
-		sb_dao.end_at_update(pNo);
+		
 		
 
-		System.out.println(startPrice);
-		System.out.println(entryBidPrice);
+		System.out.println("입찰시작가 : "+startPrice);
+		System.out.println("최고입찰가 : "+entryBidPrice);
 		if (startPrice < entryBidPrice) {	//낙찰자가 있을 경우
 			//낙찰된 유저검색
 			int bidNo = bid_vo.getBidNo();
 			
 			//입찰된 최고금액을 검색
 			int user_playPrice = bid_dao.user_playPrice(bidNo);
-			BidVo user_sb = bid_dao.user_sb(user_playPrice);
+			bid_vo.setPlayPrice(user_playPrice);
+			bid_vo.setBidNo(bidNo);
+			
+			//최고금액을 이용해 낙찰자 특정하기
+			BidVo user_sb = bid_dao.user_sb(bid_vo);
 			
 			//낙찰된 유저정보를 낙찰DB에 저장
 			SBVo sb_vo = new SBVo();
@@ -165,14 +187,26 @@ public class BidController {
 			sb_vo.setUserNo(user_sb.getUserNo());
 			sb_vo.setBidNo(bid_vo.getBidNo());
 			
-			
+			model.addAttribute(sb_vo);
 			sb_dao.insert_user_sb(sb_vo);
-			System.out.println("여기는 이프문을 통과한곳이야");
-			return "sb/sb_off";
+			System.out.println("여기는 낙찰자가 있는 곳이야");
+			sb_dao.end_at_update(pNo);
+			return "redirect:auction.do";
 			
 		}else {	//낙찰된 유저가 없다면
-			System.out.println("여기는 엘스야");
-			return "sb/sb_off";
+			System.out.println("여기는 낙찰자가 없는 곳이야");
+			SBVo sb_vo = new SBVo();
+			sb_vo.setUserNo(bid_vo.getUserNo());
+			sb_vo.setBidNo(bid_vo.getBidNo());
+			
+			sb_dao.insert_user_sb(sb_vo);
+			
+			sb_dao.end_at_update(pNo);
+			return "redirect:auction.do";
 		}
 	}
+	
+	
+	
+	
 }
